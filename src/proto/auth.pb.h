@@ -48,7 +48,7 @@ struct TableStruct_auth_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -65,11 +65,15 @@ extern RoleDefaultTypeInternal _Role_default_instance_;
 class User;
 class UserDefaultTypeInternal;
 extern UserDefaultTypeInternal _User_default_instance_;
+class UserAddOptions;
+class UserAddOptionsDefaultTypeInternal;
+extern UserAddOptionsDefaultTypeInternal _UserAddOptions_default_instance_;
 }  // namespace authpb
 PROTOBUF_NAMESPACE_OPEN
 template<> ::authpb::Permission* Arena::CreateMaybeMessage<::authpb::Permission>(Arena*);
 template<> ::authpb::Role* Arena::CreateMaybeMessage<::authpb::Role>(Arena*);
 template<> ::authpb::User* Arena::CreateMaybeMessage<::authpb::User>(Arena*);
+template<> ::authpb::UserAddOptions* Arena::CreateMaybeMessage<::authpb::UserAddOptions>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace authpb {
 
@@ -100,6 +104,134 @@ inline bool Permission_Type_Parse(
     Permission_Type_descriptor(), name, value);
 }
 // ===================================================================
+
+class UserAddOptions :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:authpb.UserAddOptions) */ {
+ public:
+  UserAddOptions();
+  virtual ~UserAddOptions();
+
+  UserAddOptions(const UserAddOptions& from);
+  UserAddOptions(UserAddOptions&& from) noexcept
+    : UserAddOptions() {
+    *this = ::std::move(from);
+  }
+
+  inline UserAddOptions& operator=(const UserAddOptions& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserAddOptions& operator=(UserAddOptions&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UserAddOptions& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const UserAddOptions* internal_default_instance() {
+    return reinterpret_cast<const UserAddOptions*>(
+               &_UserAddOptions_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(UserAddOptions& a, UserAddOptions& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserAddOptions* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserAddOptions* New() const final {
+    return CreateMaybeMessage<UserAddOptions>(nullptr);
+  }
+
+  UserAddOptions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UserAddOptions>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UserAddOptions& from);
+  void MergeFrom(const UserAddOptions& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserAddOptions* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "authpb.UserAddOptions";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2eproto);
+    return ::descriptor_table_auth_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNoPasswordFieldNumber = 1,
+  };
+  // bool no_password = 1;
+  void clear_no_password();
+  bool no_password() const;
+  void set_no_password(bool value);
+  private:
+  bool _internal_no_password() const;
+  void _internal_set_no_password(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:authpb.UserAddOptions)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  bool no_password_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2eproto;
+};
+// -------------------------------------------------------------------
 
 class User :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:authpb.User) */ {
@@ -143,7 +275,7 @@ class User :
                &_User_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(User& a, User& b) {
     a.Swap(&b);
@@ -210,6 +342,7 @@ class User :
     kRolesFieldNumber = 3,
     kNameFieldNumber = 1,
     kPasswordFieldNumber = 2,
+    kOptionsFieldNumber = 4,
   };
   // repeated string roles = 3;
   int roles_size() const;
@@ -267,6 +400,21 @@ class User :
   std::string* _internal_mutable_password();
   public:
 
+  // .authpb.UserAddOptions options = 4;
+  bool has_options() const;
+  private:
+  bool _internal_has_options() const;
+  public:
+  void clear_options();
+  const ::authpb::UserAddOptions& options() const;
+  ::authpb::UserAddOptions* release_options();
+  ::authpb::UserAddOptions* mutable_options();
+  void set_allocated_options(::authpb::UserAddOptions* options);
+  private:
+  const ::authpb::UserAddOptions& _internal_options() const;
+  ::authpb::UserAddOptions* _internal_mutable_options();
+  public:
+
   // @@protoc_insertion_point(class_scope:authpb.User)
  private:
   class _Internal;
@@ -275,6 +423,7 @@ class User :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> roles_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
+  ::authpb::UserAddOptions* options_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2eproto;
 };
@@ -322,7 +471,7 @@ class Permission :
                &_Permission_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(Permission& a, Permission& b) {
     a.Swap(&b);
@@ -518,7 +667,7 @@ class Role :
                &_Role_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(Role& a, Role& b) {
     a.Swap(&b);
@@ -638,6 +787,30 @@ class Role :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// UserAddOptions
+
+// bool no_password = 1;
+inline void UserAddOptions::clear_no_password() {
+  no_password_ = false;
+}
+inline bool UserAddOptions::_internal_no_password() const {
+  return no_password_;
+}
+inline bool UserAddOptions::no_password() const {
+  // @@protoc_insertion_point(field_get:authpb.UserAddOptions.no_password)
+  return _internal_no_password();
+}
+inline void UserAddOptions::_internal_set_no_password(bool value) {
+  
+  no_password_ = value;
+}
+inline void UserAddOptions::set_no_password(bool value) {
+  _internal_set_no_password(value);
+  // @@protoc_insertion_point(field_set:authpb.UserAddOptions.no_password)
+}
+
+// -------------------------------------------------------------------
+
 // User
 
 // bytes name = 1;
@@ -832,6 +1005,66 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 User::mutable_roles() {
   // @@protoc_insertion_point(field_mutable_list:authpb.User.roles)
   return &roles_;
+}
+
+// .authpb.UserAddOptions options = 4;
+inline bool User::_internal_has_options() const {
+  return this != internal_default_instance() && options_ != nullptr;
+}
+inline bool User::has_options() const {
+  return _internal_has_options();
+}
+inline void User::clear_options() {
+  if (GetArenaNoVirtual() == nullptr && options_ != nullptr) {
+    delete options_;
+  }
+  options_ = nullptr;
+}
+inline const ::authpb::UserAddOptions& User::_internal_options() const {
+  const ::authpb::UserAddOptions* p = options_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::authpb::UserAddOptions*>(
+      &::authpb::_UserAddOptions_default_instance_);
+}
+inline const ::authpb::UserAddOptions& User::options() const {
+  // @@protoc_insertion_point(field_get:authpb.User.options)
+  return _internal_options();
+}
+inline ::authpb::UserAddOptions* User::release_options() {
+  // @@protoc_insertion_point(field_release:authpb.User.options)
+  
+  ::authpb::UserAddOptions* temp = options_;
+  options_ = nullptr;
+  return temp;
+}
+inline ::authpb::UserAddOptions* User::_internal_mutable_options() {
+  
+  if (options_ == nullptr) {
+    auto* p = CreateMaybeMessage<::authpb::UserAddOptions>(GetArenaNoVirtual());
+    options_ = p;
+  }
+  return options_;
+}
+inline ::authpb::UserAddOptions* User::mutable_options() {
+  // @@protoc_insertion_point(field_mutable:authpb.User.options)
+  return _internal_mutable_options();
+}
+inline void User::set_allocated_options(::authpb::UserAddOptions* options) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete options_;
+  }
+  if (options) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      options = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, options, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  options_ = options;
+  // @@protoc_insertion_point(field_set_allocated:authpb.User.options)
 }
 
 // -------------------------------------------------------------------
@@ -1084,6 +1317,8 @@ Role::keypermission() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

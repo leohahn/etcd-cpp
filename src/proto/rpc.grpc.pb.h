@@ -38,6 +38,12 @@ class MessageAllocator;
 
 namespace etcdserverpb {
 
+// for grpc-gateway
+// import "google/api/annotations.proto";
+//
+// option (gogoproto.marshaler_all) = true;
+// option (gogoproto.unmarshaler_all) = true;
+//
 class KV final {
  public:
   static constexpr char const* service_full_name() {
@@ -2007,6 +2013,14 @@ class Cluster final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberListResponse>> PrepareAsyncMemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberListResponse>>(PrepareAsyncMemberListRaw(context, request, cq));
     }
+    // MemberPromote promotes a member from raft learner (non-voting) to raft voting member.
+    virtual ::grpc::Status MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::etcdserverpb::MemberPromoteResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>> AsyncMemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>>(AsyncMemberPromoteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>> PrepareAsyncMemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>>(PrepareAsyncMemberPromoteRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -2030,6 +2044,11 @@ class Cluster final {
       virtual void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      // MemberPromote promotes a member from raft learner (non-voting) to raft voting member.
+      virtual void MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -2041,6 +2060,8 @@ class Cluster final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberUpdateResponse>* PrepareAsyncMemberUpdateRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberListResponse>* AsyncMemberListRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberListResponse>* PrepareAsyncMemberListRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>* AsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::MemberPromoteResponse>* PrepareAsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -2073,6 +2094,13 @@ class Cluster final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberListResponse>> PrepareAsyncMemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberListResponse>>(PrepareAsyncMemberListRaw(context, request, cq));
     }
+    ::grpc::Status MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::etcdserverpb::MemberPromoteResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>> AsyncMemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>>(AsyncMemberPromoteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>> PrepareAsyncMemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>>(PrepareAsyncMemberPromoteRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -2092,6 +2120,10 @@ class Cluster final {
       void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) override;
       void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -2111,10 +2143,13 @@ class Cluster final {
     ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberUpdateResponse>* PrepareAsyncMemberUpdateRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberListResponse>* AsyncMemberListRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberListResponse>* PrepareAsyncMemberListRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>* AsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>* PrepareAsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_MemberAdd_;
     const ::grpc::internal::RpcMethod rpcmethod_MemberRemove_;
     const ::grpc::internal::RpcMethod rpcmethod_MemberUpdate_;
     const ::grpc::internal::RpcMethod rpcmethod_MemberList_;
+    const ::grpc::internal::RpcMethod rpcmethod_MemberPromote_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -2130,6 +2165,8 @@ class Cluster final {
     virtual ::grpc::Status MemberUpdate(::grpc::ServerContext* context, const ::etcdserverpb::MemberUpdateRequest* request, ::etcdserverpb::MemberUpdateResponse* response);
     // MemberList lists all the members in the cluster.
     virtual ::grpc::Status MemberList(::grpc::ServerContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response);
+    // MemberPromote promotes a member from raft learner (non-voting) to raft voting member.
+    virtual ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_MemberAdd : public BaseClass {
@@ -2211,7 +2248,27 @@ class Cluster final {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_MemberAdd<WithAsyncMethod_MemberRemove<WithAsyncMethod_MemberUpdate<WithAsyncMethod_MemberList<Service > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_MemberPromote() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMemberPromote(::grpc::ServerContext* context, ::etcdserverpb::MemberPromoteRequest* request, ::grpc::ServerAsyncResponseWriter< ::etcdserverpb::MemberPromoteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_MemberAdd<WithAsyncMethod_MemberRemove<WithAsyncMethod_MemberUpdate<WithAsyncMethod_MemberList<WithAsyncMethod_MemberPromote<Service > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_MemberAdd : public BaseClass {
    private:
@@ -2336,7 +2393,38 @@ class Cluster final {
     }
     virtual void MemberList(::grpc::ServerContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
-  typedef ExperimentalWithCallbackMethod_MemberAdd<ExperimentalWithCallbackMethod_MemberRemove<ExperimentalWithCallbackMethod_MemberUpdate<ExperimentalWithCallbackMethod_MemberList<Service > > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_MemberPromote() {
+      ::grpc::Service::experimental().MarkMethodCallback(4,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberPromoteRequest, ::etcdserverpb::MemberPromoteResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::etcdserverpb::MemberPromoteRequest* request,
+                 ::etcdserverpb::MemberPromoteResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->MemberPromote(context, request, response, controller);
+                 }));
+    }
+    void SetMessageAllocatorFor_MemberPromote(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberPromoteRequest, ::etcdserverpb::MemberPromoteResponse>* allocator) {
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberPromoteRequest, ::etcdserverpb::MemberPromoteResponse>*>(
+          ::grpc::Service::experimental().GetHandler(4))
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_MemberAdd<ExperimentalWithCallbackMethod_MemberRemove<ExperimentalWithCallbackMethod_MemberUpdate<ExperimentalWithCallbackMethod_MemberList<ExperimentalWithCallbackMethod_MemberPromote<Service > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_MemberAdd : public BaseClass {
    private:
@@ -2401,6 +2489,23 @@ class Cluster final {
     }
     // disable synchronous version of this method
     ::grpc::Status MemberList(::grpc::ServerContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_MemberPromote() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2483,6 +2588,26 @@ class Cluster final {
     }
     void RequestMemberList(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_MemberPromote() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMemberPromote(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2586,6 +2711,31 @@ class Cluster final {
     virtual void MemberList(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_MemberPromote() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(4,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->MemberPromote(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void MemberPromote(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_MemberAdd : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -2665,9 +2815,29 @@ class Cluster final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedMemberList(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::etcdserverpb::MemberListRequest,::etcdserverpb::MemberListResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_MemberAdd<WithStreamedUnaryMethod_MemberRemove<WithStreamedUnaryMethod_MemberUpdate<WithStreamedUnaryMethod_MemberList<Service > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_MemberPromote : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_MemberPromote() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler< ::etcdserverpb::MemberPromoteRequest, ::etcdserverpb::MemberPromoteResponse>(std::bind(&WithStreamedUnaryMethod_MemberPromote<BaseClass>::StreamedMemberPromote, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_MemberPromote() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedMemberPromote(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::etcdserverpb::MemberPromoteRequest,::etcdserverpb::MemberPromoteResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_MemberAdd<WithStreamedUnaryMethod_MemberRemove<WithStreamedUnaryMethod_MemberUpdate<WithStreamedUnaryMethod_MemberList<WithStreamedUnaryMethod_MemberPromote<Service > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_MemberAdd<WithStreamedUnaryMethod_MemberRemove<WithStreamedUnaryMethod_MemberUpdate<WithStreamedUnaryMethod_MemberList<Service > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_MemberAdd<WithStreamedUnaryMethod_MemberRemove<WithStreamedUnaryMethod_MemberUpdate<WithStreamedUnaryMethod_MemberList<WithStreamedUnaryMethod_MemberPromote<Service > > > > > StreamedService;
 };
 
 class Maintenance final {
@@ -2702,9 +2872,12 @@ class Maintenance final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::DefragmentResponse>> PrepareAsyncDefragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::DefragmentResponse>>(PrepareAsyncDefragmentRaw(context, request, cq));
     }
-    // Hash computes the hash of the KV's backend.
-    // This is designed for testing; do not use this in production when there
-    // are ongoing transactions.
+    // Hash computes the hash of whole backend keyspace,
+    // including key, lease, and other buckets in storage.
+    // This is designed for testing ONLY!
+    // Do not rely on this in production with ongoing transactions,
+    // since Hash operation does not hold MVCC locks.
+    // Use "HashKV" API instead for "key" bucket consistency checks.
     virtual ::grpc::Status Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest& request, ::etcdserverpb::HashResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::HashResponse>> AsyncHash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::HashResponse>>(AsyncHashRaw(context, request, cq));
@@ -2713,6 +2886,7 @@ class Maintenance final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::HashResponse>>(PrepareAsyncHashRaw(context, request, cq));
     }
     // HashKV computes the hash of all MVCC keys up to a given revision.
+    // It only iterates "key" bucket in backend storage.
     virtual ::grpc::Status HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest& request, ::etcdserverpb::HashKVResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::HashKVResponse>> AsyncHashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::HashKVResponse>>(AsyncHashKVRaw(context, request, cq));
@@ -2756,14 +2930,18 @@ class Maintenance final {
       virtual void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Defragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      // Hash computes the hash of the KV's backend.
-      // This is designed for testing; do not use this in production when there
-      // are ongoing transactions.
+      // Hash computes the hash of whole backend keyspace,
+      // including key, lease, and other buckets in storage.
+      // This is designed for testing ONLY!
+      // Do not rely on this in production with ongoing transactions,
+      // since Hash operation does not hold MVCC locks.
+      // Use "HashKV" API instead for "key" bucket consistency checks.
       virtual void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // HashKV computes the hash of all MVCC keys up to a given revision.
+      // It only iterates "key" bucket in backend storage.
       virtual void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void HashKV(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
@@ -2922,11 +3100,15 @@ class Maintenance final {
     virtual ::grpc::Status Status(::grpc::ServerContext* context, const ::etcdserverpb::StatusRequest* request, ::etcdserverpb::StatusResponse* response);
     // Defragment defragments a member's backend database to recover storage space.
     virtual ::grpc::Status Defragment(::grpc::ServerContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response);
-    // Hash computes the hash of the KV's backend.
-    // This is designed for testing; do not use this in production when there
-    // are ongoing transactions.
+    // Hash computes the hash of whole backend keyspace,
+    // including key, lease, and other buckets in storage.
+    // This is designed for testing ONLY!
+    // Do not rely on this in production with ongoing transactions,
+    // since Hash operation does not hold MVCC locks.
+    // Use "HashKV" API instead for "key" bucket consistency checks.
     virtual ::grpc::Status Hash(::grpc::ServerContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response);
     // HashKV computes the hash of all MVCC keys up to a given revision.
+    // It only iterates "key" bucket in backend storage.
     virtual ::grpc::Status HashKV(::grpc::ServerContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response);
     // Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
     virtual ::grpc::Status Snapshot(::grpc::ServerContext* context, const ::etcdserverpb::SnapshotRequest* request, ::grpc::ServerWriter< ::etcdserverpb::SnapshotResponse>* writer);
@@ -3891,7 +4073,7 @@ class Auth final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthenticateResponse>> PrepareAsyncAuthenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthenticateResponse>>(PrepareAsyncAuthenticateRaw(context, request, cq));
     }
-    // UserAdd adds a new user.
+    // UserAdd adds a new user. User name cannot be empty.
     virtual ::grpc::Status UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest& request, ::etcdserverpb::AuthUserAddResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthUserAddResponse>> AsyncUserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthUserAddResponse>>(AsyncUserAddRaw(context, request, cq));
@@ -3947,7 +4129,7 @@ class Auth final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthUserRevokeRoleResponse>> PrepareAsyncUserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthUserRevokeRoleResponse>>(PrepareAsyncUserRevokeRoleRaw(context, request, cq));
     }
-    // RoleAdd adds a new role.
+    // RoleAdd adds a new role. Role name cannot be empty.
     virtual ::grpc::Status RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest& request, ::etcdserverpb::AuthRoleAddResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthRoleAddResponse>> AsyncRoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::etcdserverpb::AuthRoleAddResponse>>(AsyncRoleAddRaw(context, request, cq));
@@ -4013,7 +4195,7 @@ class Auth final {
       virtual void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Authenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      // UserAdd adds a new user.
+      // UserAdd adds a new user. User name cannot be empty.
       virtual void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UserAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
@@ -4048,7 +4230,7 @@ class Auth final {
       virtual void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      // RoleAdd adds a new role.
+      // RoleAdd adds a new role. Role name cannot be empty.
       virtual void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RoleAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
@@ -4368,7 +4550,7 @@ class Auth final {
     virtual ::grpc::Status AuthDisable(::grpc::ServerContext* context, const ::etcdserverpb::AuthDisableRequest* request, ::etcdserverpb::AuthDisableResponse* response);
     // Authenticate processes an authenticate request.
     virtual ::grpc::Status Authenticate(::grpc::ServerContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response);
-    // UserAdd adds a new user.
+    // UserAdd adds a new user. User name cannot be empty.
     virtual ::grpc::Status UserAdd(::grpc::ServerContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response);
     // UserGet gets detailed user information.
     virtual ::grpc::Status UserGet(::grpc::ServerContext* context, const ::etcdserverpb::AuthUserGetRequest* request, ::etcdserverpb::AuthUserGetResponse* response);
@@ -4382,7 +4564,7 @@ class Auth final {
     virtual ::grpc::Status UserGrantRole(::grpc::ServerContext* context, const ::etcdserverpb::AuthUserGrantRoleRequest* request, ::etcdserverpb::AuthUserGrantRoleResponse* response);
     // UserRevokeRole revokes a role of specified user.
     virtual ::grpc::Status UserRevokeRole(::grpc::ServerContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response);
-    // RoleAdd adds a new role.
+    // RoleAdd adds a new role. Role name cannot be empty.
     virtual ::grpc::Status RoleAdd(::grpc::ServerContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response);
     // RoleGet gets detailed role information.
     virtual ::grpc::Status RoleGet(::grpc::ServerContext* context, const ::etcdserverpb::AuthRoleGetRequest* request, ::etcdserverpb::AuthRoleGetResponse* response);

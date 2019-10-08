@@ -516,6 +516,7 @@ static const char* Cluster_method_names[] = {
   "/etcdserverpb.Cluster/MemberRemove",
   "/etcdserverpb.Cluster/MemberUpdate",
   "/etcdserverpb.Cluster/MemberList",
+  "/etcdserverpb.Cluster/MemberPromote",
 };
 
 std::unique_ptr< Cluster::Stub> Cluster::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -529,6 +530,7 @@ Cluster::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_MemberRemove_(Cluster_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_MemberUpdate_(Cluster_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_MemberList_(Cluster_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_MemberPromote_(Cluster_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Cluster::Stub::MemberAdd(::grpc::ClientContext* context, const ::etcdserverpb::MemberAddRequest& request, ::etcdserverpb::MemberAddResponse* response) {
@@ -643,6 +645,34 @@ void Cluster::Stub::experimental_async::MemberList(::grpc::ClientContext* contex
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::etcdserverpb::MemberListResponse>::Create(channel_.get(), cq, rpcmethod_MemberList_, context, request, false);
 }
 
+::grpc::Status Cluster::Stub::MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::etcdserverpb::MemberPromoteResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_MemberPromote_, context, request, response);
+}
+
+void Cluster::Stub::experimental_async::MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MemberPromote_, context, request, response, std::move(f));
+}
+
+void Cluster::Stub::experimental_async::MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MemberPromote_, context, request, response, std::move(f));
+}
+
+void Cluster::Stub::experimental_async::MemberPromote(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MemberPromote_, context, request, response, reactor);
+}
+
+void Cluster::Stub::experimental_async::MemberPromote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberPromoteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MemberPromote_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>* Cluster::Stub::AsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::etcdserverpb::MemberPromoteResponse>::Create(channel_.get(), cq, rpcmethod_MemberPromote_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::etcdserverpb::MemberPromoteResponse>* Cluster::Stub::PrepareAsyncMemberPromoteRaw(::grpc::ClientContext* context, const ::etcdserverpb::MemberPromoteRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::etcdserverpb::MemberPromoteResponse>::Create(channel_.get(), cq, rpcmethod_MemberPromote_, context, request, false);
+}
+
 Cluster::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Cluster_method_names[0],
@@ -664,6 +694,11 @@ Cluster::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Cluster::Service, ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>(
           std::mem_fn(&Cluster::Service::MemberList), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Cluster_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Cluster::Service, ::etcdserverpb::MemberPromoteRequest, ::etcdserverpb::MemberPromoteResponse>(
+          std::mem_fn(&Cluster::Service::MemberPromote), this)));
 }
 
 Cluster::Service::~Service() {
@@ -691,6 +726,13 @@ Cluster::Service::~Service() {
 }
 
 ::grpc::Status Cluster::Service::MemberList(::grpc::ServerContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Cluster::Service::MemberPromote(::grpc::ServerContext* context, const ::etcdserverpb::MemberPromoteRequest* request, ::etcdserverpb::MemberPromoteResponse* response) {
   (void) context;
   (void) request;
   (void) response;

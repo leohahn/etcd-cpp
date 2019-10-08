@@ -15,10 +15,12 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_auth_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Permission_auth_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_auth_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_UserAddOptions_auth_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AlarmMember_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Compare_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DeleteRangeRequest_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_DeleteRangeResponse_rpc_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LeaseCheckpoint_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LeaseStatus_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Member_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PutRequest_rpc_2eproto;
@@ -30,6 +32,7 @@ extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::S
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_ResponseOp_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WatchCancelRequest_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WatchCreateRequest_rpc_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_rpc_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WatchProgressRequest_rpc_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_kv_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Event_kv_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_kv_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_KeyValue_kv_2eproto;
 namespace etcdserverpb {
@@ -131,6 +134,7 @@ class WatchRequestDefaultTypeInternal {
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WatchRequest> _instance;
   const ::etcdserverpb::WatchCreateRequest* create_request_;
   const ::etcdserverpb::WatchCancelRequest* cancel_request_;
+  const ::etcdserverpb::WatchProgressRequest* progress_request_;
 } _WatchRequest_default_instance_;
 class WatchCreateRequestDefaultTypeInternal {
  public:
@@ -140,6 +144,10 @@ class WatchCancelRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WatchCancelRequest> _instance;
 } _WatchCancelRequest_default_instance_;
+class WatchProgressRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WatchProgressRequest> _instance;
+} _WatchProgressRequest_default_instance_;
 class WatchResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WatchResponse> _instance;
@@ -160,6 +168,18 @@ class LeaseRevokeResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LeaseRevokeResponse> _instance;
 } _LeaseRevokeResponse_default_instance_;
+class LeaseCheckpointDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LeaseCheckpoint> _instance;
+} _LeaseCheckpoint_default_instance_;
+class LeaseCheckpointRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LeaseCheckpointRequest> _instance;
+} _LeaseCheckpointRequest_default_instance_;
+class LeaseCheckpointResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LeaseCheckpointResponse> _instance;
+} _LeaseCheckpointResponse_default_instance_;
 class LeaseKeepAliveRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LeaseKeepAliveRequest> _instance;
@@ -224,6 +244,14 @@ class MemberListResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MemberListResponse> _instance;
 } _MemberListResponse_default_instance_;
+class MemberPromoteRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MemberPromoteRequest> _instance;
+} _MemberPromoteRequest_default_instance_;
+class MemberPromoteResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MemberPromoteResponse> _instance;
+} _MemberPromoteResponse_default_instance_;
 class DefragmentRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<DefragmentRequest> _instance;
@@ -678,8 +706,9 @@ static void InitDefaultsscc_info_AuthUserAddRequest_rpc_2eproto() {
   ::etcdserverpb::AuthUserAddRequest::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AuthUserAddRequest_rpc_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_AuthUserAddRequest_rpc_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AuthUserAddRequest_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AuthUserAddRequest_rpc_2eproto}, {
+      &scc_info_UserAddOptions_auth_2eproto.base,}};
 
 static void InitDefaultsscc_info_AuthUserAddResponse_rpc_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -1059,6 +1088,50 @@ static void InitDefaultsscc_info_HashResponse_rpc_2eproto() {
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_HashResponse_rpc_2eproto}, {
       &scc_info_ResponseHeader_rpc_2eproto.base,}};
 
+static void InitDefaultsscc_info_LeaseCheckpoint_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_LeaseCheckpoint_default_instance_;
+    new (ptr) ::etcdserverpb::LeaseCheckpoint();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::LeaseCheckpoint::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LeaseCheckpoint_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LeaseCheckpoint_rpc_2eproto}, {}};
+
+static void InitDefaultsscc_info_LeaseCheckpointRequest_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_LeaseCheckpointRequest_default_instance_;
+    new (ptr) ::etcdserverpb::LeaseCheckpointRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::LeaseCheckpointRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_LeaseCheckpointRequest_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_LeaseCheckpointRequest_rpc_2eproto}, {
+      &scc_info_LeaseCheckpoint_rpc_2eproto.base,}};
+
+static void InitDefaultsscc_info_LeaseCheckpointResponse_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_LeaseCheckpointResponse_default_instance_;
+    new (ptr) ::etcdserverpb::LeaseCheckpointResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::LeaseCheckpointResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_LeaseCheckpointResponse_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_LeaseCheckpointResponse_rpc_2eproto}, {
+      &scc_info_ResponseHeader_rpc_2eproto.base,}};
+
 static void InitDefaultsscc_info_LeaseGrantRequest_rpc_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -1290,6 +1363,36 @@ static void InitDefaultsscc_info_MemberListResponse_rpc_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_MemberListResponse_rpc_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_MemberListResponse_rpc_2eproto}, {
+      &scc_info_ResponseHeader_rpc_2eproto.base,
+      &scc_info_Member_rpc_2eproto.base,}};
+
+static void InitDefaultsscc_info_MemberPromoteRequest_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_MemberPromoteRequest_default_instance_;
+    new (ptr) ::etcdserverpb::MemberPromoteRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::MemberPromoteRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MemberPromoteRequest_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_MemberPromoteRequest_rpc_2eproto}, {}};
+
+static void InitDefaultsscc_info_MemberPromoteResponse_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_MemberPromoteResponse_default_instance_;
+    new (ptr) ::etcdserverpb::MemberPromoteResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::MemberPromoteResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_MemberPromoteResponse_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_MemberPromoteResponse_rpc_2eproto}, {
       &scc_info_ResponseHeader_rpc_2eproto.base,
       &scc_info_Member_rpc_2eproto.base,}};
 
@@ -1590,6 +1693,20 @@ static void InitDefaultsscc_info_WatchCreateRequest_rpc_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WatchCreateRequest_rpc_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WatchCreateRequest_rpc_2eproto}, {}};
 
+static void InitDefaultsscc_info_WatchProgressRequest_rpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::etcdserverpb::_WatchProgressRequest_default_instance_;
+    new (ptr) ::etcdserverpb::WatchProgressRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::etcdserverpb::WatchProgressRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WatchProgressRequest_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WatchProgressRequest_rpc_2eproto}, {}};
+
 static void InitDefaultsscc_info_WatchRequest_rpc_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -1601,10 +1718,11 @@ static void InitDefaultsscc_info_WatchRequest_rpc_2eproto() {
   ::etcdserverpb::WatchRequest::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_WatchRequest_rpc_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_WatchRequest_rpc_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_WatchRequest_rpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_WatchRequest_rpc_2eproto}, {
       &scc_info_WatchCreateRequest_rpc_2eproto.base,
-      &scc_info_WatchCancelRequest_rpc_2eproto.base,}};
+      &scc_info_WatchCancelRequest_rpc_2eproto.base,
+      &scc_info_WatchProgressRequest_rpc_2eproto.base,}};
 
 static void InitDefaultsscc_info_WatchResponse_rpc_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -1622,7 +1740,7 @@ static void InitDefaultsscc_info_WatchResponse_rpc_2eproto() {
       &scc_info_ResponseHeader_rpc_2eproto.base,
       &scc_info_Event_kv_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_rpc_2eproto[85];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_rpc_2eproto[91];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_rpc_2eproto[7];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_rpc_2eproto = nullptr;
 
@@ -1807,6 +1925,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   ~0u,  // no _weak_field_map_
   offsetof(::etcdserverpb::WatchRequestDefaultTypeInternal, create_request_),
   offsetof(::etcdserverpb::WatchRequestDefaultTypeInternal, cancel_request_),
+  offsetof(::etcdserverpb::WatchRequestDefaultTypeInternal, progress_request_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchRequest, request_union_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, _internal_metadata_),
@@ -1819,12 +1938,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, progress_notify_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, filters_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, prev_kv_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, watch_id_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCreateRequest, fragment_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCancelRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchCancelRequest, watch_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchProgressRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1836,6 +1962,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, canceled_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, compact_revision_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, cancel_reason_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, fragment_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::WatchResponse, events_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseGrantRequest, _internal_metadata_),
@@ -1865,6 +1992,25 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseRevokeResponse, header_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpoint, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpoint, id_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpoint, remaining_ttl_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpointRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpointRequest, checkpoints_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpointResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseCheckpointResponse, header_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::LeaseKeepAliveRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1923,12 +2069,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::Member, name_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::Member, peerurls_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::Member, clienturls_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::Member, islearner_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberAddRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberAddRequest, peerurls_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberAddRequest, islearner_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberAddResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1976,6 +2124,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberListResponse, header_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberListResponse, members_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberPromoteRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberPromoteRequest, id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberPromoteResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberPromoteResponse, header_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::MemberPromoteResponse, members_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::DefragmentRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -2037,6 +2198,10 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, leader_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, raftindex_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, raftterm_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, raftappliedindex_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, errors_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, dbsizeinuse_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::StatusResponse, islearner_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::AuthEnableRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -2061,6 +2226,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_rpc_2eproto::offsets[] PROTOBU
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::AuthUserAddRequest, name_),
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::AuthUserAddRequest, password_),
+  PROTOBUF_FIELD_OFFSET(::etcdserverpb::AuthUserAddRequest, options_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::etcdserverpb::AuthUserGetRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -2261,70 +2427,76 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 160, -1, sizeof(::etcdserverpb::SnapshotRequest)},
   { 165, -1, sizeof(::etcdserverpb::SnapshotResponse)},
   { 173, -1, sizeof(::etcdserverpb::WatchRequest)},
-  { 181, -1, sizeof(::etcdserverpb::WatchCreateRequest)},
-  { 192, -1, sizeof(::etcdserverpb::WatchCancelRequest)},
-  { 198, -1, sizeof(::etcdserverpb::WatchResponse)},
-  { 210, -1, sizeof(::etcdserverpb::LeaseGrantRequest)},
-  { 217, -1, sizeof(::etcdserverpb::LeaseGrantResponse)},
-  { 226, -1, sizeof(::etcdserverpb::LeaseRevokeRequest)},
-  { 232, -1, sizeof(::etcdserverpb::LeaseRevokeResponse)},
-  { 238, -1, sizeof(::etcdserverpb::LeaseKeepAliveRequest)},
-  { 244, -1, sizeof(::etcdserverpb::LeaseKeepAliveResponse)},
-  { 252, -1, sizeof(::etcdserverpb::LeaseTimeToLiveRequest)},
-  { 259, -1, sizeof(::etcdserverpb::LeaseTimeToLiveResponse)},
-  { 269, -1, sizeof(::etcdserverpb::LeaseLeasesRequest)},
-  { 274, -1, sizeof(::etcdserverpb::LeaseStatus)},
-  { 280, -1, sizeof(::etcdserverpb::LeaseLeasesResponse)},
-  { 287, -1, sizeof(::etcdserverpb::Member)},
-  { 296, -1, sizeof(::etcdserverpb::MemberAddRequest)},
-  { 302, -1, sizeof(::etcdserverpb::MemberAddResponse)},
-  { 310, -1, sizeof(::etcdserverpb::MemberRemoveRequest)},
-  { 316, -1, sizeof(::etcdserverpb::MemberRemoveResponse)},
-  { 323, -1, sizeof(::etcdserverpb::MemberUpdateRequest)},
-  { 330, -1, sizeof(::etcdserverpb::MemberUpdateResponse)},
-  { 337, -1, sizeof(::etcdserverpb::MemberListRequest)},
-  { 342, -1, sizeof(::etcdserverpb::MemberListResponse)},
-  { 349, -1, sizeof(::etcdserverpb::DefragmentRequest)},
-  { 354, -1, sizeof(::etcdserverpb::DefragmentResponse)},
-  { 360, -1, sizeof(::etcdserverpb::MoveLeaderRequest)},
-  { 366, -1, sizeof(::etcdserverpb::MoveLeaderResponse)},
-  { 372, -1, sizeof(::etcdserverpb::AlarmRequest)},
-  { 380, -1, sizeof(::etcdserverpb::AlarmMember)},
-  { 387, -1, sizeof(::etcdserverpb::AlarmResponse)},
-  { 394, -1, sizeof(::etcdserverpb::StatusRequest)},
-  { 399, -1, sizeof(::etcdserverpb::StatusResponse)},
-  { 410, -1, sizeof(::etcdserverpb::AuthEnableRequest)},
-  { 415, -1, sizeof(::etcdserverpb::AuthDisableRequest)},
-  { 420, -1, sizeof(::etcdserverpb::AuthenticateRequest)},
-  { 427, -1, sizeof(::etcdserverpb::AuthUserAddRequest)},
-  { 434, -1, sizeof(::etcdserverpb::AuthUserGetRequest)},
-  { 440, -1, sizeof(::etcdserverpb::AuthUserDeleteRequest)},
-  { 446, -1, sizeof(::etcdserverpb::AuthUserChangePasswordRequest)},
-  { 453, -1, sizeof(::etcdserverpb::AuthUserGrantRoleRequest)},
-  { 460, -1, sizeof(::etcdserverpb::AuthUserRevokeRoleRequest)},
-  { 467, -1, sizeof(::etcdserverpb::AuthRoleAddRequest)},
-  { 473, -1, sizeof(::etcdserverpb::AuthRoleGetRequest)},
-  { 479, -1, sizeof(::etcdserverpb::AuthUserListRequest)},
-  { 484, -1, sizeof(::etcdserverpb::AuthRoleListRequest)},
-  { 489, -1, sizeof(::etcdserverpb::AuthRoleDeleteRequest)},
-  { 495, -1, sizeof(::etcdserverpb::AuthRoleGrantPermissionRequest)},
-  { 502, -1, sizeof(::etcdserverpb::AuthRoleRevokePermissionRequest)},
-  { 510, -1, sizeof(::etcdserverpb::AuthEnableResponse)},
-  { 516, -1, sizeof(::etcdserverpb::AuthDisableResponse)},
-  { 522, -1, sizeof(::etcdserverpb::AuthenticateResponse)},
-  { 529, -1, sizeof(::etcdserverpb::AuthUserAddResponse)},
-  { 535, -1, sizeof(::etcdserverpb::AuthUserGetResponse)},
-  { 542, -1, sizeof(::etcdserverpb::AuthUserDeleteResponse)},
-  { 548, -1, sizeof(::etcdserverpb::AuthUserChangePasswordResponse)},
-  { 554, -1, sizeof(::etcdserverpb::AuthUserGrantRoleResponse)},
-  { 560, -1, sizeof(::etcdserverpb::AuthUserRevokeRoleResponse)},
-  { 566, -1, sizeof(::etcdserverpb::AuthRoleAddResponse)},
-  { 572, -1, sizeof(::etcdserverpb::AuthRoleGetResponse)},
-  { 579, -1, sizeof(::etcdserverpb::AuthRoleListResponse)},
-  { 586, -1, sizeof(::etcdserverpb::AuthUserListResponse)},
-  { 593, -1, sizeof(::etcdserverpb::AuthRoleDeleteResponse)},
-  { 599, -1, sizeof(::etcdserverpb::AuthRoleGrantPermissionResponse)},
-  { 605, -1, sizeof(::etcdserverpb::AuthRoleRevokePermissionResponse)},
+  { 182, -1, sizeof(::etcdserverpb::WatchCreateRequest)},
+  { 195, -1, sizeof(::etcdserverpb::WatchCancelRequest)},
+  { 201, -1, sizeof(::etcdserverpb::WatchProgressRequest)},
+  { 206, -1, sizeof(::etcdserverpb::WatchResponse)},
+  { 219, -1, sizeof(::etcdserverpb::LeaseGrantRequest)},
+  { 226, -1, sizeof(::etcdserverpb::LeaseGrantResponse)},
+  { 235, -1, sizeof(::etcdserverpb::LeaseRevokeRequest)},
+  { 241, -1, sizeof(::etcdserverpb::LeaseRevokeResponse)},
+  { 247, -1, sizeof(::etcdserverpb::LeaseCheckpoint)},
+  { 254, -1, sizeof(::etcdserverpb::LeaseCheckpointRequest)},
+  { 260, -1, sizeof(::etcdserverpb::LeaseCheckpointResponse)},
+  { 266, -1, sizeof(::etcdserverpb::LeaseKeepAliveRequest)},
+  { 272, -1, sizeof(::etcdserverpb::LeaseKeepAliveResponse)},
+  { 280, -1, sizeof(::etcdserverpb::LeaseTimeToLiveRequest)},
+  { 287, -1, sizeof(::etcdserverpb::LeaseTimeToLiveResponse)},
+  { 297, -1, sizeof(::etcdserverpb::LeaseLeasesRequest)},
+  { 302, -1, sizeof(::etcdserverpb::LeaseStatus)},
+  { 308, -1, sizeof(::etcdserverpb::LeaseLeasesResponse)},
+  { 315, -1, sizeof(::etcdserverpb::Member)},
+  { 325, -1, sizeof(::etcdserverpb::MemberAddRequest)},
+  { 332, -1, sizeof(::etcdserverpb::MemberAddResponse)},
+  { 340, -1, sizeof(::etcdserverpb::MemberRemoveRequest)},
+  { 346, -1, sizeof(::etcdserverpb::MemberRemoveResponse)},
+  { 353, -1, sizeof(::etcdserverpb::MemberUpdateRequest)},
+  { 360, -1, sizeof(::etcdserverpb::MemberUpdateResponse)},
+  { 367, -1, sizeof(::etcdserverpb::MemberListRequest)},
+  { 372, -1, sizeof(::etcdserverpb::MemberListResponse)},
+  { 379, -1, sizeof(::etcdserverpb::MemberPromoteRequest)},
+  { 385, -1, sizeof(::etcdserverpb::MemberPromoteResponse)},
+  { 392, -1, sizeof(::etcdserverpb::DefragmentRequest)},
+  { 397, -1, sizeof(::etcdserverpb::DefragmentResponse)},
+  { 403, -1, sizeof(::etcdserverpb::MoveLeaderRequest)},
+  { 409, -1, sizeof(::etcdserverpb::MoveLeaderResponse)},
+  { 415, -1, sizeof(::etcdserverpb::AlarmRequest)},
+  { 423, -1, sizeof(::etcdserverpb::AlarmMember)},
+  { 430, -1, sizeof(::etcdserverpb::AlarmResponse)},
+  { 437, -1, sizeof(::etcdserverpb::StatusRequest)},
+  { 442, -1, sizeof(::etcdserverpb::StatusResponse)},
+  { 457, -1, sizeof(::etcdserverpb::AuthEnableRequest)},
+  { 462, -1, sizeof(::etcdserverpb::AuthDisableRequest)},
+  { 467, -1, sizeof(::etcdserverpb::AuthenticateRequest)},
+  { 474, -1, sizeof(::etcdserverpb::AuthUserAddRequest)},
+  { 482, -1, sizeof(::etcdserverpb::AuthUserGetRequest)},
+  { 488, -1, sizeof(::etcdserverpb::AuthUserDeleteRequest)},
+  { 494, -1, sizeof(::etcdserverpb::AuthUserChangePasswordRequest)},
+  { 501, -1, sizeof(::etcdserverpb::AuthUserGrantRoleRequest)},
+  { 508, -1, sizeof(::etcdserverpb::AuthUserRevokeRoleRequest)},
+  { 515, -1, sizeof(::etcdserverpb::AuthRoleAddRequest)},
+  { 521, -1, sizeof(::etcdserverpb::AuthRoleGetRequest)},
+  { 527, -1, sizeof(::etcdserverpb::AuthUserListRequest)},
+  { 532, -1, sizeof(::etcdserverpb::AuthRoleListRequest)},
+  { 537, -1, sizeof(::etcdserverpb::AuthRoleDeleteRequest)},
+  { 543, -1, sizeof(::etcdserverpb::AuthRoleGrantPermissionRequest)},
+  { 550, -1, sizeof(::etcdserverpb::AuthRoleRevokePermissionRequest)},
+  { 558, -1, sizeof(::etcdserverpb::AuthEnableResponse)},
+  { 564, -1, sizeof(::etcdserverpb::AuthDisableResponse)},
+  { 570, -1, sizeof(::etcdserverpb::AuthenticateResponse)},
+  { 577, -1, sizeof(::etcdserverpb::AuthUserAddResponse)},
+  { 583, -1, sizeof(::etcdserverpb::AuthUserGetResponse)},
+  { 590, -1, sizeof(::etcdserverpb::AuthUserDeleteResponse)},
+  { 596, -1, sizeof(::etcdserverpb::AuthUserChangePasswordResponse)},
+  { 602, -1, sizeof(::etcdserverpb::AuthUserGrantRoleResponse)},
+  { 608, -1, sizeof(::etcdserverpb::AuthUserRevokeRoleResponse)},
+  { 614, -1, sizeof(::etcdserverpb::AuthRoleAddResponse)},
+  { 620, -1, sizeof(::etcdserverpb::AuthRoleGetResponse)},
+  { 627, -1, sizeof(::etcdserverpb::AuthRoleListResponse)},
+  { 634, -1, sizeof(::etcdserverpb::AuthUserListResponse)},
+  { 641, -1, sizeof(::etcdserverpb::AuthRoleDeleteResponse)},
+  { 647, -1, sizeof(::etcdserverpb::AuthRoleGrantPermissionResponse)},
+  { 653, -1, sizeof(::etcdserverpb::AuthRoleRevokePermissionResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -2351,11 +2523,15 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_WatchRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_WatchCreateRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_WatchCancelRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_WatchProgressRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_WatchResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseGrantRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseGrantResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseRevokeRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseRevokeResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseCheckpoint_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseCheckpointRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseCheckpointResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseKeepAliveRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseKeepAliveResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_LeaseTimeToLiveRequest_default_instance_),
@@ -2372,6 +2548,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MemberUpdateResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MemberListRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MemberListResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MemberPromoteRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MemberPromoteResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_DefragmentRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_DefragmentResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::etcdserverpb::_MoveLeaderRequest_default_instance_),
@@ -2486,215 +2664,234 @@ const char descriptor_table_protodef_rpc_2eproto[] PROTOBUF_SECTION_VARIABLE(pro
   "\"\021\n\017SnapshotRequest\"g\n\020SnapshotResponse\022"
   ",\n\006header\030\001 \001(\0132\034.etcdserverpb.ResponseH"
   "eader\022\027\n\017remaining_bytes\030\002 \001(\004\022\014\n\004blob\030\003"
-  " \001(\014\"\227\001\n\014WatchRequest\022:\n\016create_request\030"
+  " \001(\014\"\327\001\n\014WatchRequest\022:\n\016create_request\030"
   "\001 \001(\0132 .etcdserverpb.WatchCreateRequestH"
   "\000\022:\n\016cancel_request\030\002 \001(\0132 .etcdserverpb"
-  ".WatchCancelRequestH\000B\017\n\rrequest_union\"\333"
-  "\001\n\022WatchCreateRequest\022\013\n\003key\030\001 \001(\014\022\021\n\tra"
-  "nge_end\030\002 \001(\014\022\026\n\016start_revision\030\003 \001(\003\022\027\n"
-  "\017progress_notify\030\004 \001(\010\022<\n\007filters\030\005 \003(\0162"
-  "+.etcdserverpb.WatchCreateRequest.Filter"
-  "Type\022\017\n\007prev_kv\030\006 \001(\010\"%\n\nFilterType\022\t\n\005N"
-  "OPUT\020\000\022\014\n\010NODELETE\020\001\"&\n\022WatchCancelReque"
-  "st\022\020\n\010watch_id\030\001 \001(\003\"\302\001\n\rWatchResponse\022,"
-  "\n\006header\030\001 \001(\0132\034.etcdserverpb.ResponseHe"
-  "ader\022\020\n\010watch_id\030\002 \001(\003\022\017\n\007created\030\003 \001(\010\022"
-  "\020\n\010canceled\030\004 \001(\010\022\030\n\020compact_revision\030\005 "
-  "\001(\003\022\025\n\rcancel_reason\030\006 \001(\t\022\035\n\006events\030\013 \003"
-  "(\0132\r.mvccpb.Event\",\n\021LeaseGrantRequest\022\013"
-  "\n\003TTL\030\001 \001(\003\022\n\n\002ID\030\002 \001(\003\"j\n\022LeaseGrantRes"
-  "ponse\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Res"
-  "ponseHeader\022\n\n\002ID\030\002 \001(\003\022\013\n\003TTL\030\003 \001(\003\022\r\n\005"
-  "error\030\004 \001(\t\" \n\022LeaseRevokeRequest\022\n\n\002ID\030"
-  "\001 \001(\003\"C\n\023LeaseRevokeResponse\022,\n\006header\030\001"
-  " \001(\0132\034.etcdserverpb.ResponseHeader\"#\n\025Le"
-  "aseKeepAliveRequest\022\n\n\002ID\030\001 \001(\003\"_\n\026Lease"
-  "KeepAliveResponse\022,\n\006header\030\001 \001(\0132\034.etcd"
-  "serverpb.ResponseHeader\022\n\n\002ID\030\002 \001(\003\022\013\n\003T"
-  "TL\030\003 \001(\003\"2\n\026LeaseTimeToLiveRequest\022\n\n\002ID"
-  "\030\001 \001(\003\022\014\n\004keys\030\002 \001(\010\"\202\001\n\027LeaseTimeToLive"
-  "Response\022,\n\006header\030\001 \001(\0132\034.etcdserverpb."
-  "ResponseHeader\022\n\n\002ID\030\002 \001(\003\022\013\n\003TTL\030\003 \001(\003\022"
-  "\022\n\ngrantedTTL\030\004 \001(\003\022\014\n\004keys\030\005 \003(\014\"\024\n\022Lea"
-  "seLeasesRequest\"\031\n\013LeaseStatus\022\n\n\002ID\030\001 \001"
-  "(\003\"n\n\023LeaseLeasesResponse\022,\n\006header\030\001 \001("
-  "\0132\034.etcdserverpb.ResponseHeader\022)\n\006lease"
-  "s\030\002 \003(\0132\031.etcdserverpb.LeaseStatus\"H\n\006Me"
-  "mber\022\n\n\002ID\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\020\n\010peerUR"
-  "Ls\030\003 \003(\t\022\022\n\nclientURLs\030\004 \003(\t\"$\n\020MemberAd"
-  "dRequest\022\020\n\010peerURLs\030\001 \003(\t\"\216\001\n\021MemberAdd"
-  "Response\022,\n\006header\030\001 \001(\0132\034.etcdserverpb."
-  "ResponseHeader\022$\n\006member\030\002 \001(\0132\024.etcdser"
-  "verpb.Member\022%\n\007members\030\003 \003(\0132\024.etcdserv"
-  "erpb.Member\"!\n\023MemberRemoveRequest\022\n\n\002ID"
-  "\030\001 \001(\004\"k\n\024MemberRemoveResponse\022,\n\006header"
-  "\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\022%\n\007"
-  "members\030\002 \003(\0132\024.etcdserverpb.Member\"3\n\023M"
-  "emberUpdateRequest\022\n\n\002ID\030\001 \001(\004\022\020\n\010peerUR"
-  "Ls\030\002 \003(\t\"k\n\024MemberUpdateResponse\022,\n\006head"
-  "er\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\022%"
-  "\n\007members\030\002 \003(\0132\024.etcdserverpb.Member\"\023\n"
-  "\021MemberListRequest\"i\n\022MemberListResponse"
-  "\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Response"
-  "Header\022%\n\007members\030\002 \003(\0132\024.etcdserverpb.M"
-  "ember\"\023\n\021DefragmentRequest\"B\n\022Defragment"
-  "Response\022,\n\006header\030\001 \001(\0132\034.etcdserverpb."
-  "ResponseHeader\"%\n\021MoveLeaderRequest\022\020\n\010t"
-  "argetID\030\001 \001(\004\"B\n\022MoveLeaderResponse\022,\n\006h"
+  ".WatchCancelRequestH\000\022>\n\020progress_reques"
+  "t\030\003 \001(\0132\".etcdserverpb.WatchProgressRequ"
+  "estH\000B\017\n\rrequest_union\"\377\001\n\022WatchCreateRe"
+  "quest\022\013\n\003key\030\001 \001(\014\022\021\n\trange_end\030\002 \001(\014\022\026\n"
+  "\016start_revision\030\003 \001(\003\022\027\n\017progress_notify"
+  "\030\004 \001(\010\022<\n\007filters\030\005 \003(\0162+.etcdserverpb.W"
+  "atchCreateRequest.FilterType\022\017\n\007prev_kv\030"
+  "\006 \001(\010\022\020\n\010watch_id\030\007 \001(\003\022\020\n\010fragment\030\010 \001("
+  "\010\"%\n\nFilterType\022\t\n\005NOPUT\020\000\022\014\n\010NODELETE\020\001"
+  "\"&\n\022WatchCancelRequest\022\020\n\010watch_id\030\001 \001(\003"
+  "\"\026\n\024WatchProgressRequest\"\324\001\n\rWatchRespon"
+  "se\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Respon"
+  "seHeader\022\020\n\010watch_id\030\002 \001(\003\022\017\n\007created\030\003 "
+  "\001(\010\022\020\n\010canceled\030\004 \001(\010\022\030\n\020compact_revisio"
+  "n\030\005 \001(\003\022\025\n\rcancel_reason\030\006 \001(\t\022\020\n\010fragme"
+  "nt\030\007 \001(\010\022\035\n\006events\030\013 \003(\0132\r.mvccpb.Event\""
+  ",\n\021LeaseGrantRequest\022\013\n\003TTL\030\001 \001(\003\022\n\n\002ID\030"
+  "\002 \001(\003\"j\n\022LeaseGrantResponse\022,\n\006header\030\001 "
+  "\001(\0132\034.etcdserverpb.ResponseHeader\022\n\n\002ID\030"
+  "\002 \001(\003\022\013\n\003TTL\030\003 \001(\003\022\r\n\005error\030\004 \001(\t\" \n\022Lea"
+  "seRevokeRequest\022\n\n\002ID\030\001 \001(\003\"C\n\023LeaseRevo"
+  "keResponse\022,\n\006header\030\001 \001(\0132\034.etcdserverp"
+  "b.ResponseHeader\"4\n\017LeaseCheckpoint\022\n\n\002I"
+  "D\030\001 \001(\003\022\025\n\rremaining_TTL\030\002 \001(\003\"L\n\026LeaseC"
+  "heckpointRequest\0222\n\013checkpoints\030\001 \003(\0132\035."
+  "etcdserverpb.LeaseCheckpoint\"G\n\027LeaseChe"
+  "ckpointResponse\022,\n\006header\030\001 \001(\0132\034.etcdse"
+  "rverpb.ResponseHeader\"#\n\025LeaseKeepAliveR"
+  "equest\022\n\n\002ID\030\001 \001(\003\"_\n\026LeaseKeepAliveResp"
+  "onse\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Resp"
+  "onseHeader\022\n\n\002ID\030\002 \001(\003\022\013\n\003TTL\030\003 \001(\003\"2\n\026L"
+  "easeTimeToLiveRequest\022\n\n\002ID\030\001 \001(\003\022\014\n\004key"
+  "s\030\002 \001(\010\"\202\001\n\027LeaseTimeToLiveResponse\022,\n\006h"
   "eader\030\001 \001(\0132\034.etcdserverpb.ResponseHeade"
-  "r\"\266\001\n\014AlarmRequest\0226\n\006action\030\001 \001(\0162&.etc"
-  "dserverpb.AlarmRequest.AlarmAction\022\020\n\010me"
-  "mberID\030\002 \001(\004\022&\n\005alarm\030\003 \001(\0162\027.etcdserver"
-  "pb.AlarmType\"4\n\013AlarmAction\022\007\n\003GET\020\000\022\014\n\010"
-  "ACTIVATE\020\001\022\016\n\nDEACTIVATE\020\002\"G\n\013AlarmMembe"
-  "r\022\020\n\010memberID\030\001 \001(\004\022&\n\005alarm\030\002 \001(\0162\027.etc"
-  "dserverpb.AlarmType\"h\n\rAlarmResponse\022,\n\006"
-  "header\030\001 \001(\0132\034.etcdserverpb.ResponseHead"
-  "er\022)\n\006alarms\030\002 \003(\0132\031.etcdserverpb.AlarmM"
-  "ember\"\017\n\rStatusRequest\"\224\001\n\016StatusRespons"
-  "e\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Respons"
-  "eHeader\022\017\n\007version\030\002 \001(\t\022\016\n\006dbSize\030\003 \001(\003"
-  "\022\016\n\006leader\030\004 \001(\004\022\021\n\traftIndex\030\005 \001(\004\022\020\n\010r"
-  "aftTerm\030\006 \001(\004\"\023\n\021AuthEnableRequest\"\024\n\022Au"
-  "thDisableRequest\"5\n\023AuthenticateRequest\022"
-  "\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"4\n\022AuthU"
-  "serAddRequest\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030"
-  "\002 \001(\t\"\"\n\022AuthUserGetRequest\022\014\n\004name\030\001 \001("
-  "\t\"%\n\025AuthUserDeleteRequest\022\014\n\004name\030\001 \001(\t"
-  "\"\?\n\035AuthUserChangePasswordRequest\022\014\n\004nam"
-  "e\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"6\n\030AuthUserGra"
-  "ntRoleRequest\022\014\n\004user\030\001 \001(\t\022\014\n\004role\030\002 \001("
-  "\t\"7\n\031AuthUserRevokeRoleRequest\022\014\n\004name\030\001"
-  " \001(\t\022\014\n\004role\030\002 \001(\t\"\"\n\022AuthRoleAddRequest"
-  "\022\014\n\004name\030\001 \001(\t\"\"\n\022AuthRoleGetRequest\022\014\n\004"
-  "role\030\001 \001(\t\"\025\n\023AuthUserListRequest\"\025\n\023Aut"
-  "hRoleListRequest\"%\n\025AuthRoleDeleteReques"
-  "t\022\014\n\004role\030\001 \001(\t\"P\n\036AuthRoleGrantPermissi"
-  "onRequest\022\014\n\004name\030\001 \001(\t\022 \n\004perm\030\002 \001(\0132\022."
-  "authpb.Permission\"O\n\037AuthRoleRevokePermi"
-  "ssionRequest\022\014\n\004role\030\001 \001(\t\022\013\n\003key\030\002 \001(\t\022"
-  "\021\n\trange_end\030\003 \001(\t\"B\n\022AuthEnableResponse"
-  "\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Response"
-  "Header\"C\n\023AuthDisableResponse\022,\n\006header\030"
-  "\001 \001(\0132\034.etcdserverpb.ResponseHeader\"S\n\024A"
-  "uthenticateResponse\022,\n\006header\030\001 \001(\0132\034.et"
-  "cdserverpb.ResponseHeader\022\r\n\005token\030\002 \001(\t"
-  "\"C\n\023AuthUserAddResponse\022,\n\006header\030\001 \001(\0132"
-  "\034.etcdserverpb.ResponseHeader\"R\n\023AuthUse"
-  "rGetResponse\022,\n\006header\030\001 \001(\0132\034.etcdserve"
-  "rpb.ResponseHeader\022\r\n\005roles\030\002 \003(\t\"F\n\026Aut"
-  "hUserDeleteResponse\022,\n\006header\030\001 \001(\0132\034.et"
-  "cdserverpb.ResponseHeader\"N\n\036AuthUserCha"
-  "ngePasswordResponse\022,\n\006header\030\001 \001(\0132\034.et"
-  "cdserverpb.ResponseHeader\"I\n\031AuthUserGra"
-  "ntRoleResponse\022,\n\006header\030\001 \001(\0132\034.etcdser"
-  "verpb.ResponseHeader\"J\n\032AuthUserRevokeRo"
-  "leResponse\022,\n\006header\030\001 \001(\0132\034.etcdserverp"
-  "b.ResponseHeader\"C\n\023AuthRoleAddResponse\022"
+  "r\022\n\n\002ID\030\002 \001(\003\022\013\n\003TTL\030\003 \001(\003\022\022\n\ngrantedTTL"
+  "\030\004 \001(\003\022\014\n\004keys\030\005 \003(\014\"\024\n\022LeaseLeasesReque"
+  "st\"\031\n\013LeaseStatus\022\n\n\002ID\030\001 \001(\003\"n\n\023LeaseLe"
+  "asesResponse\022,\n\006header\030\001 \001(\0132\034.etcdserve"
+  "rpb.ResponseHeader\022)\n\006leases\030\002 \003(\0132\031.etc"
+  "dserverpb.LeaseStatus\"[\n\006Member\022\n\n\002ID\030\001 "
+  "\001(\004\022\014\n\004name\030\002 \001(\t\022\020\n\010peerURLs\030\003 \003(\t\022\022\n\nc"
+  "lientURLs\030\004 \003(\t\022\021\n\tisLearner\030\005 \001(\010\"7\n\020Me"
+  "mberAddRequest\022\020\n\010peerURLs\030\001 \003(\t\022\021\n\tisLe"
+  "arner\030\002 \001(\010\"\216\001\n\021MemberAddResponse\022,\n\006hea"
+  "der\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\022"
+  "$\n\006member\030\002 \001(\0132\024.etcdserverpb.Member\022%\n"
+  "\007members\030\003 \003(\0132\024.etcdserverpb.Member\"!\n\023"
+  "MemberRemoveRequest\022\n\n\002ID\030\001 \001(\004\"k\n\024Membe"
+  "rRemoveResponse\022,\n\006header\030\001 \001(\0132\034.etcdse"
+  "rverpb.ResponseHeader\022%\n\007members\030\002 \003(\0132\024"
+  ".etcdserverpb.Member\"3\n\023MemberUpdateRequ"
+  "est\022\n\n\002ID\030\001 \001(\004\022\020\n\010peerURLs\030\002 \003(\t\"k\n\024Mem"
+  "berUpdateResponse\022,\n\006header\030\001 \001(\0132\034.etcd"
+  "serverpb.ResponseHeader\022%\n\007members\030\002 \003(\013"
+  "2\024.etcdserverpb.Member\"\023\n\021MemberListRequ"
+  "est\"i\n\022MemberListResponse\022,\n\006header\030\001 \001("
+  "\0132\034.etcdserverpb.ResponseHeader\022%\n\007membe"
+  "rs\030\002 \003(\0132\024.etcdserverpb.Member\"\"\n\024Member"
+  "PromoteRequest\022\n\n\002ID\030\001 \001(\004\"l\n\025MemberProm"
+  "oteResponse\022,\n\006header\030\001 \001(\0132\034.etcdserver"
+  "pb.ResponseHeader\022%\n\007members\030\002 \003(\0132\024.etc"
+  "dserverpb.Member\"\023\n\021DefragmentRequest\"B\n"
+  "\022DefragmentResponse\022,\n\006header\030\001 \001(\0132\034.et"
+  "cdserverpb.ResponseHeader\"%\n\021MoveLeaderR"
+  "equest\022\020\n\010targetID\030\001 \001(\004\"B\n\022MoveLeaderRe"
+  "sponse\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Re"
+  "sponseHeader\"\266\001\n\014AlarmRequest\0226\n\006action\030"
+  "\001 \001(\0162&.etcdserverpb.AlarmRequest.AlarmA"
+  "ction\022\020\n\010memberID\030\002 \001(\004\022&\n\005alarm\030\003 \001(\0162\027"
+  ".etcdserverpb.AlarmType\"4\n\013AlarmAction\022\007"
+  "\n\003GET\020\000\022\014\n\010ACTIVATE\020\001\022\016\n\nDEACTIVATE\020\002\"G\n"
+  "\013AlarmMember\022\020\n\010memberID\030\001 \001(\004\022&\n\005alarm\030"
+  "\002 \001(\0162\027.etcdserverpb.AlarmType\"h\n\rAlarmR"
+  "esponse\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.R"
+  "esponseHeader\022)\n\006alarms\030\002 \003(\0132\031.etcdserv"
+  "erpb.AlarmMember\"\017\n\rStatusRequest\"\346\001\n\016St"
+  "atusResponse\022,\n\006header\030\001 \001(\0132\034.etcdserve"
+  "rpb.ResponseHeader\022\017\n\007version\030\002 \001(\t\022\016\n\006d"
+  "bSize\030\003 \001(\003\022\016\n\006leader\030\004 \001(\004\022\021\n\traftIndex"
+  "\030\005 \001(\004\022\020\n\010raftTerm\030\006 \001(\004\022\030\n\020raftAppliedI"
+  "ndex\030\007 \001(\004\022\016\n\006errors\030\010 \003(\t\022\023\n\013dbSizeInUs"
+  "e\030\t \001(\003\022\021\n\tisLearner\030\n \001(\010\"\023\n\021AuthEnable"
+  "Request\"\024\n\022AuthDisableRequest\"5\n\023Authent"
+  "icateRequest\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002"
+  " \001(\t\"]\n\022AuthUserAddRequest\022\014\n\004name\030\001 \001(\t"
+  "\022\020\n\010password\030\002 \001(\t\022\'\n\007options\030\003 \001(\0132\026.au"
+  "thpb.UserAddOptions\"\"\n\022AuthUserGetReques"
+  "t\022\014\n\004name\030\001 \001(\t\"%\n\025AuthUserDeleteRequest"
+  "\022\014\n\004name\030\001 \001(\t\"\?\n\035AuthUserChangePassword"
+  "Request\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\""
+  "6\n\030AuthUserGrantRoleRequest\022\014\n\004user\030\001 \001("
+  "\t\022\014\n\004role\030\002 \001(\t\"7\n\031AuthUserRevokeRoleReq"
+  "uest\022\014\n\004name\030\001 \001(\t\022\014\n\004role\030\002 \001(\t\"\"\n\022Auth"
+  "RoleAddRequest\022\014\n\004name\030\001 \001(\t\"\"\n\022AuthRole"
+  "GetRequest\022\014\n\004role\030\001 \001(\t\"\025\n\023AuthUserList"
+  "Request\"\025\n\023AuthRoleListRequest\"%\n\025AuthRo"
+  "leDeleteRequest\022\014\n\004role\030\001 \001(\t\"P\n\036AuthRol"
+  "eGrantPermissionRequest\022\014\n\004name\030\001 \001(\t\022 \n"
+  "\004perm\030\002 \001(\0132\022.authpb.Permission\"O\n\037AuthR"
+  "oleRevokePermissionRequest\022\014\n\004role\030\001 \001(\t"
+  "\022\013\n\003key\030\002 \001(\014\022\021\n\trange_end\030\003 \001(\014\"B\n\022Auth"
+  "EnableResponse\022,\n\006header\030\001 \001(\0132\034.etcdser"
+  "verpb.ResponseHeader\"C\n\023AuthDisableRespo"
+  "nse\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Respo"
+  "nseHeader\"S\n\024AuthenticateResponse\022,\n\006hea"
+  "der\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\022"
+  "\r\n\005token\030\002 \001(\t\"C\n\023AuthUserAddResponse\022,\n"
+  "\006header\030\001 \001(\0132\034.etcdserverpb.ResponseHea"
+  "der\"R\n\023AuthUserGetResponse\022,\n\006header\030\001 \001"
+  "(\0132\034.etcdserverpb.ResponseHeader\022\r\n\005role"
+  "s\030\002 \003(\t\"F\n\026AuthUserDeleteResponse\022,\n\006hea"
+  "der\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\""
+  "N\n\036AuthUserChangePasswordResponse\022,\n\006hea"
+  "der\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\""
+  "I\n\031AuthUserGrantRoleResponse\022,\n\006header\030\001"
+  " \001(\0132\034.etcdserverpb.ResponseHeader\"J\n\032Au"
+  "thUserRevokeRoleResponse\022,\n\006header\030\001 \001(\013"
+  "2\034.etcdserverpb.ResponseHeader\"C\n\023AuthRo"
+  "leAddResponse\022,\n\006header\030\001 \001(\0132\034.etcdserv"
+  "erpb.ResponseHeader\"e\n\023AuthRoleGetRespon"
+  "se\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Respon"
+  "seHeader\022 \n\004perm\030\002 \003(\0132\022.authpb.Permissi"
+  "on\"S\n\024AuthRoleListResponse\022,\n\006header\030\001 \001"
+  "(\0132\034.etcdserverpb.ResponseHeader\022\r\n\005role"
+  "s\030\002 \003(\t\"S\n\024AuthUserListResponse\022,\n\006heade"
+  "r\030\001 \001(\0132\034.etcdserverpb.ResponseHeader\022\r\n"
+  "\005users\030\002 \003(\t\"F\n\026AuthRoleDeleteResponse\022,"
+  "\n\006header\030\001 \001(\0132\034.etcdserverpb.ResponseHe"
+  "ader\"O\n\037AuthRoleGrantPermissionResponse\022"
   ",\n\006header\030\001 \001(\0132\034.etcdserverpb.ResponseH"
-  "eader\"e\n\023AuthRoleGetResponse\022,\n\006header\030\001"
-  " \001(\0132\034.etcdserverpb.ResponseHeader\022 \n\004pe"
-  "rm\030\002 \003(\0132\022.authpb.Permission\"S\n\024AuthRole"
-  "ListResponse\022,\n\006header\030\001 \001(\0132\034.etcdserve"
-  "rpb.ResponseHeader\022\r\n\005roles\030\002 \003(\t\"S\n\024Aut"
-  "hUserListResponse\022,\n\006header\030\001 \001(\0132\034.etcd"
-  "serverpb.ResponseHeader\022\r\n\005users\030\002 \003(\t\"F"
-  "\n\026AuthRoleDeleteResponse\022,\n\006header\030\001 \001(\013"
-  "2\034.etcdserverpb.ResponseHeader\"O\n\037AuthRo"
-  "leGrantPermissionResponse\022,\n\006header\030\001 \001("
-  "\0132\034.etcdserverpb.ResponseHeader\"P\n AuthR"
-  "oleRevokePermissionResponse\022,\n\006header\030\001 "
-  "\001(\0132\034.etcdserverpb.ResponseHeader*/\n\tAla"
-  "rmType\022\010\n\004NONE\020\000\022\013\n\007NOSPACE\020\001\022\013\n\007CORRUPT"
-  "\020\0022\352\002\n\002KV\022B\n\005Range\022\032.etcdserverpb.RangeR"
-  "equest\032\033.etcdserverpb.RangeResponse\"\000\022<\n"
-  "\003Put\022\030.etcdserverpb.PutRequest\032\031.etcdser"
-  "verpb.PutResponse\"\000\022T\n\013DeleteRange\022 .etc"
-  "dserverpb.DeleteRangeRequest\032!.etcdserve"
-  "rpb.DeleteRangeResponse\"\000\022<\n\003Txn\022\030.etcds"
-  "erverpb.TxnRequest\032\031.etcdserverpb.TxnRes"
-  "ponse\"\000\022N\n\007Compact\022\037.etcdserverpb.Compac"
-  "tionRequest\032 .etcdserverpb.CompactionRes"
-  "ponse\"\0002O\n\005Watch\022F\n\005Watch\022\032.etcdserverpb"
-  ".WatchRequest\032\033.etcdserverpb.WatchRespon"
-  "se\"\000(\0010\0012\313\003\n\005Lease\022Q\n\nLeaseGrant\022\037.etcds"
-  "erverpb.LeaseGrantRequest\032 .etcdserverpb"
-  ".LeaseGrantResponse\"\000\022T\n\013LeaseRevoke\022 .e"
-  "tcdserverpb.LeaseRevokeRequest\032!.etcdser"
-  "verpb.LeaseRevokeResponse\"\000\022a\n\016LeaseKeep"
-  "Alive\022#.etcdserverpb.LeaseKeepAliveReque"
-  "st\032$.etcdserverpb.LeaseKeepAliveResponse"
-  "\"\000(\0010\001\022`\n\017LeaseTimeToLive\022$.etcdserverpb"
-  ".LeaseTimeToLiveRequest\032%.etcdserverpb.L"
-  "easeTimeToLiveResponse\"\000\022T\n\013LeaseLeases\022"
-  " .etcdserverpb.LeaseLeasesRequest\032!.etcd"
-  "serverpb.LeaseLeasesResponse\"\0002\336\002\n\007Clust"
-  "er\022N\n\tMemberAdd\022\036.etcdserverpb.MemberAdd"
-  "Request\032\037.etcdserverpb.MemberAddResponse"
-  "\"\000\022W\n\014MemberRemove\022!.etcdserverpb.Member"
-  "RemoveRequest\032\".etcdserverpb.MemberRemov"
-  "eResponse\"\000\022W\n\014MemberUpdate\022!.etcdserver"
-  "pb.MemberUpdateRequest\032\".etcdserverpb.Me"
-  "mberUpdateResponse\"\000\022Q\n\nMemberList\022\037.etc"
-  "dserverpb.MemberListRequest\032 .etcdserver"
-  "pb.MemberListResponse\"\0002\225\004\n\013Maintenance\022"
-  "B\n\005Alarm\022\032.etcdserverpb.AlarmRequest\032\033.e"
-  "tcdserverpb.AlarmResponse\"\000\022E\n\006Status\022\033."
-  "etcdserverpb.StatusRequest\032\034.etcdserverp"
-  "b.StatusResponse\"\000\022Q\n\nDefragment\022\037.etcds"
-  "erverpb.DefragmentRequest\032 .etcdserverpb"
-  ".DefragmentResponse\"\000\022\?\n\004Hash\022\031.etcdserv"
-  "erpb.HashRequest\032\032.etcdserverpb.HashResp"
-  "onse\"\000\022E\n\006HashKV\022\033.etcdserverpb.HashKVRe"
-  "quest\032\034.etcdserverpb.HashKVResponse\"\000\022M\n"
-  "\010Snapshot\022\035.etcdserverpb.SnapshotRequest"
-  "\032\036.etcdserverpb.SnapshotResponse\"\0000\001\022Q\n\n"
-  "MoveLeader\022\037.etcdserverpb.MoveLeaderRequ"
-  "est\032 .etcdserverpb.MoveLeaderResponse\"\0002"
-  "\335\013\n\004Auth\022Q\n\nAuthEnable\022\037.etcdserverpb.Au"
-  "thEnableRequest\032 .etcdserverpb.AuthEnabl"
-  "eResponse\"\000\022T\n\013AuthDisable\022 .etcdserverp"
-  "b.AuthDisableRequest\032!.etcdserverpb.Auth"
-  "DisableResponse\"\000\022W\n\014Authenticate\022!.etcd"
-  "serverpb.AuthenticateRequest\032\".etcdserve"
-  "rpb.AuthenticateResponse\"\000\022P\n\007UserAdd\022 ."
-  "etcdserverpb.AuthUserAddRequest\032!.etcdse"
-  "rverpb.AuthUserAddResponse\"\000\022P\n\007UserGet\022"
-  " .etcdserverpb.AuthUserGetRequest\032!.etcd"
-  "serverpb.AuthUserGetResponse\"\000\022S\n\010UserLi"
-  "st\022!.etcdserverpb.AuthUserListRequest\032\"."
-  "etcdserverpb.AuthUserListResponse\"\000\022Y\n\nU"
-  "serDelete\022#.etcdserverpb.AuthUserDeleteR"
-  "equest\032$.etcdserverpb.AuthUserDeleteResp"
-  "onse\"\000\022q\n\022UserChangePassword\022+.etcdserve"
-  "rpb.AuthUserChangePasswordRequest\032,.etcd"
-  "serverpb.AuthUserChangePasswordResponse\""
-  "\000\022b\n\rUserGrantRole\022&.etcdserverpb.AuthUs"
-  "erGrantRoleRequest\032\'.etcdserverpb.AuthUs"
-  "erGrantRoleResponse\"\000\022e\n\016UserRevokeRole\022"
-  "\'.etcdserverpb.AuthUserRevokeRoleRequest"
-  "\032(.etcdserverpb.AuthUserRevokeRoleRespon"
-  "se\"\000\022P\n\007RoleAdd\022 .etcdserverpb.AuthRoleA"
-  "ddRequest\032!.etcdserverpb.AuthRoleAddResp"
-  "onse\"\000\022P\n\007RoleGet\022 .etcdserverpb.AuthRol"
-  "eGetRequest\032!.etcdserverpb.AuthRoleGetRe"
-  "sponse\"\000\022S\n\010RoleList\022!.etcdserverpb.Auth"
-  "RoleListRequest\032\".etcdserverpb.AuthRoleL"
-  "istResponse\"\000\022Y\n\nRoleDelete\022#.etcdserver"
-  "pb.AuthRoleDeleteRequest\032$.etcdserverpb."
-  "AuthRoleDeleteResponse\"\000\022t\n\023RoleGrantPer"
-  "mission\022,.etcdserverpb.AuthRoleGrantPerm"
-  "issionRequest\032-.etcdserverpb.AuthRoleGra"
-  "ntPermissionResponse\"\000\022w\n\024RoleRevokePerm"
-  "ission\022-.etcdserverpb.AuthRoleRevokePerm"
-  "issionRequest\032..etcdserverpb.AuthRoleRev"
-  "okePermissionResponse\"\000b\006proto3"
+  "eader\"P\n AuthRoleRevokePermissionRespons"
+  "e\022,\n\006header\030\001 \001(\0132\034.etcdserverpb.Respons"
+  "eHeader*/\n\tAlarmType\022\010\n\004NONE\020\000\022\013\n\007NOSPAC"
+  "E\020\001\022\013\n\007CORRUPT\020\0022\352\002\n\002KV\022B\n\005Range\022\032.etcds"
+  "erverpb.RangeRequest\032\033.etcdserverpb.Rang"
+  "eResponse\"\000\022<\n\003Put\022\030.etcdserverpb.PutReq"
+  "uest\032\031.etcdserverpb.PutResponse\"\000\022T\n\013Del"
+  "eteRange\022 .etcdserverpb.DeleteRangeReque"
+  "st\032!.etcdserverpb.DeleteRangeResponse\"\000\022"
+  "<\n\003Txn\022\030.etcdserverpb.TxnRequest\032\031.etcds"
+  "erverpb.TxnResponse\"\000\022N\n\007Compact\022\037.etcds"
+  "erverpb.CompactionRequest\032 .etcdserverpb"
+  ".CompactionResponse\"\0002O\n\005Watch\022F\n\005Watch\022"
+  "\032.etcdserverpb.WatchRequest\032\033.etcdserver"
+  "pb.WatchResponse\"\000(\0010\0012\313\003\n\005Lease\022Q\n\nLeas"
+  "eGrant\022\037.etcdserverpb.LeaseGrantRequest\032"
+  " .etcdserverpb.LeaseGrantResponse\"\000\022T\n\013L"
+  "easeRevoke\022 .etcdserverpb.LeaseRevokeReq"
+  "uest\032!.etcdserverpb.LeaseRevokeResponse\""
+  "\000\022a\n\016LeaseKeepAlive\022#.etcdserverpb.Lease"
+  "KeepAliveRequest\032$.etcdserverpb.LeaseKee"
+  "pAliveResponse\"\000(\0010\001\022`\n\017LeaseTimeToLive\022"
+  "$.etcdserverpb.LeaseTimeToLiveRequest\032%."
+  "etcdserverpb.LeaseTimeToLiveResponse\"\000\022T"
+  "\n\013LeaseLeases\022 .etcdserverpb.LeaseLeases"
+  "Request\032!.etcdserverpb.LeaseLeasesRespon"
+  "se\"\0002\272\003\n\007Cluster\022N\n\tMemberAdd\022\036.etcdserv"
+  "erpb.MemberAddRequest\032\037.etcdserverpb.Mem"
+  "berAddResponse\"\000\022W\n\014MemberRemove\022!.etcds"
+  "erverpb.MemberRemoveRequest\032\".etcdserver"
+  "pb.MemberRemoveResponse\"\000\022W\n\014MemberUpdat"
+  "e\022!.etcdserverpb.MemberUpdateRequest\032\".e"
+  "tcdserverpb.MemberUpdateResponse\"\000\022Q\n\nMe"
+  "mberList\022\037.etcdserverpb.MemberListReques"
+  "t\032 .etcdserverpb.MemberListResponse\"\000\022Z\n"
+  "\rMemberPromote\022\".etcdserverpb.MemberProm"
+  "oteRequest\032#.etcdserverpb.MemberPromoteR"
+  "esponse\"\0002\225\004\n\013Maintenance\022B\n\005Alarm\022\032.etc"
+  "dserverpb.AlarmRequest\032\033.etcdserverpb.Al"
+  "armResponse\"\000\022E\n\006Status\022\033.etcdserverpb.S"
+  "tatusRequest\032\034.etcdserverpb.StatusRespon"
+  "se\"\000\022Q\n\nDefragment\022\037.etcdserverpb.Defrag"
+  "mentRequest\032 .etcdserverpb.DefragmentRes"
+  "ponse\"\000\022\?\n\004Hash\022\031.etcdserverpb.HashReque"
+  "st\032\032.etcdserverpb.HashResponse\"\000\022E\n\006Hash"
+  "KV\022\033.etcdserverpb.HashKVRequest\032\034.etcdse"
+  "rverpb.HashKVResponse\"\000\022M\n\010Snapshot\022\035.et"
+  "cdserverpb.SnapshotRequest\032\036.etcdserverp"
+  "b.SnapshotResponse\"\0000\001\022Q\n\nMoveLeader\022\037.e"
+  "tcdserverpb.MoveLeaderRequest\032 .etcdserv"
+  "erpb.MoveLeaderResponse\"\0002\335\013\n\004Auth\022Q\n\nAu"
+  "thEnable\022\037.etcdserverpb.AuthEnableReques"
+  "t\032 .etcdserverpb.AuthEnableResponse\"\000\022T\n"
+  "\013AuthDisable\022 .etcdserverpb.AuthDisableR"
+  "equest\032!.etcdserverpb.AuthDisableRespons"
+  "e\"\000\022W\n\014Authenticate\022!.etcdserverpb.Authe"
+  "nticateRequest\032\".etcdserverpb.Authentica"
+  "teResponse\"\000\022P\n\007UserAdd\022 .etcdserverpb.A"
+  "uthUserAddRequest\032!.etcdserverpb.AuthUse"
+  "rAddResponse\"\000\022P\n\007UserGet\022 .etcdserverpb"
+  ".AuthUserGetRequest\032!.etcdserverpb.AuthU"
+  "serGetResponse\"\000\022S\n\010UserList\022!.etcdserve"
+  "rpb.AuthUserListRequest\032\".etcdserverpb.A"
+  "uthUserListResponse\"\000\022Y\n\nUserDelete\022#.et"
+  "cdserverpb.AuthUserDeleteRequest\032$.etcds"
+  "erverpb.AuthUserDeleteResponse\"\000\022q\n\022User"
+  "ChangePassword\022+.etcdserverpb.AuthUserCh"
+  "angePasswordRequest\032,.etcdserverpb.AuthU"
+  "serChangePasswordResponse\"\000\022b\n\rUserGrant"
+  "Role\022&.etcdserverpb.AuthUserGrantRoleReq"
+  "uest\032\'.etcdserverpb.AuthUserGrantRoleRes"
+  "ponse\"\000\022e\n\016UserRevokeRole\022\'.etcdserverpb"
+  ".AuthUserRevokeRoleRequest\032(.etcdserverp"
+  "b.AuthUserRevokeRoleResponse\"\000\022P\n\007RoleAd"
+  "d\022 .etcdserverpb.AuthRoleAddRequest\032!.et"
+  "cdserverpb.AuthRoleAddResponse\"\000\022P\n\007Role"
+  "Get\022 .etcdserverpb.AuthRoleGetRequest\032!."
+  "etcdserverpb.AuthRoleGetResponse\"\000\022S\n\010Ro"
+  "leList\022!.etcdserverpb.AuthRoleListReques"
+  "t\032\".etcdserverpb.AuthRoleListResponse\"\000\022"
+  "Y\n\nRoleDelete\022#.etcdserverpb.AuthRoleDel"
+  "eteRequest\032$.etcdserverpb.AuthRoleDelete"
+  "Response\"\000\022t\n\023RoleGrantPermission\022,.etcd"
+  "serverpb.AuthRoleGrantPermissionRequest\032"
+  "-.etcdserverpb.AuthRoleGrantPermissionRe"
+  "sponse\"\000\022w\n\024RoleRevokePermission\022-.etcds"
+  "erverpb.AuthRoleRevokePermissionRequest\032"
+  "..etcdserverpb.AuthRoleRevokePermissionR"
+  "esponse\"\000b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_rpc_2eproto_deps[2] = {
   &::descriptor_table_auth_2eproto,
   &::descriptor_table_kv_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_rpc_2eproto_sccs[83] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_rpc_2eproto_sccs[89] = {
   &scc_info_AlarmMember_rpc_2eproto.base,
   &scc_info_AlarmRequest_rpc_2eproto.base,
   &scc_info_AlarmResponse_rpc_2eproto.base,
@@ -2741,6 +2938,9 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_rpc
   &scc_info_HashKVResponse_rpc_2eproto.base,
   &scc_info_HashRequest_rpc_2eproto.base,
   &scc_info_HashResponse_rpc_2eproto.base,
+  &scc_info_LeaseCheckpoint_rpc_2eproto.base,
+  &scc_info_LeaseCheckpointRequest_rpc_2eproto.base,
+  &scc_info_LeaseCheckpointResponse_rpc_2eproto.base,
   &scc_info_LeaseGrantRequest_rpc_2eproto.base,
   &scc_info_LeaseGrantResponse_rpc_2eproto.base,
   &scc_info_LeaseKeepAliveRequest_rpc_2eproto.base,
@@ -2757,6 +2957,8 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_rpc
   &scc_info_MemberAddResponse_rpc_2eproto.base,
   &scc_info_MemberListRequest_rpc_2eproto.base,
   &scc_info_MemberListResponse_rpc_2eproto.base,
+  &scc_info_MemberPromoteRequest_rpc_2eproto.base,
+  &scc_info_MemberPromoteResponse_rpc_2eproto.base,
   &scc_info_MemberRemoveRequest_rpc_2eproto.base,
   &scc_info_MemberRemoveResponse_rpc_2eproto.base,
   &scc_info_MemberUpdateRequest_rpc_2eproto.base,
@@ -2776,16 +2978,17 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_rpc
   &scc_info_StatusResponse_rpc_2eproto.base,
   &scc_info_WatchCancelRequest_rpc_2eproto.base,
   &scc_info_WatchCreateRequest_rpc_2eproto.base,
+  &scc_info_WatchProgressRequest_rpc_2eproto.base,
   &scc_info_WatchRequest_rpc_2eproto.base,
   &scc_info_WatchResponse_rpc_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_rpc_2eproto_once;
 static bool descriptor_table_rpc_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_rpc_2eproto = {
-  &descriptor_table_rpc_2eproto_initialized, descriptor_table_protodef_rpc_2eproto, "rpc.proto", 10911,
-  &descriptor_table_rpc_2eproto_once, descriptor_table_rpc_2eproto_sccs, descriptor_table_rpc_2eproto_deps, 83, 2,
+  &descriptor_table_rpc_2eproto_initialized, descriptor_table_protodef_rpc_2eproto, "rpc.proto", 11657,
+  &descriptor_table_rpc_2eproto_once, descriptor_table_rpc_2eproto_sccs, descriptor_table_rpc_2eproto_deps, 89, 2,
   schemas, file_default_instances, TableStruct_rpc_2eproto::offsets,
-  file_level_metadata_rpc_2eproto, 85, file_level_enum_descriptors_rpc_2eproto, file_level_service_descriptors_rpc_2eproto,
+  file_level_metadata_rpc_2eproto, 91, file_level_enum_descriptors_rpc_2eproto, file_level_service_descriptors_rpc_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -8612,11 +8815,14 @@ void WatchRequest::InitAsDefaultInstance() {
       ::etcdserverpb::WatchCreateRequest::internal_default_instance());
   ::etcdserverpb::_WatchRequest_default_instance_.cancel_request_ = const_cast< ::etcdserverpb::WatchCancelRequest*>(
       ::etcdserverpb::WatchCancelRequest::internal_default_instance());
+  ::etcdserverpb::_WatchRequest_default_instance_.progress_request_ = const_cast< ::etcdserverpb::WatchProgressRequest*>(
+      ::etcdserverpb::WatchProgressRequest::internal_default_instance());
 }
 class WatchRequest::_Internal {
  public:
   static const ::etcdserverpb::WatchCreateRequest& create_request(const WatchRequest* msg);
   static const ::etcdserverpb::WatchCancelRequest& cancel_request(const WatchRequest* msg);
+  static const ::etcdserverpb::WatchProgressRequest& progress_request(const WatchRequest* msg);
 };
 
 const ::etcdserverpb::WatchCreateRequest&
@@ -8626,6 +8832,10 @@ WatchRequest::_Internal::create_request(const WatchRequest* msg) {
 const ::etcdserverpb::WatchCancelRequest&
 WatchRequest::_Internal::cancel_request(const WatchRequest* msg) {
   return *msg->request_union_.cancel_request_;
+}
+const ::etcdserverpb::WatchProgressRequest&
+WatchRequest::_Internal::progress_request(const WatchRequest* msg) {
+  return *msg->request_union_.progress_request_;
 }
 void WatchRequest::set_allocated_create_request(::etcdserverpb::WatchCreateRequest* create_request) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
@@ -8655,6 +8865,20 @@ void WatchRequest::set_allocated_cancel_request(::etcdserverpb::WatchCancelReque
   }
   // @@protoc_insertion_point(field_set_allocated:etcdserverpb.WatchRequest.cancel_request)
 }
+void WatchRequest::set_allocated_progress_request(::etcdserverpb::WatchProgressRequest* progress_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  clear_request_union();
+  if (progress_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      progress_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, progress_request, submessage_arena);
+    }
+    set_has_progress_request();
+    request_union_.progress_request_ = progress_request;
+  }
+  // @@protoc_insertion_point(field_set_allocated:etcdserverpb.WatchRequest.progress_request)
+}
 WatchRequest::WatchRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -8672,6 +8896,10 @@ WatchRequest::WatchRequest(const WatchRequest& from)
     }
     case kCancelRequest: {
       _internal_mutable_cancel_request()->::etcdserverpb::WatchCancelRequest::MergeFrom(from._internal_cancel_request());
+      break;
+    }
+    case kProgressRequest: {
+      _internal_mutable_progress_request()->::etcdserverpb::WatchProgressRequest::MergeFrom(from._internal_progress_request());
       break;
     }
     case REQUEST_UNION_NOT_SET: {
@@ -8717,6 +8945,10 @@ void WatchRequest::clear_request_union() {
       delete request_union_.cancel_request_;
       break;
     }
+    case kProgressRequest: {
+      delete request_union_.progress_request_;
+      break;
+    }
     case REQUEST_UNION_NOT_SET: {
       break;
     }
@@ -8753,6 +8985,13 @@ const char* WatchRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_cancel_request(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .etcdserverpb.WatchProgressRequest progress_request = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_progress_request(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -8798,6 +9037,14 @@ failure:
         2, _Internal::cancel_request(this), target, stream);
   }
 
+  // .etcdserverpb.WatchProgressRequest progress_request = 3;
+  if (_internal_has_progress_request()) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        3, _Internal::progress_request(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -8827,6 +9074,13 @@ size_t WatchRequest::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *request_union_.cancel_request_);
+      break;
+    }
+    // .etcdserverpb.WatchProgressRequest progress_request = 3;
+    case kProgressRequest: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *request_union_.progress_request_);
       break;
     }
     case REQUEST_UNION_NOT_SET: {
@@ -8871,6 +9125,10 @@ void WatchRequest::MergeFrom(const WatchRequest& from) {
     }
     case kCancelRequest: {
       _internal_mutable_cancel_request()->::etcdserverpb::WatchCancelRequest::MergeFrom(from._internal_cancel_request());
+      break;
+    }
+    case kProgressRequest: {
+      _internal_mutable_progress_request()->::etcdserverpb::WatchProgressRequest::MergeFrom(from._internal_progress_request());
       break;
     }
     case REQUEST_UNION_NOT_SET: {
@@ -8936,8 +9194,8 @@ WatchCreateRequest::WatchCreateRequest(const WatchCreateRequest& from)
     range_end_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.range_end_);
   }
   ::memcpy(&start_revision_, &from.start_revision_,
-    static_cast<size_t>(reinterpret_cast<char*>(&prev_kv_) -
-    reinterpret_cast<char*>(&start_revision_)) + sizeof(prev_kv_));
+    static_cast<size_t>(reinterpret_cast<char*>(&fragment_) -
+    reinterpret_cast<char*>(&start_revision_)) + sizeof(fragment_));
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.WatchCreateRequest)
 }
 
@@ -8946,8 +9204,8 @@ void WatchCreateRequest::SharedCtor() {
   key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   range_end_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&start_revision_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&prev_kv_) -
-      reinterpret_cast<char*>(&start_revision_)) + sizeof(prev_kv_));
+      reinterpret_cast<char*>(&fragment_) -
+      reinterpret_cast<char*>(&start_revision_)) + sizeof(fragment_));
 }
 
 WatchCreateRequest::~WatchCreateRequest() {
@@ -8979,8 +9237,8 @@ void WatchCreateRequest::Clear() {
   key_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   range_end_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&start_revision_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&prev_kv_) -
-      reinterpret_cast<char*>(&start_revision_)) + sizeof(prev_kv_));
+      reinterpret_cast<char*>(&fragment_) -
+      reinterpret_cast<char*>(&start_revision_)) + sizeof(fragment_));
   _internal_metadata_.Clear();
 }
 
@@ -9034,6 +9292,20 @@ const char* WatchCreateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
           prev_kv_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int64 watch_id = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          watch_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool fragment = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          fragment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -9102,6 +9374,18 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_prev_kv(), target);
   }
 
+  // int64 watch_id = 7;
+  if (this->watch_id() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(7, this->_internal_watch_id(), target);
+  }
+
+  // bool fragment = 8;
+  if (this->fragment() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_fragment(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -9157,6 +9441,13 @@ size_t WatchCreateRequest::ByteSizeLong() const {
         this->_internal_start_revision());
   }
 
+  // int64 watch_id = 7;
+  if (this->watch_id() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_watch_id());
+  }
+
   // bool progress_notify = 4;
   if (this->progress_notify() != 0) {
     total_size += 1 + 1;
@@ -9164,6 +9455,11 @@ size_t WatchCreateRequest::ByteSizeLong() const {
 
   // bool prev_kv = 6;
   if (this->prev_kv() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool fragment = 8;
+  if (this->fragment() != 0) {
     total_size += 1 + 1;
   }
 
@@ -9210,11 +9506,17 @@ void WatchCreateRequest::MergeFrom(const WatchCreateRequest& from) {
   if (from.start_revision() != 0) {
     _internal_set_start_revision(from._internal_start_revision());
   }
+  if (from.watch_id() != 0) {
+    _internal_set_watch_id(from._internal_watch_id());
+  }
   if (from.progress_notify() != 0) {
     _internal_set_progress_notify(from._internal_progress_notify());
   }
   if (from.prev_kv() != 0) {
     _internal_set_prev_kv(from._internal_prev_kv());
+  }
+  if (from.fragment() != 0) {
+    _internal_set_fragment(from._internal_fragment());
   }
 }
 
@@ -9245,8 +9547,10 @@ void WatchCreateRequest::InternalSwap(WatchCreateRequest* other) {
   range_end_.Swap(&other->range_end_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(start_revision_, other->start_revision_);
+  swap(watch_id_, other->watch_id_);
   swap(progress_notify_, other->progress_notify_);
   swap(prev_kv_, other->prev_kv_);
+  swap(fragment_, other->fragment_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WatchCreateRequest::GetMetadata() const {
@@ -9442,6 +9746,164 @@ void WatchCancelRequest::InternalSwap(WatchCancelRequest* other) {
 
 // ===================================================================
 
+void WatchProgressRequest::InitAsDefaultInstance() {
+}
+class WatchProgressRequest::_Internal {
+ public:
+};
+
+WatchProgressRequest::WatchProgressRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.WatchProgressRequest)
+}
+WatchProgressRequest::WatchProgressRequest(const WatchProgressRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.WatchProgressRequest)
+}
+
+void WatchProgressRequest::SharedCtor() {
+}
+
+WatchProgressRequest::~WatchProgressRequest() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.WatchProgressRequest)
+  SharedDtor();
+}
+
+void WatchProgressRequest::SharedDtor() {
+}
+
+void WatchProgressRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WatchProgressRequest& WatchProgressRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WatchProgressRequest_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WatchProgressRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.WatchProgressRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear();
+}
+
+const char* WatchProgressRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      default: {
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WatchProgressRequest::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.WatchProgressRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.WatchProgressRequest)
+  return target;
+}
+
+size_t WatchProgressRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.WatchProgressRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WatchProgressRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.WatchProgressRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WatchProgressRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WatchProgressRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.WatchProgressRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.WatchProgressRequest)
+    MergeFrom(*source);
+  }
+}
+
+void WatchProgressRequest::MergeFrom(const WatchProgressRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.WatchProgressRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void WatchProgressRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.WatchProgressRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WatchProgressRequest::CopyFrom(const WatchProgressRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.WatchProgressRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WatchProgressRequest::IsInitialized() const {
+  return true;
+}
+
+void WatchProgressRequest::InternalSwap(WatchProgressRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WatchProgressRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void WatchResponse::InitAsDefaultInstance() {
   ::etcdserverpb::_WatchResponse_default_instance_._instance.get_mutable()->header_ = const_cast< ::etcdserverpb::ResponseHeader*>(
       ::etcdserverpb::ResponseHeader::internal_default_instance());
@@ -9478,8 +9940,8 @@ WatchResponse::WatchResponse(const WatchResponse& from)
     header_ = nullptr;
   }
   ::memcpy(&watch_id_, &from.watch_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&canceled_) -
-    reinterpret_cast<char*>(&watch_id_)) + sizeof(canceled_));
+    static_cast<size_t>(reinterpret_cast<char*>(&fragment_) -
+    reinterpret_cast<char*>(&watch_id_)) + sizeof(fragment_));
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.WatchResponse)
 }
 
@@ -9487,8 +9949,8 @@ void WatchResponse::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WatchResponse_rpc_2eproto.base);
   cancel_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&canceled_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(canceled_));
+      reinterpret_cast<char*>(&fragment_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(fragment_));
 }
 
 WatchResponse::~WatchResponse() {
@@ -9523,8 +9985,8 @@ void WatchResponse::Clear() {
   }
   header_ = nullptr;
   ::memset(&watch_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&canceled_) -
-      reinterpret_cast<char*>(&watch_id_)) + sizeof(canceled_));
+      reinterpret_cast<char*>(&fragment_) -
+      reinterpret_cast<char*>(&watch_id_)) + sizeof(fragment_));
   _internal_metadata_.Clear();
 }
 
@@ -9574,6 +10036,13 @@ const char* WatchResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_cancel_reason(), ptr, ctx, "etcdserverpb.WatchResponse.cancel_reason");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool fragment = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          fragment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -9657,6 +10126,12 @@ failure:
         6, this->_internal_cancel_reason(), target);
   }
 
+  // bool fragment = 7;
+  if (this->fragment() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_fragment(), target);
+  }
+
   // repeated .mvccpb.Event events = 11;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_events_size()); i < n; i++) {
@@ -9726,6 +10201,11 @@ size_t WatchResponse::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool fragment = 7;
+  if (this->fragment() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -9777,6 +10257,9 @@ void WatchResponse::MergeFrom(const WatchResponse& from) {
   if (from.canceled() != 0) {
     _internal_set_canceled(from._internal_canceled());
   }
+  if (from.fragment() != 0) {
+    _internal_set_fragment(from._internal_fragment());
+  }
 }
 
 void WatchResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -9808,6 +10291,7 @@ void WatchResponse::InternalSwap(WatchResponse* other) {
   swap(compact_revision_, other->compact_revision_);
   swap(created_, other->created_);
   swap(canceled_, other->canceled_);
+  swap(fragment_, other->fragment_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WatchResponse::GetMetadata() const {
@@ -10714,6 +11198,617 @@ void LeaseRevokeResponse::InternalSwap(LeaseRevokeResponse* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LeaseRevokeResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void LeaseCheckpoint::InitAsDefaultInstance() {
+}
+class LeaseCheckpoint::_Internal {
+ public:
+};
+
+LeaseCheckpoint::LeaseCheckpoint()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.LeaseCheckpoint)
+}
+LeaseCheckpoint::LeaseCheckpoint(const LeaseCheckpoint& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&id_, &from.id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&remaining_ttl_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(remaining_ttl_));
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.LeaseCheckpoint)
+}
+
+void LeaseCheckpoint::SharedCtor() {
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&remaining_ttl_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(remaining_ttl_));
+}
+
+LeaseCheckpoint::~LeaseCheckpoint() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.LeaseCheckpoint)
+  SharedDtor();
+}
+
+void LeaseCheckpoint::SharedDtor() {
+}
+
+void LeaseCheckpoint::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const LeaseCheckpoint& LeaseCheckpoint::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LeaseCheckpoint_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void LeaseCheckpoint::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.LeaseCheckpoint)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&remaining_ttl_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(remaining_ttl_));
+  _internal_metadata_.Clear();
+}
+
+const char* LeaseCheckpoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int64 ID = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int64 remaining_TTL = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          remaining_ttl_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* LeaseCheckpoint::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.LeaseCheckpoint)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 ID = 1;
+  if (this->id() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
+  }
+
+  // int64 remaining_TTL = 2;
+  if (this->remaining_ttl() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_remaining_ttl(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.LeaseCheckpoint)
+  return target;
+}
+
+size_t LeaseCheckpoint::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.LeaseCheckpoint)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 ID = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_id());
+  }
+
+  // int64 remaining_TTL = 2;
+  if (this->remaining_ttl() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_remaining_ttl());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LeaseCheckpoint::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.LeaseCheckpoint)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LeaseCheckpoint* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LeaseCheckpoint>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.LeaseCheckpoint)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.LeaseCheckpoint)
+    MergeFrom(*source);
+  }
+}
+
+void LeaseCheckpoint::MergeFrom(const LeaseCheckpoint& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.LeaseCheckpoint)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.id() != 0) {
+    _internal_set_id(from._internal_id());
+  }
+  if (from.remaining_ttl() != 0) {
+    _internal_set_remaining_ttl(from._internal_remaining_ttl());
+  }
+}
+
+void LeaseCheckpoint::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.LeaseCheckpoint)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void LeaseCheckpoint::CopyFrom(const LeaseCheckpoint& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.LeaseCheckpoint)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LeaseCheckpoint::IsInitialized() const {
+  return true;
+}
+
+void LeaseCheckpoint::InternalSwap(LeaseCheckpoint* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(id_, other->id_);
+  swap(remaining_ttl_, other->remaining_ttl_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LeaseCheckpoint::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void LeaseCheckpointRequest::InitAsDefaultInstance() {
+}
+class LeaseCheckpointRequest::_Internal {
+ public:
+};
+
+LeaseCheckpointRequest::LeaseCheckpointRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.LeaseCheckpointRequest)
+}
+LeaseCheckpointRequest::LeaseCheckpointRequest(const LeaseCheckpointRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      checkpoints_(from.checkpoints_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.LeaseCheckpointRequest)
+}
+
+void LeaseCheckpointRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_LeaseCheckpointRequest_rpc_2eproto.base);
+}
+
+LeaseCheckpointRequest::~LeaseCheckpointRequest() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.LeaseCheckpointRequest)
+  SharedDtor();
+}
+
+void LeaseCheckpointRequest::SharedDtor() {
+}
+
+void LeaseCheckpointRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const LeaseCheckpointRequest& LeaseCheckpointRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LeaseCheckpointRequest_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void LeaseCheckpointRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.LeaseCheckpointRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  checkpoints_.Clear();
+  _internal_metadata_.Clear();
+}
+
+const char* LeaseCheckpointRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // repeated .etcdserverpb.LeaseCheckpoint checkpoints = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_checkpoints(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* LeaseCheckpointRequest::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.LeaseCheckpointRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .etcdserverpb.LeaseCheckpoint checkpoints = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_checkpoints_size()); i < n; i++) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(1, this->_internal_checkpoints(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.LeaseCheckpointRequest)
+  return target;
+}
+
+size_t LeaseCheckpointRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.LeaseCheckpointRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .etcdserverpb.LeaseCheckpoint checkpoints = 1;
+  total_size += 1UL * this->_internal_checkpoints_size();
+  for (const auto& msg : this->checkpoints_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LeaseCheckpointRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.LeaseCheckpointRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LeaseCheckpointRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LeaseCheckpointRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.LeaseCheckpointRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.LeaseCheckpointRequest)
+    MergeFrom(*source);
+  }
+}
+
+void LeaseCheckpointRequest::MergeFrom(const LeaseCheckpointRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.LeaseCheckpointRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  checkpoints_.MergeFrom(from.checkpoints_);
+}
+
+void LeaseCheckpointRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.LeaseCheckpointRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void LeaseCheckpointRequest::CopyFrom(const LeaseCheckpointRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.LeaseCheckpointRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LeaseCheckpointRequest::IsInitialized() const {
+  return true;
+}
+
+void LeaseCheckpointRequest::InternalSwap(LeaseCheckpointRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  checkpoints_.InternalSwap(&other->checkpoints_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LeaseCheckpointRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void LeaseCheckpointResponse::InitAsDefaultInstance() {
+  ::etcdserverpb::_LeaseCheckpointResponse_default_instance_._instance.get_mutable()->header_ = const_cast< ::etcdserverpb::ResponseHeader*>(
+      ::etcdserverpb::ResponseHeader::internal_default_instance());
+}
+class LeaseCheckpointResponse::_Internal {
+ public:
+  static const ::etcdserverpb::ResponseHeader& header(const LeaseCheckpointResponse* msg);
+};
+
+const ::etcdserverpb::ResponseHeader&
+LeaseCheckpointResponse::_Internal::header(const LeaseCheckpointResponse* msg) {
+  return *msg->header_;
+}
+LeaseCheckpointResponse::LeaseCheckpointResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.LeaseCheckpointResponse)
+}
+LeaseCheckpointResponse::LeaseCheckpointResponse(const LeaseCheckpointResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_header()) {
+    header_ = new ::etcdserverpb::ResponseHeader(*from.header_);
+  } else {
+    header_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.LeaseCheckpointResponse)
+}
+
+void LeaseCheckpointResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_LeaseCheckpointResponse_rpc_2eproto.base);
+  header_ = nullptr;
+}
+
+LeaseCheckpointResponse::~LeaseCheckpointResponse() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.LeaseCheckpointResponse)
+  SharedDtor();
+}
+
+void LeaseCheckpointResponse::SharedDtor() {
+  if (this != internal_default_instance()) delete header_;
+}
+
+void LeaseCheckpointResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const LeaseCheckpointResponse& LeaseCheckpointResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LeaseCheckpointResponse_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void LeaseCheckpointResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.LeaseCheckpointResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && header_ != nullptr) {
+    delete header_;
+  }
+  header_ = nullptr;
+  _internal_metadata_.Clear();
+}
+
+const char* LeaseCheckpointResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .etcdserverpb.ResponseHeader header = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_header(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* LeaseCheckpointResponse::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.LeaseCheckpointResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .etcdserverpb.ResponseHeader header = 1;
+  if (this->has_header()) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, _Internal::header(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.LeaseCheckpointResponse)
+  return target;
+}
+
+size_t LeaseCheckpointResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.LeaseCheckpointResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .etcdserverpb.ResponseHeader header = 1;
+  if (this->has_header()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *header_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LeaseCheckpointResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.LeaseCheckpointResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LeaseCheckpointResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LeaseCheckpointResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.LeaseCheckpointResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.LeaseCheckpointResponse)
+    MergeFrom(*source);
+  }
+}
+
+void LeaseCheckpointResponse::MergeFrom(const LeaseCheckpointResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.LeaseCheckpointResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_header()) {
+    _internal_mutable_header()->::etcdserverpb::ResponseHeader::MergeFrom(from._internal_header());
+  }
+}
+
+void LeaseCheckpointResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.LeaseCheckpointResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void LeaseCheckpointResponse::CopyFrom(const LeaseCheckpointResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.LeaseCheckpointResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LeaseCheckpointResponse::IsInitialized() const {
+  return true;
+}
+
+void LeaseCheckpointResponse::InternalSwap(LeaseCheckpointResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(header_, other->header_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LeaseCheckpointResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -12294,14 +13389,18 @@ Member::Member(const Member& from)
   if (!from._internal_name().empty()) {
     name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
-  id_ = from.id_;
+  ::memcpy(&id_, &from.id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&islearner_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(islearner_));
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.Member)
 }
 
 void Member::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Member_rpc_2eproto.base);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  id_ = PROTOBUF_ULONGLONG(0);
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&islearner_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(islearner_));
 }
 
 Member::~Member() {
@@ -12331,7 +13430,9 @@ void Member::Clear() {
   peerurls_.Clear();
   clienturls_.Clear();
   name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  id_ = PROTOBUF_ULONGLONG(0);
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&islearner_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(islearner_));
   _internal_metadata_.Clear();
 }
 
@@ -12378,6 +13479,13 @@ const char* Member::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // bool isLearner = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          islearner_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -12442,6 +13550,12 @@ failure:
     target = stream->WriteString(4, s, target);
   }
 
+  // bool isLearner = 5;
+  if (this->islearner() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_islearner(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -12488,6 +13602,11 @@ size_t Member::ByteSizeLong() const {
         this->_internal_id());
   }
 
+  // bool isLearner = 5;
+  if (this->islearner() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -12528,6 +13647,9 @@ void Member::MergeFrom(const Member& from) {
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
   }
+  if (from.islearner() != 0) {
+    _internal_set_islearner(from._internal_islearner());
+  }
 }
 
 void Member::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -12556,6 +13678,7 @@ void Member::InternalSwap(Member* other) {
   name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(id_, other->id_);
+  swap(islearner_, other->islearner_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Member::GetMetadata() const {
@@ -12581,11 +13704,13 @@ MemberAddRequest::MemberAddRequest(const MemberAddRequest& from)
       _internal_metadata_(nullptr),
       peerurls_(from.peerurls_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  islearner_ = from.islearner_;
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.MemberAddRequest)
 }
 
 void MemberAddRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MemberAddRequest_rpc_2eproto.base);
+  islearner_ = false;
 }
 
 MemberAddRequest::~MemberAddRequest() {
@@ -12612,6 +13737,7 @@ void MemberAddRequest::Clear() {
   (void) cached_has_bits;
 
   peerurls_.Clear();
+  islearner_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -12632,6 +13758,13 @@ const char* MemberAddRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // bool isLearner = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          islearner_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -12670,6 +13803,12 @@ failure:
     target = stream->WriteString(1, s, target);
   }
 
+  // bool isLearner = 2;
+  if (this->islearner() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_islearner(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -12692,6 +13831,11 @@ size_t MemberAddRequest::ByteSizeLong() const {
   for (int i = 0, n = peerurls_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       peerurls_.Get(i));
+  }
+
+  // bool isLearner = 2;
+  if (this->islearner() != 0) {
+    total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12726,6 +13870,9 @@ void MemberAddRequest::MergeFrom(const MemberAddRequest& from) {
   (void) cached_has_bits;
 
   peerurls_.MergeFrom(from.peerurls_);
+  if (from.islearner() != 0) {
+    _internal_set_islearner(from._internal_islearner());
+  }
 }
 
 void MemberAddRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -12750,6 +13897,7 @@ void MemberAddRequest::InternalSwap(MemberAddRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   peerurls_.InternalSwap(&other->peerurls_);
+  swap(islearner_, other->islearner_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MemberAddRequest::GetMetadata() const {
@@ -14303,6 +15451,427 @@ void MemberListResponse::InternalSwap(MemberListResponse* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MemberListResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void MemberPromoteRequest::InitAsDefaultInstance() {
+}
+class MemberPromoteRequest::_Internal {
+ public:
+};
+
+MemberPromoteRequest::MemberPromoteRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.MemberPromoteRequest)
+}
+MemberPromoteRequest::MemberPromoteRequest(const MemberPromoteRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  id_ = from.id_;
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.MemberPromoteRequest)
+}
+
+void MemberPromoteRequest::SharedCtor() {
+  id_ = PROTOBUF_ULONGLONG(0);
+}
+
+MemberPromoteRequest::~MemberPromoteRequest() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.MemberPromoteRequest)
+  SharedDtor();
+}
+
+void MemberPromoteRequest::SharedDtor() {
+}
+
+void MemberPromoteRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const MemberPromoteRequest& MemberPromoteRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_MemberPromoteRequest_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void MemberPromoteRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.MemberPromoteRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  id_ = PROTOBUF_ULONGLONG(0);
+  _internal_metadata_.Clear();
+}
+
+const char* MemberPromoteRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint64 ID = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* MemberPromoteRequest::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.MemberPromoteRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 ID = 1;
+  if (this->id() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.MemberPromoteRequest)
+  return target;
+}
+
+size_t MemberPromoteRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.MemberPromoteRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 ID = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MemberPromoteRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.MemberPromoteRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MemberPromoteRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MemberPromoteRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.MemberPromoteRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.MemberPromoteRequest)
+    MergeFrom(*source);
+  }
+}
+
+void MemberPromoteRequest::MergeFrom(const MemberPromoteRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.MemberPromoteRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.id() != 0) {
+    _internal_set_id(from._internal_id());
+  }
+}
+
+void MemberPromoteRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.MemberPromoteRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MemberPromoteRequest::CopyFrom(const MemberPromoteRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.MemberPromoteRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MemberPromoteRequest::IsInitialized() const {
+  return true;
+}
+
+void MemberPromoteRequest::InternalSwap(MemberPromoteRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(id_, other->id_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata MemberPromoteRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void MemberPromoteResponse::InitAsDefaultInstance() {
+  ::etcdserverpb::_MemberPromoteResponse_default_instance_._instance.get_mutable()->header_ = const_cast< ::etcdserverpb::ResponseHeader*>(
+      ::etcdserverpb::ResponseHeader::internal_default_instance());
+}
+class MemberPromoteResponse::_Internal {
+ public:
+  static const ::etcdserverpb::ResponseHeader& header(const MemberPromoteResponse* msg);
+};
+
+const ::etcdserverpb::ResponseHeader&
+MemberPromoteResponse::_Internal::header(const MemberPromoteResponse* msg) {
+  return *msg->header_;
+}
+MemberPromoteResponse::MemberPromoteResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:etcdserverpb.MemberPromoteResponse)
+}
+MemberPromoteResponse::MemberPromoteResponse(const MemberPromoteResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr),
+      members_(from.members_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_header()) {
+    header_ = new ::etcdserverpb::ResponseHeader(*from.header_);
+  } else {
+    header_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:etcdserverpb.MemberPromoteResponse)
+}
+
+void MemberPromoteResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MemberPromoteResponse_rpc_2eproto.base);
+  header_ = nullptr;
+}
+
+MemberPromoteResponse::~MemberPromoteResponse() {
+  // @@protoc_insertion_point(destructor:etcdserverpb.MemberPromoteResponse)
+  SharedDtor();
+}
+
+void MemberPromoteResponse::SharedDtor() {
+  if (this != internal_default_instance()) delete header_;
+}
+
+void MemberPromoteResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const MemberPromoteResponse& MemberPromoteResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_MemberPromoteResponse_rpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void MemberPromoteResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:etcdserverpb.MemberPromoteResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  members_.Clear();
+  if (GetArenaNoVirtual() == nullptr && header_ != nullptr) {
+    delete header_;
+  }
+  header_ = nullptr;
+  _internal_metadata_.Clear();
+}
+
+const char* MemberPromoteResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .etcdserverpb.ResponseHeader header = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_header(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .etcdserverpb.Member members = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_members(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* MemberPromoteResponse::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.MemberPromoteResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .etcdserverpb.ResponseHeader header = 1;
+  if (this->has_header()) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, _Internal::header(this), target, stream);
+  }
+
+  // repeated .etcdserverpb.Member members = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_members_size()); i < n; i++) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(2, this->_internal_members(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.MemberPromoteResponse)
+  return target;
+}
+
+size_t MemberPromoteResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:etcdserverpb.MemberPromoteResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .etcdserverpb.Member members = 2;
+  total_size += 1UL * this->_internal_members_size();
+  for (const auto& msg : this->members_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // .etcdserverpb.ResponseHeader header = 1;
+  if (this->has_header()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *header_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MemberPromoteResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:etcdserverpb.MemberPromoteResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MemberPromoteResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MemberPromoteResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:etcdserverpb.MemberPromoteResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:etcdserverpb.MemberPromoteResponse)
+    MergeFrom(*source);
+  }
+}
+
+void MemberPromoteResponse::MergeFrom(const MemberPromoteResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:etcdserverpb.MemberPromoteResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  members_.MergeFrom(from.members_);
+  if (from.has_header()) {
+    _internal_mutable_header()->::etcdserverpb::ResponseHeader::MergeFrom(from._internal_header());
+  }
+}
+
+void MemberPromoteResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:etcdserverpb.MemberPromoteResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MemberPromoteResponse::CopyFrom(const MemberPromoteResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:etcdserverpb.MemberPromoteResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MemberPromoteResponse::IsInitialized() const {
+  return true;
+}
+
+void MemberPromoteResponse::InternalSwap(MemberPromoteResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  members_.InternalSwap(&other->members_);
+  swap(header_, other->header_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata MemberPromoteResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -15933,7 +17502,8 @@ StatusResponse::StatusResponse()
 }
 StatusResponse::StatusResponse(const StatusResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
+      _internal_metadata_(nullptr),
+      errors_(from.errors_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_version().empty()) {
@@ -15945,8 +17515,8 @@ StatusResponse::StatusResponse(const StatusResponse& from)
     header_ = nullptr;
   }
   ::memcpy(&dbsize_, &from.dbsize_,
-    static_cast<size_t>(reinterpret_cast<char*>(&raftterm_) -
-    reinterpret_cast<char*>(&dbsize_)) + sizeof(raftterm_));
+    static_cast<size_t>(reinterpret_cast<char*>(&islearner_) -
+    reinterpret_cast<char*>(&dbsize_)) + sizeof(islearner_));
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.StatusResponse)
 }
 
@@ -15954,8 +17524,8 @@ void StatusResponse::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_StatusResponse_rpc_2eproto.base);
   version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&raftterm_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(raftterm_));
+      reinterpret_cast<char*>(&islearner_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(islearner_));
 }
 
 StatusResponse::~StatusResponse() {
@@ -15983,14 +17553,15 @@ void StatusResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  errors_.Clear();
   version_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == nullptr && header_ != nullptr) {
     delete header_;
   }
   header_ = nullptr;
   ::memset(&dbsize_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&raftterm_) -
-      reinterpret_cast<char*>(&dbsize_)) + sizeof(raftterm_));
+      reinterpret_cast<char*>(&islearner_) -
+      reinterpret_cast<char*>(&dbsize_)) + sizeof(islearner_));
   _internal_metadata_.Clear();
 }
 
@@ -16040,6 +17611,39 @@ const char* StatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
           raftterm_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 raftAppliedIndex = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          raftappliedindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated string errors = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_add_errors(), ptr, ctx, "etcdserverpb.StatusResponse.errors");
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // int64 dbSizeInUse = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+          dbsizeinuse_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool isLearner = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+          islearner_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -16111,6 +17715,34 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(6, this->_internal_raftterm(), target);
   }
 
+  // uint64 raftAppliedIndex = 7;
+  if (this->raftappliedindex() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(7, this->_internal_raftappliedindex(), target);
+  }
+
+  // repeated string errors = 8;
+  for (int i = 0, n = this->_internal_errors_size(); i < n; i++) {
+    const auto& s = this->_internal_errors(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "etcdserverpb.StatusResponse.errors");
+    target = stream->WriteString(8, s, target);
+  }
+
+  // int64 dbSizeInUse = 9;
+  if (this->dbsizeinuse() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(9, this->_internal_dbsizeinuse(), target);
+  }
+
+  // bool isLearner = 10;
+  if (this->islearner() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_islearner(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -16126,6 +17758,14 @@ size_t StatusResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated string errors = 8;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(errors_.size());
+  for (int i = 0, n = errors_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      errors_.Get(i));
+  }
 
   // string version = 2;
   if (this->version().size() > 0) {
@@ -16169,6 +17809,25 @@ size_t StatusResponse::ByteSizeLong() const {
         this->_internal_raftterm());
   }
 
+  // uint64 raftAppliedIndex = 7;
+  if (this->raftappliedindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_raftappliedindex());
+  }
+
+  // int64 dbSizeInUse = 9;
+  if (this->dbsizeinuse() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_dbsizeinuse());
+  }
+
+  // bool isLearner = 10;
+  if (this->islearner() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -16200,6 +17859,7 @@ void StatusResponse::MergeFrom(const StatusResponse& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  errors_.MergeFrom(from.errors_);
   if (from.version().size() > 0) {
 
     version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.version_);
@@ -16218,6 +17878,15 @@ void StatusResponse::MergeFrom(const StatusResponse& from) {
   }
   if (from.raftterm() != 0) {
     _internal_set_raftterm(from._internal_raftterm());
+  }
+  if (from.raftappliedindex() != 0) {
+    _internal_set_raftappliedindex(from._internal_raftappliedindex());
+  }
+  if (from.dbsizeinuse() != 0) {
+    _internal_set_dbsizeinuse(from._internal_dbsizeinuse());
+  }
+  if (from.islearner() != 0) {
+    _internal_set_islearner(from._internal_islearner());
   }
 }
 
@@ -16242,6 +17911,7 @@ bool StatusResponse::IsInitialized() const {
 void StatusResponse::InternalSwap(StatusResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  errors_.InternalSwap(&other->errors_);
   version_.Swap(&other->version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(header_, other->header_);
@@ -16249,6 +17919,9 @@ void StatusResponse::InternalSwap(StatusResponse* other) {
   swap(leader_, other->leader_);
   swap(raftindex_, other->raftindex_);
   swap(raftterm_, other->raftterm_);
+  swap(raftappliedindex_, other->raftappliedindex_);
+  swap(dbsizeinuse_, other->dbsizeinuse_);
+  swap(islearner_, other->islearner_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata StatusResponse::GetMetadata() const {
@@ -16809,11 +18482,24 @@ void AuthenticateRequest::InternalSwap(AuthenticateRequest* other) {
 // ===================================================================
 
 void AuthUserAddRequest::InitAsDefaultInstance() {
+  ::etcdserverpb::_AuthUserAddRequest_default_instance_._instance.get_mutable()->options_ = const_cast< ::authpb::UserAddOptions*>(
+      ::authpb::UserAddOptions::internal_default_instance());
 }
 class AuthUserAddRequest::_Internal {
  public:
+  static const ::authpb::UserAddOptions& options(const AuthUserAddRequest* msg);
 };
 
+const ::authpb::UserAddOptions&
+AuthUserAddRequest::_Internal::options(const AuthUserAddRequest* msg) {
+  return *msg->options_;
+}
+void AuthUserAddRequest::clear_options() {
+  if (GetArenaNoVirtual() == nullptr && options_ != nullptr) {
+    delete options_;
+  }
+  options_ = nullptr;
+}
 AuthUserAddRequest::AuthUserAddRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -16831,6 +18517,11 @@ AuthUserAddRequest::AuthUserAddRequest(const AuthUserAddRequest& from)
   if (!from._internal_password().empty()) {
     password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
   }
+  if (from._internal_has_options()) {
+    options_ = new ::authpb::UserAddOptions(*from.options_);
+  } else {
+    options_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.AuthUserAddRequest)
 }
 
@@ -16838,6 +18529,7 @@ void AuthUserAddRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AuthUserAddRequest_rpc_2eproto.base);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  options_ = nullptr;
 }
 
 AuthUserAddRequest::~AuthUserAddRequest() {
@@ -16848,6 +18540,7 @@ AuthUserAddRequest::~AuthUserAddRequest() {
 void AuthUserAddRequest::SharedDtor() {
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete options_;
 }
 
 void AuthUserAddRequest::SetCachedSize(int size) const {
@@ -16867,6 +18560,10 @@ void AuthUserAddRequest::Clear() {
 
   name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == nullptr && options_ != nullptr) {
+    delete options_;
+  }
+  options_ = nullptr;
   _internal_metadata_.Clear();
 }
 
@@ -16888,6 +18585,13 @@ const char* AuthUserAddRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_password(), ptr, ctx, "etcdserverpb.AuthUserAddRequest.password");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .authpb.UserAddOptions options = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_options(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -16937,6 +18641,14 @@ failure:
         2, this->_internal_password(), target);
   }
 
+  // .authpb.UserAddOptions options = 3;
+  if (this->has_options()) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        3, _Internal::options(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -16965,6 +18677,13 @@ size_t AuthUserAddRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_password());
+  }
+
+  // .authpb.UserAddOptions options = 3;
+  if (this->has_options()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *options_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -17006,6 +18725,9 @@ void AuthUserAddRequest::MergeFrom(const AuthUserAddRequest& from) {
 
     password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
   }
+  if (from.has_options()) {
+    _internal_mutable_options()->::authpb::UserAddOptions::MergeFrom(from._internal_options());
+  }
 }
 
 void AuthUserAddRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -17033,6 +18755,7 @@ void AuthUserAddRequest::InternalSwap(AuthUserAddRequest* other) {
     GetArenaNoVirtual());
   password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(options_, other->options_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AuthUserAddRequest::GetMetadata() const {
@@ -19375,17 +21098,17 @@ const char* AuthRoleRevokePermissionRequest::_InternalParse(const char* ptr, ::P
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string key = 2;
+      // bytes key = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_key(), ptr, ctx, "etcdserverpb.AuthRoleRevokePermissionRequest.key");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_key(), ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string range_end = 3;
+      // bytes range_end = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_range_end(), ptr, ctx, "etcdserverpb.AuthRoleRevokePermissionRequest.range_end");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_range_end(), ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -19425,23 +21148,15 @@ failure:
         1, this->_internal_role(), target);
   }
 
-  // string key = 2;
+  // bytes key = 2;
   if (this->key().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.AuthRoleRevokePermissionRequest.key");
-    target = stream->WriteStringMaybeAliased(
+    target = stream->WriteBytesMaybeAliased(
         2, this->_internal_key(), target);
   }
 
-  // string range_end = 3;
+  // bytes range_end = 3;
   if (this->range_end().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_range_end().data(), static_cast<int>(this->_internal_range_end().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.AuthRoleRevokePermissionRequest.range_end");
-    target = stream->WriteStringMaybeAliased(
+    target = stream->WriteBytesMaybeAliased(
         3, this->_internal_range_end(), target);
   }
 
@@ -19468,17 +21183,17 @@ size_t AuthRoleRevokePermissionRequest::ByteSizeLong() const {
         this->_internal_role());
   }
 
-  // string key = 2;
+  // bytes key = 2;
   if (this->key().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_key());
   }
 
-  // string range_end = 3;
+  // bytes range_end = 3;
   if (this->range_end().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_range_end());
   }
 
@@ -23070,6 +24785,9 @@ template<> PROTOBUF_NOINLINE ::etcdserverpb::WatchCreateRequest* Arena::CreateMa
 template<> PROTOBUF_NOINLINE ::etcdserverpb::WatchCancelRequest* Arena::CreateMaybeMessage< ::etcdserverpb::WatchCancelRequest >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::WatchCancelRequest >(arena);
 }
+template<> PROTOBUF_NOINLINE ::etcdserverpb::WatchProgressRequest* Arena::CreateMaybeMessage< ::etcdserverpb::WatchProgressRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::WatchProgressRequest >(arena);
+}
 template<> PROTOBUF_NOINLINE ::etcdserverpb::WatchResponse* Arena::CreateMaybeMessage< ::etcdserverpb::WatchResponse >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::WatchResponse >(arena);
 }
@@ -23084,6 +24802,15 @@ template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseRevokeRequest* Arena::CreateMa
 }
 template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseRevokeResponse* Arena::CreateMaybeMessage< ::etcdserverpb::LeaseRevokeResponse >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::LeaseRevokeResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseCheckpoint* Arena::CreateMaybeMessage< ::etcdserverpb::LeaseCheckpoint >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::LeaseCheckpoint >(arena);
+}
+template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseCheckpointRequest* Arena::CreateMaybeMessage< ::etcdserverpb::LeaseCheckpointRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::LeaseCheckpointRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseCheckpointResponse* Arena::CreateMaybeMessage< ::etcdserverpb::LeaseCheckpointResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::LeaseCheckpointResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::etcdserverpb::LeaseKeepAliveRequest* Arena::CreateMaybeMessage< ::etcdserverpb::LeaseKeepAliveRequest >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::LeaseKeepAliveRequest >(arena);
@@ -23132,6 +24859,12 @@ template<> PROTOBUF_NOINLINE ::etcdserverpb::MemberListRequest* Arena::CreateMay
 }
 template<> PROTOBUF_NOINLINE ::etcdserverpb::MemberListResponse* Arena::CreateMaybeMessage< ::etcdserverpb::MemberListResponse >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::MemberListResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::etcdserverpb::MemberPromoteRequest* Arena::CreateMaybeMessage< ::etcdserverpb::MemberPromoteRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::MemberPromoteRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::etcdserverpb::MemberPromoteResponse* Arena::CreateMaybeMessage< ::etcdserverpb::MemberPromoteResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::etcdserverpb::MemberPromoteResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::etcdserverpb::DefragmentRequest* Arena::CreateMaybeMessage< ::etcdserverpb::DefragmentRequest >(Arena* arena) {
   return Arena::CreateInternal< ::etcdserverpb::DefragmentRequest >(arena);

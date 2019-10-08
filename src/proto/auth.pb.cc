@@ -15,7 +15,12 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_auth_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Permission_auth_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_auth_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_UserAddOptions_auth_2eproto;
 namespace authpb {
+class UserAddOptionsDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<UserAddOptions> _instance;
+} _UserAddOptions_default_instance_;
 class UserDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<User> _instance;
@@ -69,14 +74,35 @@ static void InitDefaultsscc_info_User_auth_2eproto() {
   ::authpb::User::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_User_auth_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_User_auth_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_User_auth_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_User_auth_2eproto}, {
+      &scc_info_UserAddOptions_auth_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_auth_2eproto[3];
+static void InitDefaultsscc_info_UserAddOptions_auth_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::authpb::_UserAddOptions_default_instance_;
+    new (ptr) ::authpb::UserAddOptions();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::authpb::UserAddOptions::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_UserAddOptions_auth_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_UserAddOptions_auth_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_auth_2eproto[4];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_auth_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_auth_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::authpb::UserAddOptions, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::authpb::UserAddOptions, no_password_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::authpb::User, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -85,6 +111,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::authpb::User, name_),
   PROTOBUF_FIELD_OFFSET(::authpb::User, password_),
   PROTOBUF_FIELD_OFFSET(::authpb::User, roles_),
+  PROTOBUF_FIELD_OFFSET(::authpb::User, options_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::authpb::Permission, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -102,20 +129,24 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::authpb::Role, keypermission_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::authpb::User)},
-  { 8, -1, sizeof(::authpb::Permission)},
-  { 16, -1, sizeof(::authpb::Role)},
+  { 0, -1, sizeof(::authpb::UserAddOptions)},
+  { 6, -1, sizeof(::authpb::User)},
+  { 15, -1, sizeof(::authpb::Permission)},
+  { 23, -1, sizeof(::authpb::Role)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::authpb::_UserAddOptions_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::authpb::_User_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::authpb::_Permission_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::authpb::_Role_default_instance_),
 };
 
 const char descriptor_table_protodef_auth_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nauth.proto\022\006authpb\"5\n\004User\022\014\n\004name\030\001 \001"
-  "(\014\022\020\n\010password\030\002 \001(\014\022\r\n\005roles\030\003 \003(\t\"\203\001\n\n"
+  "\n\nauth.proto\022\006authpb\"%\n\016UserAddOptions\022\023"
+  "\n\013no_password\030\001 \001(\010\"^\n\004User\022\014\n\004name\030\001 \001("
+  "\014\022\020\n\010password\030\002 \001(\014\022\r\n\005roles\030\003 \003(\t\022\'\n\007op"
+  "tions\030\004 \001(\0132\026.authpb.UserAddOptions\"\203\001\n\n"
   "Permission\022)\n\010permType\030\001 \001(\0162\027.authpb.Pe"
   "rmission.Type\022\013\n\003key\030\002 \001(\014\022\021\n\trange_end\030"
   "\003 \001(\014\"*\n\004Type\022\010\n\004READ\020\000\022\t\n\005WRITE\020\001\022\r\n\tRE"
@@ -125,18 +156,19 @@ const char descriptor_table_protodef_auth_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_auth_2eproto_sccs[3] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_auth_2eproto_sccs[4] = {
   &scc_info_Permission_auth_2eproto.base,
   &scc_info_Role_auth_2eproto.base,
   &scc_info_User_auth_2eproto.base,
+  &scc_info_UserAddOptions_auth_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2eproto_once;
 static bool descriptor_table_auth_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2eproto = {
-  &descriptor_table_auth_2eproto_initialized, descriptor_table_protodef_auth_2eproto, "auth.proto", 282,
-  &descriptor_table_auth_2eproto_once, descriptor_table_auth_2eproto_sccs, descriptor_table_auth_2eproto_deps, 3, 0,
+  &descriptor_table_auth_2eproto_initialized, descriptor_table_protodef_auth_2eproto, "auth.proto", 362,
+  &descriptor_table_auth_2eproto_once, descriptor_table_auth_2eproto_sccs, descriptor_table_auth_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_auth_2eproto::offsets,
-  file_level_metadata_auth_2eproto, 3, file_level_enum_descriptors_auth_2eproto, file_level_service_descriptors_auth_2eproto,
+  file_level_metadata_auth_2eproto, 4, file_level_enum_descriptors_auth_2eproto, file_level_service_descriptors_auth_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -168,12 +200,203 @@ constexpr int Permission::Type_ARRAYSIZE;
 
 // ===================================================================
 
-void User::InitAsDefaultInstance() {
+void UserAddOptions::InitAsDefaultInstance() {
 }
-class User::_Internal {
+class UserAddOptions::_Internal {
  public:
 };
 
+UserAddOptions::UserAddOptions()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:authpb.UserAddOptions)
+}
+UserAddOptions::UserAddOptions(const UserAddOptions& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  no_password_ = from.no_password_;
+  // @@protoc_insertion_point(copy_constructor:authpb.UserAddOptions)
+}
+
+void UserAddOptions::SharedCtor() {
+  no_password_ = false;
+}
+
+UserAddOptions::~UserAddOptions() {
+  // @@protoc_insertion_point(destructor:authpb.UserAddOptions)
+  SharedDtor();
+}
+
+void UserAddOptions::SharedDtor() {
+}
+
+void UserAddOptions::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const UserAddOptions& UserAddOptions::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_UserAddOptions_auth_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void UserAddOptions::Clear() {
+// @@protoc_insertion_point(message_clear_start:authpb.UserAddOptions)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  no_password_ = false;
+  _internal_metadata_.Clear();
+}
+
+const char* UserAddOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool no_password = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          no_password_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UserAddOptions::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:authpb.UserAddOptions)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool no_password = 1;
+  if (this->no_password() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_no_password(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:authpb.UserAddOptions)
+  return target;
+}
+
+size_t UserAddOptions::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:authpb.UserAddOptions)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool no_password = 1;
+  if (this->no_password() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UserAddOptions::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:authpb.UserAddOptions)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UserAddOptions* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UserAddOptions>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:authpb.UserAddOptions)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:authpb.UserAddOptions)
+    MergeFrom(*source);
+  }
+}
+
+void UserAddOptions::MergeFrom(const UserAddOptions& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:authpb.UserAddOptions)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.no_password() != 0) {
+    _internal_set_no_password(from._internal_no_password());
+  }
+}
+
+void UserAddOptions::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:authpb.UserAddOptions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UserAddOptions::CopyFrom(const UserAddOptions& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:authpb.UserAddOptions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UserAddOptions::IsInitialized() const {
+  return true;
+}
+
+void UserAddOptions::InternalSwap(UserAddOptions* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(no_password_, other->no_password_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UserAddOptions::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void User::InitAsDefaultInstance() {
+  ::authpb::_User_default_instance_._instance.get_mutable()->options_ = const_cast< ::authpb::UserAddOptions*>(
+      ::authpb::UserAddOptions::internal_default_instance());
+}
+class User::_Internal {
+ public:
+  static const ::authpb::UserAddOptions& options(const User* msg);
+};
+
+const ::authpb::UserAddOptions&
+User::_Internal::options(const User* msg) {
+  return *msg->options_;
+}
 User::User()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -192,6 +415,11 @@ User::User(const User& from)
   if (!from._internal_password().empty()) {
     password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
   }
+  if (from._internal_has_options()) {
+    options_ = new ::authpb::UserAddOptions(*from.options_);
+  } else {
+    options_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:authpb.User)
 }
 
@@ -199,6 +427,7 @@ void User::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_User_auth_2eproto.base);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  options_ = nullptr;
 }
 
 User::~User() {
@@ -209,6 +438,7 @@ User::~User() {
 void User::SharedDtor() {
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete options_;
 }
 
 void User::SetCachedSize(int size) const {
@@ -229,6 +459,10 @@ void User::Clear() {
   roles_.Clear();
   name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == nullptr && options_ != nullptr) {
+    delete options_;
+  }
+  options_ = nullptr;
   _internal_metadata_.Clear();
 }
 
@@ -263,6 +497,13 @@ const char* User::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .authpb.UserAddOptions options = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_options(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -313,6 +554,14 @@ failure:
     target = stream->WriteString(3, s, target);
   }
 
+  // .authpb.UserAddOptions options = 4;
+  if (this->has_options()) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        4, _Internal::options(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -349,6 +598,13 @@ size_t User::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_password());
+  }
+
+  // .authpb.UserAddOptions options = 4;
+  if (this->has_options()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *options_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -391,6 +647,9 @@ void User::MergeFrom(const User& from) {
 
     password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
   }
+  if (from.has_options()) {
+    _internal_mutable_options()->::authpb::UserAddOptions::MergeFrom(from._internal_options());
+  }
 }
 
 void User::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -419,6 +678,7 @@ void User::InternalSwap(User* other) {
     GetArenaNoVirtual());
   password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(options_, other->options_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata User::GetMetadata() const {
@@ -907,6 +1167,9 @@ void Role::InternalSwap(Role* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace authpb
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::authpb::UserAddOptions* Arena::CreateMaybeMessage< ::authpb::UserAddOptions >(Arena* arena) {
+  return Arena::CreateInternal< ::authpb::UserAddOptions >(arena);
+}
 template<> PROTOBUF_NOINLINE ::authpb::User* Arena::CreateMaybeMessage< ::authpb::User >(Arena* arena) {
   return Arena::CreateInternal< ::authpb::User >(arena);
 }

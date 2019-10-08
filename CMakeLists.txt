@@ -14,33 +14,38 @@ find_package(protobuf CONFIG REQUIRED)
 #---------------------------
 add_library(Protos STATIC
     # Auth
-    src/proto/auth.grpc.pb.h
-    src/proto/auth.grpc.pb.cc
     src/proto/auth.pb.h
     src/proto/auth.pb.cc
+    src/proto/auth.grpc.pb.h
+    src/proto/auth.grpc.pb.cc
     # EtcdServer
-    src/proto/etcdserver.grpc.pb.h
-    src/proto/etcdserver.grpc.pb.cc
     src/proto/etcdserver.pb.h
     src/proto/etcdserver.pb.cc
+    src/proto/etcdserver.grpc.pb.h
+    src/proto/etcdserver.grpc.pb.cc
     # KV
-    src/proto/kv.grpc.pb.h
-    src/proto/kv.grpc.pb.cc
     src/proto/kv.pb.h
     src/proto/kv.pb.cc
+    src/proto/kv.grpc.pb.h
+    src/proto/kv.grpc.pb.cc
     # RPC
     src/proto/rpc.grpc.pb.h
     src/proto/rpc.grpc.pb.cc
     src/proto/rpc.pb.h
     src/proto/rpc.pb.cc)
 
-target_link_libraries(Protos PUBLIC protobuf::libprotobuf-lite)
+target_link_libraries(Protos
+  PUBLIC
+    protobuf::libprotoc
+    protobuf::libprotobuf
+    protobuf::libprotobuf-lite)
 
 #---------------------------
 # Etcd library target
 #---------------------------
 add_library(EtcdApi
-  src/EtcdApi.cpp)
+  include/Etcd.hpp
+  src/Etcd.cpp)
 
 target_include_directories(EtcdApi
   PUBLIC
@@ -57,6 +62,8 @@ target_link_libraries(EtcdApi
     gRPC::grpc++
     gRPC::grpc_cronet
     Protos)
+  
+target_compile_options(EtcdApi PRIVATE -std=c++11)
 
 #---------------------------
 # Setup Tests
@@ -66,11 +73,13 @@ if(BUILD_TESTING)
     find_package(GTest CONFIG REQUIRED)
 
     add_executable(EtcdApiTests
-      test/MainTest.cpp)
+      test/MainTest.cpp
+      test/LeaseTest.cpp)
     
     target_link_libraries(EtcdApiTests
       PRIVATE
         EtcdApi
-        GTest::gtest
-        GTest::gmock)
+        GTest::gtest)
+
+  target_compile_options(EtcdApiTests PRIVATE -std=c++11)
 endif()
