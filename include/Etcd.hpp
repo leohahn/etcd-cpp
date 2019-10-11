@@ -5,6 +5,7 @@
 #include <memory>
 #include <chrono>
 
+// FIXME(leo): this is a lazy copy paste from grpc enums.
 #define ETCD_STATUS_CODES \
     ETCD_STATUS_CODE(Ok = 0, "Ok"),\
     ETCD_STATUS_CODE(Cancelled = 1, "Cancelled"),\
@@ -68,6 +69,21 @@ struct LeaseGrantResponse
     bool IsOk() const { return statusCode == StatusCode::Ok; }
 };
 
+struct GetResponse
+{
+    StatusCode statusCode;
+    LeaseId id;
+    std::chrono::seconds ttl;
+
+    GetResponse(StatusCode code, LeaseId id, std::chrono::seconds ttl)
+        : statusCode(code)
+        , id(id)
+        , ttl(ttl)
+    {}
+
+    bool IsOk() const { return statusCode == StatusCode::Ok; }
+};
+
 class Client
 {
 public:
@@ -75,6 +91,8 @@ public:
     virtual bool TryConnect(std::chrono::milliseconds timeout) = 0;
     virtual StatusCode Put(const std::string& key, const std::string& value, LeaseId leaseId = 0) = 0;
     virtual LeaseGrantResponse LeaseGrant(std::chrono::seconds ttl) = 0;
+    virtual StatusCode LeaseRevoke(LeaseId leaseId) = 0;
+    //virtual GetResponse Get(const std::string& str) = 0;
 
     static std::shared_ptr<Client> CreateV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger);
 

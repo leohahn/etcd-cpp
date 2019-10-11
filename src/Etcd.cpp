@@ -6,6 +6,7 @@
 #include <grpc++/grpc++.h>
 #include <cassert>
 #include <iostream>
+#include <fmt/format.h>
 
 static const char* kStatusCodeNames[] = {
 #define ETCD_STATUS_CODE(e, s) s
@@ -78,7 +79,8 @@ public:
         if (!status.ok()) {
             // TODO(leo): consider making a map here, in order to avoid a possible issue
             // where the values of the enum values change in a future version of gRPC.
-            _logger->Error("Failed put request: " + status.error_message() + ", details = " + status.error_details());
+            _logger->Error(fmt::format("Failed put request: {}, details: {}",
+                           status.error_message(), status.error_details()));
             return (Etcd::StatusCode)status.error_code();
         }
 
@@ -103,7 +105,8 @@ public:
                 std::chrono::seconds(res.ttl())
             );
 
-            _logger->Error("Failed lease grant request(" + std::string(StatusCodeStr(ret.statusCode)) + "): " + status.error_message() + ", details: " + status.error_details());
+            _logger->Error(fmt::format("Failed lease grant request({}) {}, details: {}",
+                           StatusCodeStr(ret.statusCode), status.error_message(), status.error_details()));
             return ret;
         }
 
@@ -112,6 +115,26 @@ public:
             res.id(),
             std::chrono::seconds(res.ttl())
         );
+    }
+
+    Etcd::StatusCode LeaseRevoke(Etcd::LeaseId leaseId) override
+    {
+        etcdserverpb::LeaseRevokeRequest req;
+        req.set_id(leaseId);
+
+        etcdserverpb::LeaseRevokeResponse res;
+
+        grpc::ClientContext context;
+        grpc::Status status = _leaseStub->LeaseRevoke(&context, req, &res);
+
+        if (!status.ok()) {
+            auto ret = (Etcd::StatusCode)status.error_code();
+            _logger->Error(fmt::format("Failed lease revoke request({}) {}, details: {}",
+                           StatusCodeStr(ret), status.error_message(), status.error_details()));
+            return ret;
+        }
+
+        return Etcd::StatusCode::Ok;
     }
 
 private:
@@ -155,7 +178,7 @@ public:
     void Debug(const std::string& str) override {(void)str;}
 };
 
-std::shared_ptr<Etcd::Logger> 
+std::shared_ptr<Etcd::Logger>
 Etcd::Logger::CreateNull()
 {
     return std::make_shared<NullLogger>();
