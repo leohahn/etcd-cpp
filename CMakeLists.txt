@@ -41,6 +41,11 @@ target_link_libraries(Protos
     protobuf::libprotobuf-lite)
 
 #---------------------------
+# fmt
+#---------------------------
+add_subdirectory(src/vendor/fmt)
+
+#---------------------------
 # Etcd library target
 #---------------------------
 add_library(EtcdApi
@@ -61,7 +66,8 @@ target_link_libraries(EtcdApi
     gRPC::grpc
     gRPC::grpc++
     gRPC::grpc_cronet
-    Protos)
+    Protos
+    fmt::fmt)
   
 target_compile_options(EtcdApi PRIVATE -std=c++11)
 
