@@ -90,6 +90,7 @@ public:
     virtual ~Client() = default;
     virtual bool TryConnect(std::chrono::milliseconds timeout) = 0;
     virtual StatusCode Put(const std::string& key, const std::string& value, LeaseId leaseId = 0) = 0;
+    virtual StatusCode Delete(const std::string& key) = 0;
     virtual LeaseGrantResponse LeaseGrant(std::chrono::seconds ttl) = 0;
     virtual StatusCode LeaseRevoke(LeaseId leaseId) = 0;
     //virtual GetResponse Get(const std::string& str) = 0;

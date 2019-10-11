@@ -137,6 +137,27 @@ public:
         return Etcd::StatusCode::Ok;
     }
 
+    Etcd::StatusCode Delete(const std::string& key) override
+    {
+        etcdserverpb::DeleteRangeRequest req;
+        req.set_key(key);
+        req.set_prev_kv(false); // TODO: consider adding true here
+
+        etcdserverpb::DeleteRangeResponse res;
+
+        grpc::ClientContext context;
+        grpc::Status status = _kvStub->DeleteRange(&context, req, &res);
+
+        if (!status.ok()) {
+            auto ret = (Etcd::StatusCode)status.error_code();
+            _logger->Error(fmt::format("Failed delete range request({}) {}, details: {}",
+                           StatusCodeStr(ret), status.error_message(), status.error_details()));
+            return ret;
+        }
+
+        return Etcd::StatusCode::Ok;
+    }
+
 private:
     std::shared_ptr<grpc::Channel> _channel;
     std::shared_ptr<etcdserverpb::KV::Stub> _kvStub;

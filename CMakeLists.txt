@@ -68,7 +68,7 @@ target_link_libraries(EtcdApi
     gRPC::grpc_cronet
     Protos
     fmt::fmt)
-  
+
 target_compile_options(EtcdApi PRIVATE -std=c++11)
 
 #---------------------------
@@ -80,8 +80,9 @@ if(BUILD_TESTING)
 
     add_executable(EtcdApiTests
       test/MainTest.cpp
-      test/LeaseTest.cpp)
-    
+      test/LeaseTest.cpp
+      test/KVTest.cpp)
+
     target_link_libraries(EtcdApiTests
       PRIVATE
         EtcdApi
