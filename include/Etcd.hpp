@@ -72,13 +72,15 @@ struct LeaseGrantResponse
 struct GetResponse
 {
     StatusCode statusCode;
-    LeaseId id;
-    std::chrono::seconds ttl;
+    std::string value;
 
-    GetResponse(StatusCode code, LeaseId id, std::chrono::seconds ttl)
+    GetResponse(StatusCode code, const std::string val)
         : statusCode(code)
-        , id(id)
-        , ttl(ttl)
+        , value(val)
+    {}
+
+    explicit GetResponse(StatusCode code)
+        : statusCode(code)
     {}
 
     bool IsOk() const { return statusCode == StatusCode::Ok; }
@@ -93,7 +95,7 @@ public:
     virtual StatusCode Delete(const std::string& key) = 0;
     virtual LeaseGrantResponse LeaseGrant(std::chrono::seconds ttl) = 0;
     virtual StatusCode LeaseRevoke(LeaseId leaseId) = 0;
-    //virtual GetResponse Get(const std::string& str) = 0;
+    virtual GetResponse Get(const std::string& key) = 0;
 
     static std::shared_ptr<Client> CreateV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger);
 

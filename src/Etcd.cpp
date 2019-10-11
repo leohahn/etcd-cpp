@@ -137,6 +137,35 @@ public:
         return Etcd::StatusCode::Ok;
     }
 
+    Etcd::GetResponse Get(const std::string& key) override
+    {
+        etcdserverpb::RangeRequest req;
+        req.set_key(key);
+
+        etcdserverpb::RangeResponse res;
+
+        grpc::ClientContext context;
+        grpc::Status status = _kvStub->Range(&context, req, &res);
+
+        auto statusCode = (Etcd::StatusCode)status.error_code();
+
+        if (!status.ok()) {
+            Etcd::GetResponse ret(statusCode);
+            _logger->Error(fmt::format("Failed delete range request({}) {}, details: {}",
+                           Etcd::StatusCodeStr(statusCode), status.error_message(), status.error_details()));
+            return ret;
+        }
+
+        if (res.count() == 0) {
+            return Etcd::GetResponse(Etcd::StatusCode::NotFound);
+        }
+
+        assert(res.count() == 1 && "Only one key should be matched");
+        assert(res.more() == false);
+        assert(res.kvs(0).key() == key && "Key should be the same");
+        return Etcd::GetResponse(statusCode, res.kvs(0).value());
+    }
+
     Etcd::StatusCode Delete(const std::string& key) override
     {
         etcdserverpb::DeleteRangeRequest req;
