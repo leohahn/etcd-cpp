@@ -19,12 +19,24 @@ Etcd::StatusCodeStr(StatusCode code)
     return kStatusCodeNames[code];
 }
 
+std::shared_ptr<grpc::Channel>
+MakeChannel(const std::string& address, const std::shared_ptr<grpc::ChannelCredentials>& channelCredentials)
+{
+    const std::string substr("://");
+    const auto i = address.find(substr);
+    if (i == std::string::npos) {
+        return grpc::CreateChannel(address, channelCredentials);
+    }
+    const std::string stripped_address = address.substr(i + substr.length());
+    return grpc::CreateChannel(stripped_address, channelCredentials);
+}
+
 class ClientV3 : public Etcd::Client
 {
 public:
     ClientV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger)
         : Client(logger)
-        , _channel(grpc::CreateChannel(address, grpc::InsecureChannelCredentials()))
+        , _channel(MakeChannel(address, grpc::InsecureChannelCredentials()))
         , _kvStub(etcdserverpb::KV::NewStub(_channel))
         , _watchStub(etcdserverpb::Watch::NewStub(_channel))
         , _leaseStub(etcdserverpb::Lease::NewStub(_channel))
@@ -66,7 +78,7 @@ public:
         if (!status.ok()) {
             // TODO(leo): consider making a map here, in order to avoid a possible issue
             // where the values of the enum values change in a future version of gRPC.
-            _logger->Error("Failed put request: " + status.error_message());
+            _logger->Error("Failed put request: " + status.error_message() + ", details = " + status.error_details());
             return (Etcd::StatusCode)status.error_code();
         }
 
@@ -91,7 +103,7 @@ public:
                 std::chrono::seconds(res.ttl())
             );
 
-            _logger->Error("Failed lease grant request(" + std::string(StatusCodeStr(ret.statusCode)) + "): " + status.error_message());
+            _logger->Error("Failed lease grant request(" + std::string(StatusCodeStr(ret.statusCode)) + "): " + status.error_message() + ", details: " + status.error_details());
             return ret;
         }
 
