@@ -28,3 +28,18 @@ TEST(Lease, RevokeFailsIfLeaseDoesNoExist)
         EXPECT_EQ(res, StatusCode::NotFound);
     }
 }
+
+TEST(Lease, RevokeWorks)
+{
+    auto logger = Etcd::Logger::CreateNull();
+    std::shared_ptr<Client> client = Client::CreateV3(kAddress, logger);
+
+    // The number 10 here is random
+    for (int i = 0; i < 10; ++i) {
+        auto leaseGrantRes = client->LeaseGrant(std::chrono::seconds(10));
+        EXPECT_TRUE(leaseGrantRes.IsOk());
+
+        auto leaseRevokeRes = client->LeaseRevoke(leaseGrantRes.id);
+        EXPECT_TRUE(leaseRevokeRes == StatusCode::Ok);
+    }
+}
