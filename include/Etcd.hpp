@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <memory>
 #include <chrono>
+#include <vector>
 
 // FIXME(leo): this is a lazy copy paste from grpc enums.
 #define ETCD_STATUS_CODES \
@@ -86,6 +87,24 @@ struct GetResponse
     bool IsOk() const { return statusCode == StatusCode::Ok; }
 };
 
+struct ListResponse
+{
+    using KeyValuePairs = std::vector<std::pair<std::string, std::string>>;
+    StatusCode statusCode;
+    KeyValuePairs kvs;
+
+    ListResponse(StatusCode code, const KeyValuePairs& kvs)
+        : statusCode(code)
+        , kvs(kvs)
+    {}
+
+    explicit ListResponse(StatusCode code)
+        : statusCode(code)
+    {}
+
+    bool IsOk() const { return statusCode == StatusCode::Ok; }
+};
+
 class Client
 {
 public:
@@ -96,6 +115,7 @@ public:
     virtual LeaseGrantResponse LeaseGrant(std::chrono::seconds ttl) = 0;
     virtual StatusCode LeaseRevoke(LeaseId leaseId) = 0;
     virtual GetResponse Get(const std::string& key) = 0;
+    virtual ListResponse List(const std::string& keyPrefix = "") = 0;
 
     static std::shared_ptr<Client> CreateV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger);
 

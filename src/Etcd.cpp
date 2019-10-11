@@ -151,7 +151,7 @@ public:
 
         if (!status.ok()) {
             Etcd::GetResponse ret(statusCode);
-            _logger->Error(fmt::format("Failed delete range request({}) {}, details: {}",
+            _logger->Error(fmt::format("Failed range request({}) {}, details: {}",
                            Etcd::StatusCodeStr(statusCode), status.error_message(), status.error_details()));
             return ret;
         }
@@ -185,6 +185,38 @@ public:
         }
 
         return Etcd::StatusCode::Ok;
+    }
+
+    Etcd::ListResponse List(const std::string& keyPrefix) override
+    {
+        etcdserverpb::RangeRequest req;
+        req.set_key(keyPrefix);
+
+        etcdserverpb::RangeResponse res;
+
+        grpc::ClientContext context;
+        grpc::Status status = _kvStub->Range(&context, req, &res);
+
+        auto statusCode = (Etcd::StatusCode)status.error_code();
+
+        if (!status.ok()) {
+            Etcd::ListResponse ret(statusCode);
+            _logger->Error(fmt::format("Failed range request({}) {}, details: {}",
+                           Etcd::StatusCodeStr(statusCode), status.error_message(), status.error_details()));
+            return ret;
+        }
+
+        assert(res.more() == false);
+
+        Etcd::ListResponse::KeyValuePairs kvs;
+        kvs.reserve(res.count());
+
+        for (int i = 0; i < res.count(); ++i) {
+            const auto& kv = res.kvs(i);
+            kvs.push_back(std::make_pair(kv.key(), kv.value()));
+        }
+
+        return Etcd::ListResponse(statusCode, std::move(kvs));
     }
 
 private:
