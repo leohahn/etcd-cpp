@@ -1,11 +1,5 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5.1)
 project(EtcdApi)
-
-#---------------------------
-# Dependencies
-#---------------------------
-# 1. gRPC
-find_package(gRPC CONFIG REQUIRED)
 
 #---------------------------
 # fmt
@@ -46,6 +40,11 @@ target_include_directories(EtcdApi
   PRIVATE
     src)
 
+#---------------------------
+# gRPC
+#---------------------------
+find_package(gRPC CONFIG REQUIRED)
+
 target_link_libraries(EtcdApi
   PRIVATE
     # We do not want the gRPC libraries publicly declared
@@ -53,17 +52,23 @@ target_link_libraries(EtcdApi
     gRPC::gpr
     gRPC::grpc
     gRPC::grpc++
-    gRPC::grpc_cronet
-    fmt::fmt)
+    gRPC::grpc_cronet)
 
-target_compile_options(EtcdApi PRIVATE -std=c++11)
+if(WIN32)
+    # This define is necessary in order to compile with gRPC
+    target_compile_definitions(EtcdApi PUBLIC _WIN32_WINNT=0x600)
+endif()
+
+target_link_libraries(EtcdApi PRIVATE fmt::fmt)
+
+set_target_properties(EtcdApi PROPERTIES CXX_STANDARD 11)
 
 #---------------------------
 # Setup Tests
 #---------------------------
 include(CTest)
 if(BUILD_TESTING)
-    find_package(GTest CONFIG REQUIRED)
+    find_package(GTest 1.10.0 CONFIG REQUIRED)
 
     add_executable(EtcdApiTests
       test/MainTest.cpp
@@ -75,5 +80,5 @@ if(BUILD_TESTING)
         EtcdApi
         GTest::gtest)
 
-  target_compile_options(EtcdApiTests PRIVATE -std=c++11)
+  set_target_properties(EtcdApiTests PROPERTIES CXX_STANDARD 11)
 endif()
