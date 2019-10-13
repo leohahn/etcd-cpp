@@ -6,13 +6,19 @@ project(EtcdApi)
 #---------------------------
 # 1. gRPC
 find_package(gRPC CONFIG REQUIRED)
-# 2. protobuf
-find_package(protobuf CONFIG REQUIRED)
 
 #---------------------------
-# Protos
+# fmt
 #---------------------------
-add_library(Protos STATIC
+add_subdirectory(src/vendor/fmt)
+
+#---------------------------
+# Etcd library target
+#---------------------------
+add_library(EtcdApi
+    include/Etcd.hpp
+    src/Etcd.cpp
+    # Protos ======
     # Auth
     src/proto/auth.pb.h
     src/proto/auth.pb.cc
@@ -34,24 +40,6 @@ add_library(Protos STATIC
     src/proto/rpc.pb.h
     src/proto/rpc.pb.cc)
 
-target_link_libraries(Protos
-  PUBLIC
-    protobuf::libprotoc
-    protobuf::libprotobuf
-    protobuf::libprotobuf-lite)
-
-#---------------------------
-# fmt
-#---------------------------
-add_subdirectory(src/vendor/fmt)
-
-#---------------------------
-# Etcd library target
-#---------------------------
-add_library(EtcdApi
-  include/Etcd.hpp
-  src/Etcd.cpp)
-
 target_include_directories(EtcdApi
   PUBLIC
     include
@@ -66,7 +54,6 @@ target_link_libraries(EtcdApi
     gRPC::grpc
     gRPC::grpc++
     gRPC::grpc_cronet
-    Protos
     fmt::fmt)
 
 target_compile_options(EtcdApi PRIVATE -std=c++11)

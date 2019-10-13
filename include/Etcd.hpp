@@ -125,9 +125,10 @@ public:
     virtual GetResponse Get(const std::string& key) = 0;
     virtual ListResponse List(const std::string& keyPrefix = "") = 0;
 
-    // TODO: watch api
-    virtual void AddWatch(const std::string& prefix, std::unique_ptr<WatchListener> listener) = 0;
-    virtual void RemoveWatch(const std::string& prefix) = 0;
+    virtual void StartWatch() = 0;
+    virtual void AddWatchPrefix(const std::string& prefix, std::unique_ptr<WatchListener> listener) = 0;
+    virtual void RemoveWatchPrefix(const std::string& prefix) = 0;
+    virtual void StopWatch() = 0;
 
     static std::shared_ptr<Client> CreateV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger);
 

@@ -3,9 +3,14 @@
 #include "proto/kv.grpc.pb.h"
 #include "proto/rpc.grpc.pb.h"
 
-#include <grpc++/grpc++.h>
 #include <cassert>
 #include <iostream>
+#include <thread>
+#include <atomic>
+#include <mutex>
+#include <queue>
+#include <unordered_map>
+#include <grpc++/grpc++.h>
 #include <fmt/format.h>
 
 static const char* kStatusCodeNames[] = {
@@ -32,11 +37,45 @@ MakeChannel(const std::string& address, const std::shared_ptr<grpc::ChannelCrede
     return grpc::CreateChannel(stripped_address, channelCredentials);
 }
 
+enum class WatchTag
+{
+    Start,
+    Create,
+    Cancel,
+    WritesDone,
+    Finish,
+};
+
+enum class WatchJobType
+{
+    Add,
+    Remove,
+    Unknown,
+};
+
+struct WatchData
+{
+    WatchTag tag;
+    std::string prefix;
+    std::unique_ptr<Etcd::WatchListener> listener;
+    int64_t watchId;
+
+    WatchData(WatchTag t, const std::string& p = "", std::unique_ptr<Etcd::WatchListener> l = nullptr)
+        : tag(t)
+        , prefix(p)
+        , listener(std::move(l))
+        , watchId(-1)
+    {}
+};
+
 class ClientV3 : public Etcd::Client
 {
+    using WatchStream = std::unique_ptr<grpc::ClientAsyncReaderWriter<etcdserverpb::WatchRequest, etcdserverpb::WatchResponse>>;
 public:
+
     ClientV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger)
         : Client(logger)
+        // TODO(lhahn): consider not using an insecure connection here
         , _channel(MakeChannel(address, grpc::InsecureChannelCredentials()))
         , _kvStub(etcdserverpb::KV::NewStub(_channel))
         , _watchStub(etcdserverpb::Watch::NewStub(_channel))
@@ -46,6 +85,12 @@ public:
         assert(_kvStub != nullptr && "KV stub should be valid");
         assert(_watchStub != nullptr && "Watch stub should be valid");
         assert(_leaseStub != nullptr && "Lease stub should be valid");
+    }
+
+    ~ClientV3()
+    {
+        assert(_watchThread == nullptr && "You should call StopWatch()!");
+        _logger->Info("Client is being destroyed");
     }
 
     bool TryConnect(std::chrono::milliseconds timeout) override
@@ -219,11 +264,157 @@ public:
         return Etcd::ListResponse(statusCode, std::move(kvs));
     }
 
+    void StartWatch() override
+    {
+        assert(_watchThread == nullptr && "StartWatch may be called only once!");
+
+        _watchStream = _watchStub->AsyncWatch(
+            &_watchContext,
+            &_watchCompletionQueue,
+            reinterpret_cast<void*>(new WatchData(WatchTag::Start))
+        );
+        _watchThread = std::unique_ptr<std::thread>(
+            new std::thread(std::bind(&ClientV3::WatcherThreadStart, this))
+        );
+    }
+
+    void StopWatch() override
+    {
+        assert(_watchThread != nullptr && "You should call StartWatch() first!");
+
+        _logger->Debug("Requesting watcher thread shutdown");
+        _watchCompletionQueue.Shutdown();
+        if (_watchThread->joinable()) {
+            _watchThread->join();
+        }
+    }
+
+    void AddWatchPrefix(const std::string& prefix, std::unique_ptr<Etcd::WatchListener> listener) override
+    {
+        assert(!prefix.empty() && "Prefix should not be empty");
+        CreateWatch(prefix, std::move(listener));
+    }
+
+    void RemoveWatchPrefix(const std::string& prefix) override
+    {
+        assert(!prefix.empty() && "Prefix should not be empty");
+        CancelWatch(prefix);
+    }
+
+    // Entrypoint for worker thread
+    void WatcherThreadStart()
+    {
+        using namespace std::chrono;
+        _logger->Info("Watcher thread started");
+
+        for (;;) {
+            // This boolean tracks whether the thread should exit or not.
+            bool shouldExit = false;
+
+            void* tag = nullptr;
+            bool ok;
+            bool gotEvent = _watchCompletionQueue.Next(&tag, &ok);
+
+            if (!gotEvent) {
+                _logger->Info("Completion queue is completely drained and shut down, worker thread exiting");
+                break;
+            }
+
+            // We got an event from the completion queue.
+            // Now we see what type it is, process it and then delete the struct.
+            assert(tag && "tag should not be null");
+            WatchData* watchData = reinterpret_cast<WatchData*>(tag);
+
+            if (!ok) {
+                _logger->Error(fmt::format(
+                    "WatchTag of type {} will not be sent: prefix = {}",
+                    watchData->tag,
+                    watchData->prefix
+                ));
+                delete watchData;
+                // Something went wrong, so we ignore this tag.
+                continue;
+            }
+
+            switch (watchData->tag) {
+                case WatchTag::Start: {
+                    _logger->Info("Watch connection done!");
+                    break;
+                }
+                case WatchTag::Create: {
+                    // The watch is not created yet, since the server has to confirm the creation.
+                    // Therefore we place the watch data into a pending queue.
+                    _pendingWatchCreateData.push(watchData);
+                    break;
+                }
+                case WatchTag::Cancel: {
+                    _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
+                    break;
+                }
+                case WatchTag::WritesDone: {
+                    _logger->Info("Client finished writing to stream");
+                    break;
+                }
+                case WatchTag::Finish: {
+                    _logger->Info("Completion queue finished");
+                    break;
+                }
+                default: {
+                    assert(false && "should not enter here");
+                    break;
+                }
+            }
+
+            delete watchData;
+        }
+    }
+
+private:
+    void CreateWatch(const std::string& prefix, std::unique_ptr<Etcd::WatchListener> listener)
+    {
+        using namespace etcdserverpb;
+        // We get the rangeEnd. We currently always treat the key as a prefix.
+        std::string rangeEnd(prefix);
+        int ascii = rangeEnd[prefix.size() - 1];
+        rangeEnd.back() = ascii + 1;
+
+        auto createReq = new WatchCreateRequest();
+        createReq->set_key(prefix);
+        createReq->set_range_end(rangeEnd);
+        createReq->set_start_revision(0);      // TODO(lhahn): specify another revision here
+        createReq->set_prev_kv(false);         // TODO(lhahn): consider other value here
+        createReq->set_progress_notify(false); // TODO(lhahn): currently we do not support reconnection
+
+        WatchRequest req;
+        req.set_allocated_create_request(createReq);
+        // We request to write to the server the watch create request
+        auto watchData = new WatchData(WatchTag::Create, prefix, std::move(listener));
+        _watchStream->Write(req, watchData);
+    }
+
+    void CancelWatch(const std::string& prefix)
+    {
+        // TODO: implement it
+    }
+
 private:
     std::shared_ptr<grpc::Channel> _channel;
     std::shared_ptr<etcdserverpb::KV::Stub> _kvStub;
     std::shared_ptr<etcdserverpb::Watch::Stub> _watchStub;
     std::shared_ptr<etcdserverpb::Lease::Stub> _leaseStub;
+
+    // Hold all of the watches that where actually created
+    std::unordered_map<std::string, WatchData*> _createdWatches;
+
+    // The worker thread is responsible for watching over etcd
+    // and sending keep alive requests.
+    std::mutex _watchThreadMutex;
+    std::queue<WatchData*> _pendingWatchCreateData;
+    WatchStream _watchStream;
+    std::unique_ptr<std::thread> _watchThread;
+
+    grpc::ClientContext _watchContext;
+    grpc::CompletionQueue _watchCompletionQueue;
 };
 
 std::shared_ptr<Etcd::Client>
