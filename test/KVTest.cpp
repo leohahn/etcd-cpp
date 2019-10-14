@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <Etcd.hpp>
-#include <array>
 #include <unordered_map>
 
 using namespace Etcd;
