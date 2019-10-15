@@ -126,10 +126,10 @@ public:
     virtual GetResponse Get(const std::string& key) = 0;
     virtual ListResponse List(const std::string& keyPrefix = "") = 0;
 
-    virtual bool StartWatch(std::function<void()> onComplete) = 0;
+    virtual bool StartWatch() = 0;
     virtual void AddWatchPrefix(const std::string& prefix, std::unique_ptr<WatchListener> listener, std::function<void()> onComplete) = 0;
     virtual bool RemoveWatchPrefix(const std::string& prefix, std::function<void()> onComplete) = 0;
-    virtual void StopWatch(std::function<void()> onComplete) = 0;
+    virtual void StopWatch() = 0;
 
     // Creates the v3 implementation for this interface
     static std::shared_ptr<Client> CreateV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger);

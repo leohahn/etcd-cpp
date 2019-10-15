@@ -60,8 +60,6 @@ struct WatchData
     std::unique_ptr<Etcd::WatchListener> listener;
     int64_t watchId;
 
-    // Called whenever the actual watch stream is started
-    std::function<void()> onStart;
     // Called whenever the watch is created
     std::function<void()> onCreate;
     // Called whenever the watch is canceled
@@ -278,12 +276,11 @@ public:
         return Etcd::ListResponse(statusCode, std::move(kvs));
     }
 
-    bool StartWatch(std::function<void()> onComplete) override
+    bool StartWatch() override
     {
         assert(_watchThread == nullptr && "StartWatch may be called only once!");
 
         auto watchData = new WatchData(WatchTag::Start);
-        watchData->onStart = std::move(onComplete);
 
         _watchStream = _watchStub->AsyncWatch(
             &_watchContext,
@@ -297,7 +294,7 @@ public:
         return startFuture.get();
     }
 
-    void StopWatch(std::function<void()> onComplete) override
+    void StopWatch() override
     {
         using namespace std::chrono;
         assert(_watchThread != nullptr && "You should call StartWatch() first!");

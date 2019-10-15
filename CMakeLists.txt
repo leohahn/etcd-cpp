@@ -73,7 +73,8 @@ if(BUILD_TESTING)
     add_executable(EtcdApiTests
       test/MainTest.cpp
       test/LeaseTest.cpp
-      test/KVTest.cpp)
+      test/KVTest.cpp
+      test/WatchTest.cpp)
 
     target_link_libraries(EtcdApiTests
       PRIVATE
