@@ -40,10 +40,9 @@ MakeChannel(const std::string& address, const std::shared_ptr<grpc::ChannelCrede
 
 enum class WatchTag
 {
-    Start,
-    Create,
-    Cancel,
-    Finish,
+    Start = 1,
+    Create = 2,
+    Cancel = 3,
 };
 
 enum class WatchJobType
@@ -65,17 +64,11 @@ struct WatchData
     // Called whenever the watch is canceled
     std::function<void()> onCancel;
 
-    std::promise<bool> finishPromise;
-    grpc::Status finishStatus;
-
-    std::promise<bool> startPromise;
-
     WatchData(WatchTag t, const std::string& p = "", std::unique_ptr<Etcd::WatchListener> l = nullptr)
         : tag(t)
         , prefix(p)
         , listener(std::move(l))
         , watchId(-1)
-        , finishStatus(grpc::Status::OK)
     {}
 };
 
@@ -280,18 +273,33 @@ public:
     {
         assert(_watchThread == nullptr && "StartWatch may be called only once!");
 
-        auto watchData = new WatchData(WatchTag::Start);
-
         _watchStream = _watchStub->AsyncWatch(
             &_watchContext,
             &_watchCompletionQueue,
-            reinterpret_cast<void*>(watchData)
+            reinterpret_cast<void*>(WatchTag::Start)
         );
-        std::future<bool> startFuture = watchData->startPromise.get_future();
+
+        bool ok;
+        void* tag;
+        if (!_watchCompletionQueue.Next(&tag, &ok)) {
+            _logger->Error("Failed to start watch: completion queue shutdown");
+            return false;
+        }
+
+        if (!ok) {
+            _logger->Error("Failed to start watch: failed to start stream");
+            return false;
+        }
+
+        assert(tag != nullptr, "should not be null");
+        assert((WatchTag)((int)tag) == WatchTag::Start);
+
+        _logger->Info("Watch connection done!");
+
         _watchThread = std::unique_ptr<std::thread>(
             new std::thread(std::bind(&ClientV3::WatcherThreadStart, this))
         );
-        return startFuture.get();
+        return true;
     }
 
     void StopWatch() override
@@ -299,30 +307,14 @@ public:
         using namespace std::chrono;
         assert(_watchThread != nullptr && "You should call StartWatch() first!");
 
-        auto watchData = new WatchData(WatchTag::Finish);
-        std::future<bool> finishFuture = watchData->finishPromise.get_future();
-        _watchStream->Finish(&watchData->finishStatus, reinterpret_cast<void*>(watchData));
-
-        seconds timeout(3); // FIXME: removed hard coded timeout
-        if (finishFuture.wait_for(timeout) == std::future_status::timeout) {
-            _logger->Warn("Timed out waiting for finishing the watch stream, forcefully closing it");
-        } else {
-            bool ok = finishFuture.get();
-            if (ok) {
-                _logger->Info("Finished watch stream with status");
-            } else {
-                _logger->Error(
-                    fmt::format("Failed to finish watch stream: msg = {}, details = {}",
-                    watchData->finishStatus.error_message(),
-                    watchData->finishStatus.error_details()));
-            }
-        }
+        _watchContext.TryCancel();
 
         _logger->Debug("Requesting watcher thread shutdown");
         _watchCompletionQueue.Shutdown();
         if (_watchThread->joinable()) {
             _watchThread->join();
         }
+        _watchThread.reset();
     }
 
     void AddWatchPrefix(
@@ -348,14 +340,9 @@ private:
         _logger->Info("Watcher thread started");
 
         for (;;) {
-            // This boolean tracks whether the thread should exit or not.
-            bool shouldExit = false;
-
-            void* tag = nullptr;
+            void* tag;
             bool ok;
-            bool gotEvent = _watchCompletionQueue.Next(&tag, &ok);
-
-            if (!gotEvent) {
+            if (!_watchCompletionQueue.Next(&tag, &ok)) {
                 _logger->Info("Completion queue is completely drained and shut down, worker thread exiting");
                 break;
             }
@@ -365,45 +352,21 @@ private:
             assert(tag && "tag should not be null");
             WatchData* watchData = reinterpret_cast<WatchData*>(tag);
 
+            if (!ok) {
+                _watchContext.TryCancel();
+                _watchCompletionQueue.Shutdown();
+                continue;
+            }
+
             switch (watchData->tag) {
-                case WatchTag::Start: {
-                    if (ok) {
-                        _logger->Info("Watch connection done!");
-                        watchData->startPromise.set_value(true);
-                    } else {
-                        _logger->Error("Failed to start watch connection");
-                        watchData->startPromise.set_value(false);
-                    }
-                    break;
-                }
                 case WatchTag::Create: {
-                    if (ok) {
-                        // The watch is not created yet, since the server has to confirm the creation.
-                        // Therefore we place the watch data into a pending queue.
-                        _pendingWatchCreateData.push(watchData);
-                    } else {
-                        // For some reason we failed to write the watch create request
-                        _logger->Error(fmt::format("Failed to write create request: prefix = {}", watchData->prefix));
-                    }
+                    // The watch is not created yet, since the server has to confirm the creation.
+                    // Therefore we place the watch data into a pending queue.
+                    _pendingWatchCreateData.push(watchData);
                     break;
                 }
                 case WatchTag::Cancel: {
-                    if (ok) {
-                        _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
-                    } else {
-                        // For some reason we failed to write the watch cancel request
-                        _logger->Error(fmt::format("Failed to write cancel request: watchId = ", watchData->watchId));
-                    }
-                    break;
-                }
-                case WatchTag::Finish: {
-                    if (ok) {
-                        _logger->Info("Completion queue finished");
-                        watchData->finishPromise.set_value(true);
-                    } else {
-                        _logger->Error("Failed to finish watch stream");
-                        watchData->finishPromise.set_value(false);
-                    }
+                    _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
                     break;
                 }
                 default: {
@@ -489,11 +452,11 @@ private:
     // and sending keep alive requests.
     std::mutex _watchThreadMutex;
     std::queue<WatchData*> _pendingWatchCreateData;
-    WatchStream _watchStream;
     std::unique_ptr<std::thread> _watchThread;
 
-    grpc::ClientContext _watchContext;
     grpc::CompletionQueue _watchCompletionQueue;
+    grpc::ClientContext _watchContext;
+    WatchStream _watchStream;
 };
 
 std::shared_ptr<Etcd::Client>
