@@ -38,6 +38,19 @@ MakeChannel(const std::string& address, const std::shared_ptr<grpc::ChannelCrede
     return grpc::CreateChannel(stripped_address, channelCredentials);
 }
 
+struct Listener
+{
+    Etcd::OnKeyAddedFunc onKeyAdded;
+    Etcd::OnKeyRemovedFunc onKeyRemoved;
+
+    Listener() = default;
+
+    Listener(Etcd::OnKeyAddedFunc onKeyAdded, Etcd::OnKeyRemovedFunc onKeyRemoved)
+        : onKeyAdded(std::move(onKeyAdded))
+        , onKeyRemoved(std::move(onKeyRemoved))
+    {}
+};
+
 enum class WatchTag
 {
     Start = 1,
@@ -56,7 +69,7 @@ struct WatchData
 {
     WatchTag tag;
     std::string prefix;
-    std::unique_ptr<Etcd::WatchListener> listener;
+    Listener listener;
     int64_t watchId;
 
     // Called whenever the watch is created
@@ -64,7 +77,7 @@ struct WatchData
     // Called whenever the watch is canceled
     std::function<void()> onCancel;
 
-    WatchData(WatchTag t, const std::string& p = "", std::unique_ptr<Etcd::WatchListener> l = nullptr)
+    WatchData(WatchTag t, const std::string& p = "", Listener l = Listener())
         : tag(t)
         , prefix(p)
         , listener(std::move(l))
@@ -319,10 +332,12 @@ public:
 
     void AddWatchPrefix(
         const std::string& prefix,
-        std::unique_ptr<Etcd::WatchListener> listener,
+        Etcd::OnKeyAddedFunc onKeyAdded,
+        Etcd::OnKeyRemovedFunc onKeyRemoved,
         std::function<void()> onComplete) override
     {
         assert(!prefix.empty() && "Prefix should not be empty");
+        Listener listener(std::move(onKeyAdded), std::move(onKeyRemoved));
         CreateWatch(prefix, std::move(listener), std::move(onComplete));
     }
 
@@ -381,7 +396,7 @@ private:
 
     void CreateWatch(
         const std::string& prefix,
-        std::unique_ptr<Etcd::WatchListener> listener,
+        Listener listener,
         std::function<void()> onComplete)
     {
         using namespace etcdserverpb;

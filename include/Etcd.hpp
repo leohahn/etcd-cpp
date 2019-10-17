@@ -106,13 +106,8 @@ struct ListResponse
     bool IsOk() const { return statusCode == StatusCode::Ok; }
 };
 
-class WatchListener
-{
-public:
-    virtual ~WatchListener() = default;
-    virtual void OnKeyAdded() = 0;
-    virtual void OnKeyRemoved() = 0;
-};
+using OnKeyAddedFunc = std::function<void(const std::string&, const std::string&)>;
+using OnKeyRemovedFunc = std::function<void(std::string)>;
 
 class Client
 {
@@ -127,7 +122,11 @@ public:
     virtual ListResponse List(const std::string& keyPrefix = "") = 0;
 
     virtual bool StartWatch() = 0;
-    virtual void AddWatchPrefix(const std::string& prefix, std::unique_ptr<WatchListener> listener, std::function<void()> onComplete) = 0;
+    virtual void AddWatchPrefix(
+        const std::string& prefix,
+        OnKeyAddedFunc onKeyAdded,
+        OnKeyRemovedFunc onKeyRemoved,
+        std::function<void()> onComplete) = 0;
     virtual bool RemoveWatchPrefix(const std::string& prefix, std::function<void()> onComplete) = 0;
     virtual void StopWatch() = 0;
 
