@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <queue>
+#include <thread>
 
 namespace Etcd {
 
@@ -95,8 +96,8 @@ public:
             return false;
         }
 
-        assert(tag != nullptr, "should not be null");
-        assert((WatchTag)((int)tag) == WatchTag::Start);
+        assert(tag != nullptr && "should not be null");
+        assert((WatchTag)((size_t)tag) == WatchTag::Start);
 
         _logger->Info("Watch connection done!");
 
