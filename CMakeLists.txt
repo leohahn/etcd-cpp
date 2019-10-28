@@ -12,6 +12,10 @@ add_subdirectory(src/vendor/fmt)
 add_library(EtcdApi
     include/Etcd.hpp
     src/Etcd.cpp
+    src/Watcher.hpp
+    src/Watcher.cpp
+    include/Etcd/Logger.hpp
+    src/Logger.cpp
     # Protos ======
     # Auth
     src/proto/auth.pb.h

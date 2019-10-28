@@ -7,6 +7,8 @@
 #include <vector>
 #include <functional>
 
+#include "Etcd/Logger.hpp"
+
 // FIXME(leo): this is a lazy copy paste from grpc enums.
 #define ETCD_STATUS_CODES \
     ETCD_STATUS_CODE(Ok = 0, "Ok"),\
@@ -30,24 +32,10 @@
 namespace Etcd
 {
 
-// This logger class implementation should be thread safe
-class Logger
-{
-public:
-    virtual ~Logger() = default;
-    virtual void Error(const std::string& str) = 0;
-    virtual void Warn(const std::string& str) = 0;
-    virtual void Info(const std::string& str) = 0;
-    virtual void Debug(const std::string& str) = 0;
-
-    static std::shared_ptr<Logger> CreateStdout();
-    static std::shared_ptr<Logger> CreateNull();
-};
-
 using LeaseId = int64_t;
 
 // This is copied from gRPC in order to hide the dependency from the user.
-enum StatusCode
+enum class StatusCode : int
 {
 #define ETCD_STATUS_CODE(e, s) e
     ETCD_STATUS_CODES

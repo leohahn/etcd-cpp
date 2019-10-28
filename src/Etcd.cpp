@@ -2,6 +2,7 @@
 
 #include "proto/kv.grpc.pb.h"
 #include "proto/rpc.grpc.pb.h"
+#include "Watcher.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -23,7 +24,7 @@ static const char* kStatusCodeNames[] = {
 const char*
 Etcd::StatusCodeStr(StatusCode code)
 {
-    return kStatusCodeNames[code];
+    return kStatusCodeNames[static_cast<int>(code)];
 }
 
 std::shared_ptr<grpc::Channel>
@@ -38,76 +39,26 @@ MakeChannel(const std::string& address, const std::shared_ptr<grpc::ChannelCrede
     return grpc::CreateChannel(stripped_address, channelCredentials);
 }
 
-struct Listener
-{
-    Etcd::OnKeyAddedFunc onKeyAdded;
-    Etcd::OnKeyRemovedFunc onKeyRemoved;
-
-    Listener() = default;
-
-    Listener(Etcd::OnKeyAddedFunc onKeyAdded, Etcd::OnKeyRemovedFunc onKeyRemoved)
-        : onKeyAdded(std::move(onKeyAdded))
-        , onKeyRemoved(std::move(onKeyRemoved))
-    {}
-};
-
-enum class WatchTag
-{
-    Start = 1,
-    Create = 2,
-    Cancel = 3,
-};
-
-enum class WatchJobType
-{
-    Add,
-    Remove,
-    Unknown,
-};
-
-struct WatchData
-{
-    WatchTag tag;
-    std::string prefix;
-    Listener listener;
-    int64_t watchId;
-
-    // Called whenever the watch is created
-    std::function<void()> onCreate;
-    // Called whenever the watch is canceled
-    std::function<void()> onCancel;
-
-    WatchData(WatchTag t, const std::string& p = "", Listener l = Listener())
-        : tag(t)
-        , prefix(p)
-        , listener(std::move(l))
-        , watchId(-1)
-    {}
-};
-
 class ClientV3 : public Etcd::Client
 {
-    using WatchStream = std::unique_ptr<grpc::ClientAsyncReaderWriter<etcdserverpb::WatchRequest, etcdserverpb::WatchResponse>>;
 public:
-
     ClientV3(const std::string& address, const std::shared_ptr<Etcd::Logger>& logger)
         : Client(logger)
         // TODO(lhahn): consider not using an insecure connection here
         , _channel(MakeChannel(address, grpc::InsecureChannelCredentials()))
         , _kvStub(etcdserverpb::KV::NewStub(_channel))
-        , _watchStub(etcdserverpb::Watch::NewStub(_channel))
+        , _watcher(etcdserverpb::Watch::NewStub(_channel), logger)
         , _leaseStub(etcdserverpb::Lease::NewStub(_channel))
     {
         assert(_channel != nullptr && "Channel should be valid");
         assert(_kvStub != nullptr && "KV stub should be valid");
-        assert(_watchStub != nullptr && "Watch stub should be valid");
         assert(_leaseStub != nullptr && "Lease stub should be valid");
     }
 
     ~ClientV3()
     {
-        assert(_watchThread == nullptr && "You should call StopWatch()!");
         _logger->Info("Client is being destroyed");
+        _watcher.Stop();
     }
 
     bool TryConnect(std::chrono::milliseconds timeout) override
@@ -284,50 +235,12 @@ public:
 
     bool StartWatch() override
     {
-        assert(_watchThread == nullptr && "StartWatch may be called only once!");
-
-        _watchStream = _watchStub->AsyncWatch(
-            &_watchContext,
-            &_watchCompletionQueue,
-            reinterpret_cast<void*>(WatchTag::Start)
-        );
-
-        bool ok;
-        void* tag;
-        if (!_watchCompletionQueue.Next(&tag, &ok)) {
-            _logger->Error("Failed to start watch: completion queue shutdown");
-            return false;
-        }
-
-        if (!ok) {
-            _logger->Error("Failed to start watch: failed to start stream");
-            return false;
-        }
-
-        assert(tag != nullptr, "should not be null");
-        assert((WatchTag)((int)tag) == WatchTag::Start);
-
-        _logger->Info("Watch connection done!");
-
-        _watchThread = std::unique_ptr<std::thread>(
-            new std::thread(std::bind(&ClientV3::WatcherThreadStart, this))
-        );
-        return true;
+        return _watcher.Start();
     }
 
     void StopWatch() override
     {
-        using namespace std::chrono;
-        assert(_watchThread != nullptr && "You should call StartWatch() first!");
-
-        _watchContext.TryCancel();
-
-        _logger->Debug("Requesting watcher thread shutdown");
-        _watchCompletionQueue.Shutdown();
-        if (_watchThread->joinable()) {
-            _watchThread->join();
-        }
-        _watchThread.reset();
+        _watcher.Stop();
     }
 
     void AddWatchPrefix(
@@ -336,142 +249,21 @@ public:
         Etcd::OnKeyRemovedFunc onKeyRemoved,
         std::function<void()> onComplete) override
     {
-        assert(!prefix.empty() && "Prefix should not be empty");
-        Listener listener(std::move(onKeyAdded), std::move(onKeyRemoved));
-        CreateWatch(prefix, std::move(listener), std::move(onComplete));
+        _watcher.AddPrefix(prefix, std::move(onKeyAdded), std::move(onKeyRemoved), std::move(onComplete));
     }
 
     bool RemoveWatchPrefix(const std::string& prefix, std::function<void()> onComplete) override
     {
-        assert(!prefix.empty() && "Prefix should not be empty");
-        bool ok = CancelWatch(prefix, std::move(onComplete));
-        return ok;
+        return _watcher.RemovePrefix(prefix, std::move(onComplete));
     }
+
 private:
-    // Entry point for worker thread
-    void WatcherThreadStart()
-    {
-        using namespace std::chrono;
-        _logger->Info("Watcher thread started");
-
-        for (;;) {
-            void* tag;
-            bool ok;
-            if (!_watchCompletionQueue.Next(&tag, &ok)) {
-                _logger->Info("Completion queue is completely drained and shut down, worker thread exiting");
-                break;
-            }
-
-            // We got an event from the completion queue.
-            // Now we see what type it is, process it and then delete the struct.
-            assert(tag && "tag should not be null");
-            WatchData* watchData = reinterpret_cast<WatchData*>(tag);
-
-            if (!ok) {
-                _watchContext.TryCancel();
-                _watchCompletionQueue.Shutdown();
-                continue;
-            }
-
-            switch (watchData->tag) {
-                case WatchTag::Create: {
-                    // The watch is not created yet, since the server has to confirm the creation.
-                    // Therefore we place the watch data into a pending queue.
-                    _pendingWatchCreateData.push(watchData);
-                    break;
-                }
-                case WatchTag::Cancel: {
-                    _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
-                    break;
-                }
-                default: {
-                    assert(false && "should not enter here");
-                    break;
-                }
-            }
-
-            delete watchData;
-        }
-    }
-
-    void CreateWatch(
-        const std::string& prefix,
-        Listener listener,
-        std::function<void()> onComplete)
-    {
-        using namespace etcdserverpb;
-        // We get the rangeEnd. We currently always treat the key as a prefix.
-        std::string rangeEnd(prefix);
-        int ascii = rangeEnd[prefix.size() - 1];
-        rangeEnd.back() = ascii + 1;
-
-        auto createReq = new WatchCreateRequest();
-        createReq->set_key(prefix);
-        createReq->set_range_end(rangeEnd);
-        createReq->set_start_revision(0);      // TODO(lhahn): specify another revision here
-        createReq->set_prev_kv(false);         // TODO(lhahn): consider other value here
-        createReq->set_progress_notify(false); // TODO(lhahn): currently we do not support reconnection
-
-        WatchRequest req;
-        req.set_allocated_create_request(createReq);
-        // We request to write to the server the watch create request
-        auto watchData = new WatchData(WatchTag::Create, prefix, std::move(listener));
-        _watchStream->Write(req, watchData);
-    }
-
-    bool CancelWatch(const std::string& prefix, std::function<void()> onComplete)
-    {
-        using namespace etcdserverpb;
-
-        WatchData* watchData;
-
-        // First we try to remove the prefix from the created watches map
-        {
-            std::lock_guard<decltype(_watchThreadMutex)> lock(_watchThreadMutex);
-            auto it = _createdWatches.find(prefix);
-            if (it == _createdWatches.end()) {
-                // We are trying to cancel a watch that does not exist yet.
-                return false;
-            }
-
-            watchData = it->second;
-            _createdWatches.erase(it);
-        }
-
-        assert(watchData != nullptr);
-
-        // We change the current tag to cancel, otherwise we will not know
-        // what to do once we get the struct from the completion queue.
-        watchData->tag = WatchTag::Cancel;
-
-        auto cancelReq = new WatchCancelRequest();
-        cancelReq->set_watch_id(watchData->watchId);
-
-        WatchRequest req;
-        req.set_allocated_cancel_request(cancelReq);
-
-        _watchStream->Write(req, watchData);
-        return true;
-    }
 
 private:
     std::shared_ptr<grpc::Channel> _channel;
     std::shared_ptr<etcdserverpb::KV::Stub> _kvStub;
-    std::shared_ptr<etcdserverpb::Watch::Stub> _watchStub;
     std::shared_ptr<etcdserverpb::Lease::Stub> _leaseStub;
-
-    // Hold all of the watches that where actually created
-    std::unordered_map<std::string, WatchData*> _createdWatches;
-
-    // The worker thread is responsible for watching over etcd
-    // and sending keep alive requests.
-    std::mutex _watchThreadMutex;
-    std::queue<WatchData*> _pendingWatchCreateData;
-    std::unique_ptr<std::thread> _watchThread;
-
-    grpc::CompletionQueue _watchCompletionQueue;
-    grpc::ClientContext _watchContext;
-    WatchStream _watchStream;
+    Etcd::Watcher _watcher;
 };
 
 std::shared_ptr<Etcd::Client>
@@ -479,37 +271,4 @@ Etcd::Client::CreateV3(const std::string& address, const std::shared_ptr<Etcd::L
 {
     assert(logger != nullptr && "Logger should be valid");
     return std::make_shared<ClientV3>(address, logger);
-}
-
-//----------------------------------------
-// Loggers
-//----------------------------------------
-class StdoutLogger : public Etcd::Logger
-{
-public:
-    void Error(const std::string& str) override { std::cerr << str << "\n"; }
-    void Warn(const std::string& str) override { std::cout << str << "\n"; }
-    void Info(const std::string& str) override { std::cout << str << "\n"; }
-    void Debug(const std::string& str) override { std::cout << str << "\n"; }
-};
-
-std::shared_ptr<Etcd::Logger>
-Etcd::Logger::CreateStdout()
-{
-    return std::make_shared<StdoutLogger>();
-}
-
-class NullLogger : public Etcd::Logger
-{
-public:
-    void Error(const std::string& str) override {(void)str;}
-    void Warn(const std::string& str) override {(void)str;}
-    void Info(const std::string& str) override {(void)str;}
-    void Debug(const std::string& str) override {(void)str;}
-};
-
-std::shared_ptr<Etcd::Logger>
-Etcd::Logger::CreateNull()
-{
-    return std::make_shared<NullLogger>();
 }
