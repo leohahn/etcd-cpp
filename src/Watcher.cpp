@@ -32,6 +32,7 @@ enum class WatchTag
     Start = 1,
     Create = 2,
     Cancel = 3,
+    Read = 4,
 };
 
 enum class WatchJobType
@@ -100,6 +101,9 @@ public:
         assert((WatchTag)((int)tag) == WatchTag::Start);
 
         _logger->Info("Watch connection done!");
+
+        // Start reading from the watch stream
+        _watchStream->Read(&_watchResponse, reinterpret_cast<void*>(WatchTag::Read));
 
         _watchThread = std::unique_ptr<std::thread>(
             new std::thread(std::bind(&WatcherV3::Thread_Start, this))
@@ -180,6 +184,29 @@ private:
                     _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
                     break;
                 }
+                case WatchTag::Read: {
+                    _logger->Info("Read from server");
+
+                    if (_watchResponse.created()) {
+                        // Watch was created
+                        WatchData* watchData = _pendingWatchCreateData.front();
+                        _pendingWatchCreateData.pop();
+                        watchData->watchId = _watchResponse.watch_id;
+                        watchData->onCreate();
+
+                        _createdWatches.insert(std::make_pair(watchData->prefix, watchData));
+                    } else if (_watchResponse.canceled()) {
+                        // Watch was canceled
+                        _logger->Info(fmt::format("Watch was canceled: reason = {}", _watchResponse.cancel_reason()));
+
+                        _createdWatches.insert(std::make_pair(watchData->prefix, watchData));
+                    } else {
+
+                    }
+
+
+                    break;
+                }
                 default: {
                     assert(false && "should not enter here");
                     break;
@@ -253,6 +280,7 @@ private:
 private:
     std::shared_ptr<etcdserverpb::Watch::Stub> _watchStub;
     std::shared_ptr<Logger> _logger;
+    etcdserverpb::WatchResponse _watchResponse;
 
     // Hold all of the watches that where actually created
     std::unordered_map<std::string, WatchData*> _createdWatches;
