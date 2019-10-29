@@ -47,7 +47,7 @@ public:
         // TODO(lhahn): consider not using an insecure connection here
         , _channel(MakeChannel(address, grpc::InsecureChannelCredentials()))
         , _kvStub(etcdserverpb::KV::NewStub(_channel))
-        , _watcher(etcdserverpb::Watch::NewStub(_channel), logger)
+        , _watcher(Etcd::Watcher::CreateV3(etcdserverpb::Watch::NewStub(_channel), logger))
         , _leaseStub(etcdserverpb::Lease::NewStub(_channel))
     {
         assert(_channel != nullptr && "Channel should be valid");
@@ -58,7 +58,7 @@ public:
     ~ClientV3()
     {
         _logger->Info("Client is being destroyed");
-        _watcher.Stop();
+        _watcher->Stop();
     }
 
     bool TryConnect(std::chrono::milliseconds timeout) override
@@ -235,12 +235,12 @@ public:
 
     bool StartWatch() override
     {
-        return _watcher.Start();
+        return _watcher->Start();
     }
 
     void StopWatch() override
     {
-        _watcher.Stop();
+        _watcher->Stop();
     }
 
     void AddWatchPrefix(
@@ -249,12 +249,12 @@ public:
         Etcd::OnKeyRemovedFunc onKeyRemoved,
         std::function<void()> onComplete) override
     {
-        _watcher.AddPrefix(prefix, std::move(onKeyAdded), std::move(onKeyRemoved), std::move(onComplete));
+        _watcher->AddPrefix(prefix, std::move(onKeyAdded), std::move(onKeyRemoved), std::move(onComplete));
     }
 
     bool RemoveWatchPrefix(const std::string& prefix, std::function<void()> onComplete) override
     {
-        return _watcher.RemovePrefix(prefix, std::move(onComplete));
+        return _watcher->RemovePrefix(prefix, std::move(onComplete));
     }
 
 private:
@@ -263,7 +263,7 @@ private:
     std::shared_ptr<grpc::Channel> _channel;
     std::shared_ptr<etcdserverpb::KV::Stub> _kvStub;
     std::shared_ptr<etcdserverpb::Lease::Stub> _leaseStub;
-    Etcd::Watcher _watcher;
+    std::unique_ptr<Etcd::Watcher> _watcher;
 };
 
 std::shared_ptr<Etcd::Client>
