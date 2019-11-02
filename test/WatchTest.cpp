@@ -49,13 +49,13 @@ TEST(Watch, CanListenForPrefixes)
     auto done = std::make_shared<std::promise<void>>();
     std::future<void> doneFut = done->get_future();
 
-    client->AddWatchPrefix("my-prefix", std::move(onKeyAdded), std::move(onKeyRemoved), [done]() {
+    client->AddWatchPrefix("my-prefix", std::move(onKeyAdded), std::move(onKeyRemoved), [=]() {
+        logger->Info("Watch was created!");
         done->set_value();
     });
 
     // Should not be a timeout
     ASSERT_NE(doneFut.wait_for(std::chrono::milliseconds(60)), std::future_status::timeout);
-
 
     client->StopWatch();
 }
