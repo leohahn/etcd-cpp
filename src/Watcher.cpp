@@ -10,6 +10,8 @@
 #include <queue>
 #include <thread>
 #include <vector>
+#include <future>
+#include <atomic>
 
 namespace Etcd {
 
@@ -70,16 +72,29 @@ struct WatchData
 class WatcherV3 : public Watcher
 {
 public:
-    WatcherV3(std::shared_ptr<etcdserverpb::Watch::Stub> watchStub, std::shared_ptr<Logger> logger)
-        : _watchStub(std::move(watchStub))
+    WatcherV3(std::shared_ptr<grpc::Channel> channel, std::shared_ptr<Logger> logger)
+        : _channel(channel)
         , _logger(std::move(logger))
+        , _pendingWatchCreateData(nullptr)
+        , _pendingWatchCancelData(nullptr)
+        , _threadRunning(false)
     {
     }
 
     bool Start() override
     {
-        assert(_watchThread == nullptr && "StartWatch may be called only once!");
+        if (_threadRunning.load()) {
+            _logger->Error("StartWatch may be called only once!");
+            return false;
+        }
 
+        if (_channel->GetState(false) == grpc_connectivity_state::GRPC_CHANNEL_SHUTDOWN) {
+            _logger->Error("Cannot start watch, since channel was shutdown");
+            return false;
+        }
+
+        _watchStub = etcdserverpb::Watch::NewStub(_channel);
+        //_watchCompletionQueue = grpc::CompletionQueue();
         _watchStream = _watchStub->AsyncWatch(
             &_watchContext,
             &_watchCompletionQueue,
@@ -107,49 +122,50 @@ public:
         auto watchData = new WatchData(WatchTag::Read);
         _watchStream->Read(&_watchResponse, static_cast<void*>(watchData));
 
-        _watchThread = std::unique_ptr<std::thread>(
-            new std::thread(std::bind(&WatcherV3::Thread_Start, this))
-        );
+        _threadRunning.store(true);
+        _watchThread = std::thread(std::bind(&WatcherV3::Thread_Start, this));
         return true;
     }
 
     void Stop() override
     {
-        if (_watchThread == nullptr) {
+        using namespace std::chrono;
+        if (!_threadRunning.load()) {
             return;
         }
-
-        using namespace std::chrono;
-        assert(_watchThread != nullptr && "You should call StartWatch() first!");
 
         _watchContext.TryCancel();
 
         _logger->Debug("Requesting watcher thread shutdown");
         _watchCompletionQueue.Shutdown();
-        if (_watchThread->joinable()) {
-            _watchThread->join();
+        if (_watchThread.joinable()) {
+            _watchThread.join();
         }
-        _watchThread.reset();
+        _watchStub = nullptr;
     }
 
-    void AddPrefix(
+    bool AddPrefix(
         const std::string& prefix,
         Etcd::OnKeyAddedFunc onKeyAdded,
-        Etcd::OnKeyRemovedFunc onKeyRemoved,
-        std::function<void()> onComplete) override
+        Etcd::OnKeyRemovedFunc onKeyRemoved) override
     {
         assert(!prefix.empty() && "Prefix should not be empty");
-        assert(onComplete != nullptr && "onComplete should not be null");
+        if (!_threadRunning.load()) {
+            _logger->Error(fmt::format("cannot add watch prefix {}, worker thread exited", prefix));
+            return false;
+        }
         Listener listener(std::move(onKeyAdded), std::move(onKeyRemoved));
-        CreateWatch(prefix, std::move(listener), std::move(onComplete));
+        return CreateWatch(prefix, std::move(listener));
     }
 
-    bool RemovePrefix(const std::string& prefix, std::function<void()> onComplete) override
+    bool RemovePrefix(const std::string& prefix) override
     {
         assert(!prefix.empty() && "Prefix should not be empty");
-        assert(onComplete != nullptr && "onComplete should not be null");
-        bool ok = CancelWatch(prefix, std::move(onComplete));
-        return ok;
+        if (!_threadRunning.load()) {
+            _logger->Error(fmt::format("cannot remove watch prefix {}, worker thread exited", prefix));
+            return false;
+        }
+        return CancelWatch(prefix);
     }
 
 private:
@@ -182,44 +198,64 @@ private:
                 case WatchTag::Create: {
                     // The watch is not created yet, since the server has to confirm the creation.
                     // Therefore we place the watch data into a pending queue.
-                    _pendingWatchCreateData.push(watchData);
+                    _pendingWatchCreateData = watchData;
                     break;
                 }
                 case WatchTag::Cancel: {
                     _logger->Info(fmt::format("Requesting watch cancel for prefix {}", watchData->prefix));
-                    delete watchData;
                     break;
                 }
                 case WatchTag::Read: {
-                    _logger->Info("Read from server");
-
                     if (_watchResponse.created()) {
                         // Watch was created
-                        assert(_pendingWatchCreateData.size() > 0);
-                        WatchData* pendingWatchData = _pendingWatchCreateData.front();
-                        _pendingWatchCreateData.pop();
-                        pendingWatchData->watchId = _watchResponse.watch_id();
+                        assert(_pendingWatchCreateData && "should've a pending watch create data");
 
-                        assert(pendingWatchData->onCreate != nullptr && "should not be nullptr");
-                        pendingWatchData->onCreate();
+                        _pendingWatchCreateData->watchId = _watchResponse.watch_id();
+
+                        _logger->Debug(fmt::format(
+                            "watch id {} created (prefix = {})",
+                            _pendingWatchCreateData->watchId,
+                            _pendingWatchCreateData->prefix));
+
+                        assert(_pendingWatchCreateData->onCreate != nullptr && "should not be nullptr");
+                        _pendingWatchCreateData->onCreate();
+                        _pendingWatchCreateData->onCreate = nullptr;
 
                         std::lock_guard<decltype(_watchThreadMutex)> lock(_watchThreadMutex);
-                        _createdWatches.push_back(pendingWatchData);
+                        _createdWatches.push_back(_pendingWatchCreateData);
+                        _pendingWatchCreateData = nullptr;
                     } else if (_watchResponse.canceled()) {
-                        // Watch was canceled
-                        _logger->Info(fmt::format("Watch was canceled: reason = {}", _watchResponse.cancel_reason()));
+                        assert(_pendingWatchCancelData && "shoul've a pending watch cancel data");
+                        assert(_pendingWatchCancelData->watchId == _watchResponse.watch_id());
 
-                        int64_t watchId = _watchResponse.watch_id();
+                        _logger->Debug(fmt::format(
+                            "watch id {} canceled (prefix = {})",
+                            _pendingWatchCancelData->watchId,
+                            _pendingWatchCancelData->prefix));
 
-                        std::lock_guard<decltype(_watchThreadMutex)> lock(_watchThreadMutex);
-                        _createdWatches.erase(std::remove_if(_createdWatches.begin(), _createdWatches.end(), [=](const WatchData* data) -> bool {
-                            return data->watchId == watchId;
-                        }), _createdWatches.end());
+                        _pendingWatchCancelData->onCancel();
+                        delete _pendingWatchCancelData;
+                        _pendingWatchCancelData = nullptr;
                     } else {
+                        auto events = _watchResponse.events();
+                        auto createdWatchData = FindCreatedWatchWithLock(_watchResponse.watch_id());
+                        assert(createdWatchData && "watch data should exist");
 
+                        _logger->Debug(fmt::format("received {} watch events", events.size()));
+
+                        // Loop over all events and call the respective listener
+                        for (const auto& ev : events) {
+                            if (ev.type() == mvccpb::Event_EventType_PUT) {
+                                createdWatchData->listener.onKeyAdded(ev.kv().key(), ev.kv().value());
+                            } else {
+                                assert(ev.type() == mvccpb::Event_EventType_DELETE);
+                                createdWatchData->listener.onKeyRemoved(ev.kv().key());
+                            }
+                        }
                     }
 
-                    delete watchData;
+                    // We read again from the server after we got a message.
+                    _watchStream->Read(&_watchResponse, watchData);
                     break;
                 }
                 default: {
@@ -228,12 +264,12 @@ private:
                 }
             }
         }
+
+        _logger->Debug("Watcher thread stopped running");
+        _threadRunning.store(false);
     }
 
-    void CreateWatch(
-        const std::string& prefix,
-        Listener listener,
-        std::function<void()> onComplete)
+    bool CreateWatch(const std::string& prefix, Listener listener)
     {
         using namespace etcdserverpb;
         // We get the rangeEnd. We currently always treat the key as a prefix.
@@ -250,16 +286,27 @@ private:
 
         WatchRequest req;
         req.set_allocated_create_request(createReq);
-        // We request to write to the server the watch create request
-        auto watchData = new WatchData(WatchTag::Create, prefix, std::move(listener), std::move(onComplete));
+
+        auto createPromise = std::make_shared<std::promise<bool>>();
+        std::future<bool> createFuture = createPromise->get_future();
+
+        auto watchData = new WatchData(WatchTag::Create, prefix, std::move(listener), [createPromise]() {
+            createPromise->set_value(true);
+        });
+
         _watchStream->Write(req, watchData);
+
+        auto status = createFuture.wait_for(std::chrono::seconds(1));
+        if (status == std::future_status::timeout) {
+            return false;
+        }
+
+        return true;
     }
 
-    bool CancelWatch(const std::string& prefix, std::function<void()> onComplete)
+    bool CancelWatch(const std::string& prefix)
     {
         using namespace etcdserverpb;
-
-        WatchData* watchData = nullptr;
 
         // First we try to remove the prefix from the created watches map
         {
@@ -269,29 +316,56 @@ private:
             });
             if (it == _createdWatches.end()) {
                 // We are trying to cancel a watch that does not exist yet.
+                _logger->Error(fmt::format("watch prefix {} does not exist", prefix));
                 return false;
             }
-            watchData = *it;
+            _pendingWatchCancelData = *it;
             _createdWatches.erase(it);
         }
 
-        assert(watchData != nullptr);
+        assert(_pendingWatchCancelData != nullptr);
+
+        auto cancelPromise = std::make_shared<std::promise<void>>();
+        std::future<void> cancelFuture = cancelPromise->get_future();
 
         // We change the current tag to cancel, otherwise we will not know
         // what to do once we get the struct from the completion queue.
-        watchData->tag = WatchTag::Cancel;
+        _pendingWatchCancelData->tag = WatchTag::Cancel;
+        _pendingWatchCancelData->onCancel = [=]() {
+            cancelPromise->set_value();
+        };
 
         auto cancelReq = new WatchCancelRequest();
-        cancelReq->set_watch_id(watchData->watchId);
+        cancelReq->set_watch_id(_pendingWatchCancelData->watchId);
 
         WatchRequest req;
         req.set_allocated_cancel_request(cancelReq);
 
-        _watchStream->Write(req, watchData);
+        _watchStream->Write(req, _pendingWatchCancelData);
+
+        auto status = cancelFuture.wait_for(std::chrono::seconds(1));
+        if (status == std::future_status::timeout) {
+            return false;
+        }
+
         return true;
     }
 
+    WatchData* FindCreatedWatchWithLock(int64_t watchId)
+    {
+        std::lock_guard<decltype(_watchThreadMutex)> lock(_watchThreadMutex);
+        auto it = std::find_if(_createdWatches.begin(), _createdWatches.end(), [=](const WatchData* data) -> bool {
+            return data->watchId == watchId;
+        });
+        if (it == _createdWatches.end()) {
+            return nullptr;
+        } else { 
+            return *it;
+        }
+    }
+
 private:
+    std::shared_ptr<grpc::Channel> _channel;
     std::shared_ptr<etcdserverpb::Watch::Stub> _watchStub;
     std::shared_ptr<Logger> _logger;
     etcdserverpb::WatchResponse _watchResponse;
@@ -302,8 +376,10 @@ private:
     // The worker thread is responsible for watching over etcd
     // and sending keep alive requests.
     std::mutex _watchThreadMutex;
-    std::queue<WatchData*> _pendingWatchCreateData;
-    std::unique_ptr<std::thread> _watchThread;
+    WatchData* _pendingWatchCreateData;
+    WatchData* _pendingWatchCancelData;
+    std::thread _watchThread;
+    std::atomic_bool _threadRunning;
 
     grpc::CompletionQueue _watchCompletionQueue;
     grpc::ClientContext _watchContext;
@@ -311,9 +387,9 @@ private:
 };
 
 std::unique_ptr<Watcher>
-Watcher::CreateV3(std::shared_ptr<etcdserverpb::Watch::Stub> watchStub, std::shared_ptr<Logger> logger)
+Watcher::CreateV3(std::shared_ptr<grpc::Channel> channel, std::shared_ptr<Logger> logger)
 {
-    return std::unique_ptr<Watcher>(new WatcherV3(std::move(watchStub), std::move(logger)));
+    return std::unique_ptr<Watcher>(new WatcherV3(std::move(channel), std::move(logger)));
 }
 
 }

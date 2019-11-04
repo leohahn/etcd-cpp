@@ -1,2 +1,2 @@
 @echo off
-docker run -p 2379:2379 appcelerator/etcd
+docker run -d -p 2379:2379 appcelerator/etcd

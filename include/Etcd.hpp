@@ -95,7 +95,7 @@ struct ListResponse
 };
 
 using OnKeyAddedFunc = std::function<void(const std::string&, const std::string&)>;
-using OnKeyRemovedFunc = std::function<void(std::string)>;
+using OnKeyRemovedFunc = std::function<void(const std::string&)>;
 
 class Client
 {
@@ -110,12 +110,8 @@ public:
     virtual ListResponse List(const std::string& keyPrefix = "") = 0;
 
     virtual bool StartWatch() = 0;
-    virtual void AddWatchPrefix(
-        const std::string& prefix,
-        OnKeyAddedFunc onKeyAdded,
-        OnKeyRemovedFunc onKeyRemoved,
-        std::function<void()> onComplete) = 0;
-    virtual bool RemoveWatchPrefix(const std::string& prefix, std::function<void()> onComplete) = 0;
+    virtual bool AddWatchPrefix(const std::string& prefix, OnKeyAddedFunc onKeyAdded, OnKeyRemovedFunc onKeyRemoved) = 0;
+    virtual bool RemoveWatchPrefix(const std::string& prefix) = 0;
     virtual void StopWatch() = 0;
 
     // Creates the v3 implementation for this interface
